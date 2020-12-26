@@ -1,1 +1,46 @@
 # MIA_Proyecto2_201404405
+
+- [ ] Aplicacion Web
+	- [ ] Inicio de Sesion
+		- [ ] Rol: Niño
+		- [ ] Rol: Elfo (admin)
+	- [ ] Perfil de niño
+		- [ ] Buenas Acciones
+		- [ ] Ver Cartas
+		- [ ] Enviar carta a Santa
+		- [ ] Enviar mensaje a Elfo (chat)
+	- [ ] Perfil de Elfo (administrador)
+		- [ ] CRUD Buenas Acciones 
+		- [ ] CRUD Productos
+		- [ ] CRUD Perfiles
+		- [ ] Responder Mensajes (chat) de niños
+		- [ ] Reportes
+			- [ ] Top 10 productos mas comprados.
+			- [ ] Top 10 de departamentos con mas ventas.
+			- [ ] Top 10 de municipios con mas ventas.
+			- [ ] Top 5 de buenas acciones mas realizadas.
+			- [ ] Top 5 de categorias con mas compradas.
+			- [ ] Top de cartas con mayor gasto de bastones.
+			- [ ] Bitacora de respuestas a publicaciones de santa por niño.
+			- [ ] Reporte grafico en al menos 3 de los reportes anteriores.
+		- [ ] Carga Masiva
+- [ ] Aplicacion Movil
+	- [ ] Perfil de Santa
+		- [ ] Publicar
+		- [ ] Repartir
+			- [ ] Ver cartas confirmadas
+			- [ ] Ver detalle de alguna carta (producto,nombre,ubicacion)
+				- [ ] Ubicacion con Google Maps (API de google)
+			- [ ] Entregar regalo
+	- [ ] Perfil de Padre
+		- [ ] Confirmar buenas acciones de hijo
+			- [ ] Sumar bastones a hijo
+		- [ ] Confirmar regalo 
+			- [ ] Ver cartas y editar productos
+		- [ ] Editar perfil del hijo
+			- [ ] Ver mensajes con elfo
+- [ ] Documentacion
+	- [ ] Relational Model
+	- [ ] Descripcion Arquitectura
+	- [ ] Justificacion Tecnologica Utilizada
+
