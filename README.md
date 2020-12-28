@@ -39,8 +39,13 @@
 			- [ ] Ver cartas y editar productos
 		- [ ] Editar perfil del hijo
 			- [ ] Ver mensajes con elfo
+
+- [ ] API
+	- [x] CRUD Users
+	- [x] CRUD Products and Categories
+	- [X] Consultas para Roles, departamentos y municipios
 - [ ] Documentacion
-	- [ ] Relational Model
+	- [x] Relational Model
 	- [ ] Descripcion Arquitectura
 	- [ ] Justificacion Tecnologica Utilizada
 
