@@ -1,0 +1,46 @@
+<div id="snowFall"></div>
+<mat-card>
+    <mat-card-title>
+        <div class="santa">
+            <img src="https://i.imgur.com/OnZQ4VK.png" width="60px" height="60px" />
+        </div>
+        <div class="titulo">REGISTRO DE USUARIO</div>
+    </mat-card-title>
+    <mat-card-content>
+        <form>
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Usuario" formControlName="username" id="username">
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <input type="password" matInput placeholder="Contraseña" formControlName="password" id="pass">
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <mat-label>Rol de Usuario</mat-label>
+                    <mat-select name="Rol" [(value)]="selectedValue">
+                        <mat-option [value]="option.nombre" *ngFor="let option of Roles">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+
+            <p class="error">
+
+            </p>
+
+            <div class="button">
+                <button class="loginbt" type="button" mat-raised-button color="primary"
+                    (click)="validateRegistro()">Registrarse</button>
+                <button class="registerbt" type="button" mat-raised-button color="primary"
+                    (click)="regresar()">Regresar</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

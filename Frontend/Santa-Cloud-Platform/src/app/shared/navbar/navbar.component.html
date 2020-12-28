@@ -1,1 +1,28 @@
-<p>navbar works!</p>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>SANTA CLOUD PLATFORM</span>
+        <span class="spacer"></span>
+        
+        <button mat-button [matMenuTriggerFor]="menu">Buenas Acciones</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="'/'">Create Buenas Acciones</button>
+            <button mat-menu-item>Read Buenas Acciones</button>
+            <button mat-menu-item>Update Buenas Acciones</button>
+            <button mat-menu-item>Delete Buenas Acciones</button>
+        </mat-menu>
+        <button mat-button [routerLink]="'/'">Acumular Puntos</button>
+        <button mat-button [routerLink]="'/'">Ver Productos</button>
+        <button mat-button [matMenuTriggerFor]="menu">Perfil de Santa</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="'/'">Ver Perfil</button>
+            <button mat-menu-item>Enviar Carta a Santa</button>
+            <button mat-menu-item>Mensajeria a Elfos</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="afterMenu">Juan Pineda</button>
+        <mat-menu #afterMenu="matMenu" xPosition="after">
+            <button mat-menu-item>Ver Perfil</button>
+            <button mat-menu-item>Cerrar Sesion</button>
+        </mat-menu>
+
+    </mat-toolbar-row>
+</mat-toolbar>
