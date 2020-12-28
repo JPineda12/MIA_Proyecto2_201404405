@@ -1,0 +1,17 @@
+//Crear variable de entorno
+export LD_LIBRARY_PATH=/opt/instantclient_19_9
+
+//Visualizar Variable de entorno
+echo $LD_LIBRARY_PATH
+
+
+//si en dado casoo les tira error de libai.so.1
+sudo apt-get install libaio1
+
+//
+npm run build 
+npm run dev --- Para iniciar servidor (JS)
+
+
+//matar servicio en algun puerto
+sudo kill $(sudo lsof -t -i:3000)
