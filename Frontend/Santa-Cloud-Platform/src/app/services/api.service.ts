@@ -31,6 +31,18 @@ export class ApiService {
     return this.http.get(`${this.API_URI}/api/municipios/${idDepartamento}`);
   }
 
+  getUsersById(id: string){
+    return this.http.get(`${this.API_URI}/api/users/${id}`);
+  }
+
+  getUserByEmail(correo: string){
+    return this.http.get(`${this.API_URI}/api/users/${correo}`);
+  }
+
+  getHijos(idPadre: string){
+    return this.http.get(`${this.API_URI}/api/getHijos/${idPadre}`);
+  }
+
   loginemail(email: string, pass: string) {
     const customHeaders = { 'email': email, 'password': pass }
     return this.http.get(`${this.API_URI}/api/loginemail/`, { headers: customHeaders });

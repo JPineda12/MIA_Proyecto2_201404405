@@ -40,9 +40,11 @@ export class RegisterComponent implements OnInit {
       this.genderValue, this.munValue, this.depValue, direccion)) {
 
       //Crear Padre
-      let idPadre = this.crearUsuario(padre, null, email, this.genderValue, myDate,
+      this.crearUsuario(padre, null, email, this.genderValue, myDate,
         telefono, null, direccion, null,
         '3', this.obtenerIdMunicipio(), this.depIdValue, pass)
+      //Obtener Id del padre recien creado
+        let idPadre = this.obtenerIdPadre(email) 
       //Crear Hijo
       this.crearUsuario(hijo, nickname, email, this.genderValue, myDate, telefono,
         bastones, direccion, idPadre,
@@ -50,6 +52,16 @@ export class RegisterComponent implements OnInit {
     }
 
 
+  }
+
+  obtenerIdPadre(email: string): string{
+    let padre: any
+    this.apiService.getUserByEmail(email).toPromise().then((res) => {
+      padre = res
+      console.log()
+    });
+    
+    return padre.idUsuario
   }
 
   obtenerIdMunicipio(): string {
@@ -63,7 +75,7 @@ export class RegisterComponent implements OnInit {
 
   crearUsuario(nombre: string, nickname: string, email: string, genero: string, fecha: string,
     telefono: string, bastones: string, direccion: string, idPadre: string, idRol: string,
-    idMunicipio: string, idDepartamento: string, pass: string): string {
+    idMunicipio: string, idDepartamento: string, pass: string){
 
     console.log("nombre: ", nombre)
     console.log("nick: ", nickname)
@@ -81,10 +93,7 @@ export class RegisterComponent implements OnInit {
     this.apiService.newUser(nombre, nickname, email, pass, genero, fecha,
       telefono, bastones, direccion, idRol, idMunicipio, idPadre).toPromise().then((res) => {
         this.nuevoUsuario = res;
-        return this.nuevoUsuario.id;
       })
-
-      return ""
   }
 
 
@@ -103,6 +112,11 @@ export class RegisterComponent implements OnInit {
 
       if (nickname.length > 50) {
         alert("Porfavor ingrese un nickname menor a 50 caracteres");
+        return false
+      }
+
+      if (telefono.length > 10){
+        alert("Porfavor ingrese un telefono menor a 10")
         return false
       }
 

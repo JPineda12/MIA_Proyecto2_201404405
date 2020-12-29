@@ -11,13 +11,20 @@ import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { AdminComponent } from './components/home/admin/admin.component';
 import { RegisterComponent } from './components/register/register.component';
+import { KidComponent } from './components/home/kid/kid.component';
+import { ElfoComponent } from './components/home/elfo/elfo.component';
+import { PadreComponent } from './components/home/padre/padre.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NavbarComponent,
     AdminComponent,
-    RegisterComponent
+    RegisterComponent,
+    KidComponent,
+    ElfoComponent,
+    PadreComponent
   ],
   imports: [
     BrowserModule,

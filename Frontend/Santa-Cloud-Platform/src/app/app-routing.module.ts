@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './components/home/admin/admin.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent} from './components/register/register.component'
+import { KidComponent} from './components/home/kid/kid.component';
+import { ElfoComponent} from './components/home/elfo/elfo.component'
+import { PadreComponent} from './components/home/padre/padre.component'
 const routes: Routes = [
   { 
     path: '',
@@ -20,6 +23,18 @@ const routes: Routes = [
   { 
     path: 'register',
     component: RegisterComponent,
+  },
+  { 
+    path: 'padre',
+    component: PadreComponent,
+  },
+  { 
+    path: 'kid',
+    component: KidComponent,
+  },
+  { 
+    path: 'elfo',
+    component: ElfoComponent,
   },
   {
     path: '**',
