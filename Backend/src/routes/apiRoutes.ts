@@ -11,7 +11,7 @@ class ApiRoutes{
     
     config():void{
         this.router.get('/departamentos', apiController.getDepartamentos);
-        this.router.get('/municipios', apiController.getMunicipios);
+        this.router.get('/municipios/:idDepartamento', apiController.getMunicipios);
         this.router.get('/roles', apiController.getRoles);
         //User ROUTES
         this.router.get('/users', userController.getUsers);

@@ -38,7 +38,8 @@ class UserController {
     }
 
     public async getUserById(req: Request, res: Response) {
-        const { idUsuario } = req.body;
+        const { id } = req.params;
+       
         let sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
             + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
             + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO"
@@ -46,9 +47,9 @@ class UserController {
             + " WHERE r.IDROL = USUARIO_IDROL "
             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
             + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
-            + " AND idUsuario = :idUsuario";
+            + " AND idUsuario = :id";
 
-        const result = await database.Open(sql, [idUsuario], true);
+        const result = await database.Open(sql, [id], true);
         let Users: any = [];
         result.rows.map((user: any) => {
             console.log(user[0])
@@ -81,7 +82,7 @@ class UserController {
         const { nombre, nickname, email, pass, gender, fecha, tel, bastones, direccion, idRol, idMunicipio, idPadre } = req.body;
         let sql = "INSERT INTO Usuario(nombre,nickname,email, contrasena, genero,fechaNacimiento, "
             + "telefono, bastones, direccion, USUARIO_IDROL, USUARIO_IDMUNICIPIO, USUARIO_IDPADRE) "
-            + "VALUES(:nombre, :nickname, :email, :pass, :gender, TO_DATE(:fecha, 'YYYY/MM/DD'), :tel,"
+            + "VALUES(:nombre, :nickname, :email, :pass, :gender, TO_DATE(:fecha, 'MM/DD/YYYY'), :tel,"
             + ":bastones, :direccion, :idRol, :idMunicipio, :idPadre)";
 
         const result = await database.Open(sql, [nombre, nickname, email, pass, gender, fecha, tel, bastones, direccion, idRol, idMunicipio, idPadre], true);
@@ -95,14 +96,17 @@ class UserController {
     }
 
     public async loginEmail(req: Request, res: Response) {
-        const { email, password } = req.body;
-        let sql = "SELECT idUsuario FROM Usuario WHERE email = :email AND contrasena = :password ";
+        const { email, password } = req.headers;
+        let sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol FROM Usuario WHERE email = :email AND contrasena = :password ";
         let ok = await database.Open(sql, [email, password], true);
 
         if (ok.rows.length > 0) {
             res.json({
                 "auth": true,
-                "idUsuario": ok.rows[0][0]
+                "idUsuario": ok.rows[0][0],
+                "bastones": ok.rows[0][1],
+                "fecha": ok.rows[0][2],
+                "idRol": ok.rows[0][3],
             })
         } else {
             res.json({
@@ -112,8 +116,8 @@ class UserController {
     }
 
     public async loginNickname(req: Request, res: Response) {
-        const { nickname, password } = req.body;
-        let sql = "SELECT idUsuario, bastones, fechaNacimiento FROM Usuario WHERE nickname = :nickname AND contrasena = :password ";
+        const { nickname, password } = req.headers;
+        let sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol FROM Usuario WHERE nickname = :nickname AND contrasena = :password ";
         let ok = await database.Open(sql, [nickname, password], true);
 
         if (ok.rows.length > 0) {
@@ -122,6 +126,7 @@ class UserController {
                 "idUsuario": ok.rows[0][0],
                 "bastones": ok.rows[0][1],
                 "fecha": ok.rows[0][2],
+                "idRol": ok.rows[0][3],
             })
         } else {
             res.json({

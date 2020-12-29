@@ -11,7 +11,7 @@ var ApiRoutes = /** @class */ (function () {
     }
     ApiRoutes.prototype.config = function () {
         this.router.get('/departamentos', apiController_1.apiController.getDepartamentos);
-        this.router.get('/municipios', apiController_1.apiController.getMunicipios);
+        this.router.get('/municipios/:idDepartamento', apiController_1.apiController.getMunicipios);
         this.router.get('/roles', apiController_1.apiController.getRoles);
         //User ROUTES
         this.router.get('/users', userController_1.userController.getUsers);

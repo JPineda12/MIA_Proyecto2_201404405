@@ -70,12 +70,16 @@ var ApiController = /** @class */ (function () {
     };
     ApiController.prototype.getMunicipios = function (re, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var consulta, result, municipios;
+            var idDepartamento, consulta, result, municipios;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        consulta = "SELECT * FROM Municipio";
-                        return [4 /*yield*/, database_1.default.Open(consulta, [], false)];
+                        idDepartamento = re.params.idDepartamento;
+                        consulta = "SELECT m.IDMUNICIPIO, m.MUNICIPIO , d.DEPARTAMENTO "
+                            + " FROM Municipio m, DEPARTAMENTO d "
+                            + " WHERE m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO"
+                            + " AND d.IDDEPARTAMENTO = :idDepartamento";
+                        return [4 /*yield*/, database_1.default.Open(consulta, [idDepartamento], true)];
                     case 1:
                         result = _a.sent();
                         municipios = [];

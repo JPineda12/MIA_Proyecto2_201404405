@@ -90,11 +90,11 @@ var UserController = /** @class */ (function () {
     };
     UserController.prototype.getUserById = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var idUsuario, sql, result, Users;
+            var id, sql, result, Users;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        idUsuario = req.body.idUsuario;
+                        id = req.params.id;
                         sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
                             + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
                             + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO"
@@ -102,8 +102,8 @@ var UserController = /** @class */ (function () {
                             + " WHERE r.IDROL = USUARIO_IDROL "
                             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
                             + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
-                            + " AND idUsuario = :idUsuario";
-                        return [4 /*yield*/, database_1.default.Open(sql, [idUsuario], true)];
+                            + " AND idUsuario = :id";
+                        return [4 /*yield*/, database_1.default.Open(sql, [id], true)];
                     case 1:
                         result = _a.sent();
                         Users = [];
@@ -144,7 +144,7 @@ var UserController = /** @class */ (function () {
                         _a = req.body, nombre = _a.nombre, nickname = _a.nickname, email = _a.email, pass = _a.pass, gender = _a.gender, fecha = _a.fecha, tel = _a.tel, bastones = _a.bastones, direccion = _a.direccion, idRol = _a.idRol, idMunicipio = _a.idMunicipio, idPadre = _a.idPadre;
                         sql = "INSERT INTO Usuario(nombre,nickname,email, contrasena, genero,fechaNacimiento, "
                             + "telefono, bastones, direccion, USUARIO_IDROL, USUARIO_IDMUNICIPIO, USUARIO_IDPADRE) "
-                            + "VALUES(:nombre, :nickname, :email, :pass, :gender, TO_DATE(:fecha, 'YYYY/MM/DD'), :tel,"
+                            + "VALUES(:nombre, :nickname, :email, :pass, :gender, TO_DATE(:fecha, 'MM/DD/YYYY'), :tel,"
                             + ":bastones, :direccion, :idRol, :idMunicipio, :idPadre)";
                         return [4 /*yield*/, database_1.default.Open(sql, [nombre, nickname, email, pass, gender, fecha, tel, bastones, direccion, idRol, idMunicipio, idPadre], true)];
                     case 1:
@@ -167,15 +167,18 @@ var UserController = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = req.body, email = _a.email, password = _a.password;
-                        sql = "SELECT idUsuario FROM Usuario WHERE email = :email AND contrasena = :password ";
+                        _a = req.headers, email = _a.email, password = _a.password;
+                        sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol FROM Usuario WHERE email = :email AND contrasena = :password ";
                         return [4 /*yield*/, database_1.default.Open(sql, [email, password], true)];
                     case 1:
                         ok = _b.sent();
                         if (ok.rows.length > 0) {
                             res.json({
                                 "auth": true,
-                                "idUsuario": ok.rows[0][0]
+                                "idUsuario": ok.rows[0][0],
+                                "bastones": ok.rows[0][1],
+                                "fecha": ok.rows[0][2],
+                                "idRol": ok.rows[0][3],
                             });
                         }
                         else {
@@ -194,8 +197,8 @@ var UserController = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = req.body, nickname = _a.nickname, password = _a.password;
-                        sql = "SELECT idUsuario, bastones, fechaNacimiento FROM Usuario WHERE nickname = :nickname AND contrasena = :password ";
+                        _a = req.headers, nickname = _a.nickname, password = _a.password;
+                        sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol FROM Usuario WHERE nickname = :nickname AND contrasena = :password ";
                         return [4 /*yield*/, database_1.default.Open(sql, [nickname, password], true)];
                     case 1:
                         ok = _b.sent();
@@ -205,6 +208,7 @@ var UserController = /** @class */ (function () {
                                 "idUsuario": ok.rows[0][0],
                                 "bastones": ok.rows[0][1],
                                 "fecha": ok.rows[0][2],
+                                "idRol": ok.rows[0][3],
                             });
                         }
                         else {

@@ -18,8 +18,12 @@ class ApiController {
     }
 
     public async getMunicipios(re: Request, res: Response){
-        let consulta = "SELECT * FROM Municipio";
-        const result = await database.Open(consulta, [], false);
+        const { idDepartamento } = re.params;
+        let consulta = "SELECT m.IDMUNICIPIO, m.MUNICIPIO , d.DEPARTAMENTO " 
+			+" FROM Municipio m, DEPARTAMENTO d "
+			+" WHERE m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO"
+			+" AND d.IDDEPARTAMENTO = :idDepartamento";
+        const result = await database.Open(consulta, [idDepartamento], true);
         let municipios: any = [];
         result.rows.map((muni: any) => {
             let municipiosSchema = {
@@ -31,6 +35,7 @@ class ApiController {
         })
         res.json(municipios);
     }
+   
 
     public async getRoles(re: Request, res: Response) {
         let consulta = "SELECT * FROM Rol";
