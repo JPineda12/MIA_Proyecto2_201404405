@@ -104,7 +104,7 @@ var ProductController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        idProducto = req.body.idProducto;
+                        idProducto = req.params.idProducto;
                         sql = "SELECT idProducto, nombre, precio, minEdad, Producto_idCategoria, c.CATEGORIA "
                             + " FROM Producto, CATEGORIA c "
                             + " WHERE PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA "

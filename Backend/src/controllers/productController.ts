@@ -38,7 +38,7 @@ class ProductController {
     }
 
     public async getProductById(req: Request, res: Response) {
-        const { idProducto } = req.body;
+        const { idProducto } = req.params;
         let sql = "SELECT idProducto, nombre, precio, minEdad, Producto_idCategoria, c.CATEGORIA "
             + " FROM Producto, CATEGORIA c "
             + " WHERE PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA "

@@ -15,7 +15,9 @@ var ApiRoutes = /** @class */ (function () {
         this.router.get('/roles', apiController_1.apiController.getRoles);
         //User ROUTES
         this.router.get('/users', userController_1.userController.getUsers);
-        this.router.get('/users/:id', userController_1.userController.getUserById);
+        this.router.get('/users/:idUsuario', userController_1.userController.getUserById);
+        this.router.get('/getHijos/:idPadre', userController_1.userController.getHijos);
+        this.router.get('/getUserByEmail/:correo', userController_1.userController.getUserByEmail);
         this.router.post('/users', userController_1.userController.newUser);
         this.router.put('/users', userController_1.userController.updateUser);
         this.router.delete('/users/:id', userController_1.userController.deleteUser);

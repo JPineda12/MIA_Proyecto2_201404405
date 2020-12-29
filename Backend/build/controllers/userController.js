@@ -90,11 +90,11 @@ var UserController = /** @class */ (function () {
     };
     UserController.prototype.getUserById = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, sql, result, Users;
+            var idUsuario, sql, result, Users;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        id = req.params.id;
+                        idUsuario = req.params.idUsuario;
                         sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
                             + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
                             + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO"
@@ -102,13 +102,12 @@ var UserController = /** @class */ (function () {
                             + " WHERE r.IDROL = USUARIO_IDROL "
                             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
                             + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
-                            + " AND idUsuario = :id";
-                        return [4 /*yield*/, database_1.default.Open(sql, [id], true)];
+                            + " AND idUsuario = :idUsuario";
+                        return [4 /*yield*/, database_1.default.Open(sql, [idUsuario], true)];
                     case 1:
                         result = _a.sent();
                         Users = [];
                         result.rows.map(function (user) {
-                            console.log(user[0]);
                             var userSchema = {
                                 "idUsuario": user[0],
                                 "nombre": user[1],
@@ -135,6 +134,89 @@ var UserController = /** @class */ (function () {
             });
         });
     };
+    UserController.prototype.getUserByEmail = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var correo, sql, result, Users;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        correo = req.params.correo;
+                        sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
+                            + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
+                            + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO"
+                            + " From Usuario, Rol r, Municipio m, Departamento d "
+                            + " WHERE r.IDROL = USUARIO_IDROL "
+                            + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
+                            + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
+                            + " AND email = :correo";
+                        return [4 /*yield*/, database_1.default.Open(sql, [correo], true)];
+                    case 1:
+                        result = _a.sent();
+                        Users = [];
+                        result.rows.map(function (user) {
+                            var userSchema = {
+                                "idUsuario": user[0],
+                                "nombre": user[1],
+                                "nickname": user[2],
+                                "email": user[3],
+                                "genero": user[4],
+                                "fecha": user[5],
+                                "telefono": user[6],
+                                "bastones": user[7],
+                                "direccion": user[8],
+                                "idPadre": user[9],
+                                "idRol": user[10],
+                                "idMunicipio": user[11],
+                                "idDepartamento": user[12],
+                                "rol": user[13],
+                                "municipio": user[14],
+                                "departamento": user[15],
+                            };
+                            Users.push(userSchema);
+                        });
+                        res.json(Users);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserController.prototype.getHijos = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var idPadre, sql, result, Users;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        idPadre = req.params.idPadre;
+                        sql = "SELECT hijo.idUsuario, hijo.nombre, hijo.nickname, hijo.email,"
+                            + " hijo.genero, hijo.fechanacimiento,"
+                            + " hijo.telefono, hijo.bastones, hijo.direccion "
+                            + " FROM USUARIO hijo, USUARIO padre "
+                            + " WHERE hijo.USUARIO_IDPADRE = padre.IDUSUARIO "
+                            + "AND padre.IDUSUARIO = :idPadre ";
+                        return [4 /*yield*/, database_1.default.Open(sql, [idPadre], true)];
+                    case 1:
+                        result = _a.sent();
+                        Users = [];
+                        result.rows.map(function (user) {
+                            var userSchema = {
+                                "idUsuario": user[0],
+                                "nombre": user[1],
+                                "nickname": user[2],
+                                "email": user[3],
+                                "genero": user[4],
+                                "fecha": user[5],
+                                "telefono": user[6],
+                                "bastones": user[7],
+                                "direccion": user[8],
+                            };
+                            Users.push(userSchema);
+                        });
+                        res.json(Users);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     UserController.prototype.newUser = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, nombre, nickname, email, pass, gender, fecha, tel, bastones, direccion, idRol, idMunicipio, idPadre, sql, result;
@@ -150,7 +232,6 @@ var UserController = /** @class */ (function () {
                     case 1:
                         result = _b.sent();
                         res.status(200).json({
-                            "id": result.id,
                             "email": email,
                             "name": nombre,
                             "bastones": bastones,
@@ -168,7 +249,11 @@ var UserController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = req.headers, email = _a.email, password = _a.password;
-                        sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol FROM Usuario WHERE email = :email AND contrasena = :password ";
+                        console.log(email);
+                        console.log(password);
+                        console.log(req.headers);
+                        console.log(req.params);
+                        sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol, nombre FROM Usuario WHERE email = :email AND contrasena = :password ";
                         return [4 /*yield*/, database_1.default.Open(sql, [email, password], true)];
                     case 1:
                         ok = _b.sent();
@@ -179,6 +264,7 @@ var UserController = /** @class */ (function () {
                                 "bastones": ok.rows[0][1],
                                 "fecha": ok.rows[0][2],
                                 "idRol": ok.rows[0][3],
+                                "nombre": ok.rows[0][4]
                             });
                         }
                         else {
@@ -197,7 +283,7 @@ var UserController = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = req.headers, nickname = _a.nickname, password = _a.password;
+                        _a = req.body, nickname = _a.nickname, password = _a.password;
                         sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol FROM Usuario WHERE nickname = :nickname AND contrasena = :password ";
                         return [4 /*yield*/, database_1.default.Open(sql, [nickname, password], true)];
                     case 1:

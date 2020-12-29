@@ -3,7 +3,7 @@ import database from '../database';
 class ApiController {
 
 
-    public async getDepartamentos(re: Request, res: Response){
+    public async getDepartamentos(re: Request, res: Response) {
         let consulta = "SELECT * FROM Departamento";
         const result = await database.Open(consulta, [], false);
         let deps: any = [];
@@ -17,12 +17,12 @@ class ApiController {
         res.json(deps);
     }
 
-    public async getMunicipios(re: Request, res: Response){
+    public async getMunicipios(re: Request, res: Response) {
         const { idDepartamento } = re.params;
-        let consulta = "SELECT m.IDMUNICIPIO, m.MUNICIPIO , d.DEPARTAMENTO " 
-			+" FROM Municipio m, DEPARTAMENTO d "
-			+" WHERE m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO"
-			+" AND d.IDDEPARTAMENTO = :idDepartamento";
+        let consulta = "SELECT m.IDMUNICIPIO, m.MUNICIPIO , d.DEPARTAMENTO "
+            + " FROM Municipio m, DEPARTAMENTO d "
+            + " WHERE m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO"
+            + " AND d.IDDEPARTAMENTO = :idDepartamento";
         const result = await database.Open(consulta, [idDepartamento], true);
         let municipios: any = [];
         result.rows.map((muni: any) => {
@@ -35,7 +35,7 @@ class ApiController {
         })
         res.json(municipios);
     }
-   
+
 
     public async getRoles(re: Request, res: Response) {
         let consulta = "SELECT * FROM Rol";
