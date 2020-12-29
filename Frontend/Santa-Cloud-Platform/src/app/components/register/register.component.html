@@ -10,7 +10,80 @@
         <form>
             <p>
                 <mat-form-field>
-                    <input type="text" matInput placeholder="Usuario" formControlName="username" id="username">
+                    <input type="text" matInput placeholder="Email" formControlName="email" id="email">
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Nombre del Padre" formControlName="padre" id="padre">
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Nombre del Hijo" formControlName="hijo" id="hijo">
+                </mat-form-field>
+            </p>
+
+
+
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Nickname Hijo" formControlName="nickname" id="nickname">
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <mat-label>Sexo del hijo</mat-label>
+                    <mat-select name="genero" [(value)]="genderValue">
+                        <mat-option [value]="option.nombre" *ngFor="let option of Generos">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+
+
+            <mat-form-field appearance="fill">
+                <mat-label>Fecha de Nacimiento del Hijo</mat-label>
+                <input matInput [matDatepicker]="picker" id="fechaHijo">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <p>
+                <mat-form-field>
+                    <mat-label>Departamentos</mat-label>
+                    <mat-select name="Departamentos" [(value)]="depValue" (selectionChange)="getMunicipios()">
+                        <mat-option [value]="option.nombre" *ngFor="let option of Departamentos">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <mat-label>Municipios</mat-label>
+                    <mat-select name="Municipios" [(value)]="munValue">
+                        <mat-option [value]="option.nombre" *ngFor="let option of Municipios">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Direccion" formControlName="direccion" id="direccion">
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Telefono" formControlName="telefono" id="telefono">
                 </mat-form-field>
             </p>
 
@@ -22,17 +95,16 @@
 
             <p>
                 <mat-form-field>
-                    <mat-label>Rol de Usuario</mat-label>
-                    <mat-select name="Rol" [(value)]="selectedValue">
-                        <mat-option [value]="option.nombre" *ngFor="let option of Roles">
-                            {{option.nombre}}
-                        </mat-option>
-                    </mat-select>
+                    <input type="number" matInput placeholder="Bastones Maximos" formControlName="bastones" id="bastones">
                 </mat-form-field>
             </p>
 
-            <p class="error">
 
+
+
+
+            <p class="error">
+                
             </p>
 
             <div class="button">
