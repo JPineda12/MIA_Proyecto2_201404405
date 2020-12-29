@@ -2,11 +2,12 @@
     <mat-toolbar-row>
         <span>SANTA CLOUD PLATFORM</span>
         <span class="spacer"></span>
-        
-                <!-- OPCIONES PARA USUARIO 'ELFO' (ADMIN) -->
+
+        <!-- OPCIONES PARA USUARIO 'ELFO' (ADMIN) -->
+        <button mat-button [routerLink]="'/admin'" *ngIf="this.Usuario.idRol == 1">Home</button>
         <button mat-button [matMenuTriggerFor]="menu" *ngIf="this.Usuario.idRol == 1">Buenas Acciones</button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item [routerLink]="'/'" >Create Buenas Acciones</button>
+            <button mat-menu-item [routerLink]="'/adminacciones'">Create Buenas Acciones</button>
             <button mat-menu-item>Read Buenas Acciones</button>
             <button mat-menu-item>Update Buenas Acciones</button>
             <button mat-menu-item>Delete Buenas Acciones</button>
@@ -14,7 +15,7 @@
 
         <button mat-button [matMenuTriggerFor]="menu1" *ngIf="this.Usuario.idRol == 1">Productos</button>
         <mat-menu #menu1="matMenu">
-            <button mat-menu-item [routerLink]="'/'" >Create Productos</button>
+            <button mat-menu-item [routerLink]="'/'">Create Productos</button>
             <button mat-menu-item>Read Productos</button>
             <button mat-menu-item>Update Productos</button>
             <button mat-menu-item>Delete Productos</button>
@@ -22,7 +23,7 @@
 
         <button mat-button [matMenuTriggerFor]="menu2" *ngIf="this.Usuario.idRol == 1">Perfiles</button>
         <mat-menu #menu2="matMenu">
-            <button mat-menu-item [routerLink]="'/'" >Create Perfiles</button>
+            <button mat-menu-item [routerLink]="'/'">Create Perfiles</button>
             <button mat-menu-item>Read Perfiles</button>
             <button mat-menu-item>Update Perfiles</button>
             <button mat-menu-item>Delete Perfiles</button>
@@ -31,7 +32,7 @@
         <button mat-button *ngIf="this.Usuario.idRol == 1">Mensajeria de Elfos</button>
         <button mat-button [matMenuTriggerFor]="menu3" *ngIf="this.Usuario.idRol == 1">Reportes</button>
         <mat-menu #menu3="matMenu">
-            <button mat-menu-item [routerLink]="'/'" >Top 10 productos mas comprados</button>
+            <button mat-menu-item [routerLink]="'/'">Top 10 productos mas comprados</button>
             <button mat-menu-item>Top 10 departamentos con mas ventas</button>
             <button mat-menu-item>Top 10 de municipios con mas ventas</button>
             <button mat-menu-item>Top 5 de buenas acciones mas realizadas</button>
@@ -54,8 +55,8 @@
         <button mat-button [routerLink]="'/'" *ngIf="this.Usuario.idRol == 3">Confirmar Buenas Acciones</button>
         <button mat-button [routerLink]="'/'" *ngIf="this.Usuario.idRol == 3">Confirmar Regalos</button>
         <button mat-button [matMenuTriggerFor]="menu5" *ngIf="this.Usuario.idRol == 3">Perfil del Hijo</button>
-        <mat-menu #menu5="matMenu" >
-            <button mat-menu-item [value] = "kid.idUsuario" *ngFor="let kid of Hijos">{{kid.nombre}}</button>
+        <mat-menu #menu5="matMenu">
+            <button mat-menu-item [value]="kid.idUsuario" *ngFor="let kid of Hijos">{{kid.nombre}}</button>
         </mat-menu>
 
 

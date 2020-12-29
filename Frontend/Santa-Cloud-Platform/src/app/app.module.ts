@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { KidComponent } from './components/home/kid/kid.component';
 import { ElfoComponent } from './components/home/elfo/elfo.component';
 import { PadreComponent } from './components/home/padre/padre.component';
+import { CRUDAccionesComponent } from './components/admin/crudacciones/crudacciones.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PadreComponent } from './components/home/padre/padre.component';
     RegisterComponent,
     KidComponent,
     ElfoComponent,
-    PadreComponent
+    PadreComponent,
+    CRUDAccionesComponent
   ],
   imports: [
     BrowserModule,

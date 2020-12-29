@@ -1,1 +1,141 @@
 <app-navbar></app-navbar>
+
+<div class="cards">
+    
+    <mat-card class="card">
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>cloud_upload</mat-icon>
+                Carga Masiva
+            </mat-card-title>
+            <mat-card-subtitle>Carga masiva cartas </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="cargamasivaimg" class="imagen" (click)=acceder(3)>
+        <mat-card-content>
+            <p>
+                Carga masiva para el servicio de cartas que se le envia a santa.
+                Se realiza mediante un archivo csv y se carga directamente a la base de datos
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)=acceder(3)>
+                <mat-icon>face</mat-icon>
+                Acceder Carga Masiva
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="card">
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>chat</mat-icon>
+                Chat Elfos
+            </mat-card-title>
+            <mat-card-subtitle>Mensajeria de elfos </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="chatimg" class="imagen" (click)=acceder(4)>
+        <mat-card-content>
+            <p>
+                Acceder a la mensajeria de elfos que permite llevar una interaccion mas 
+                directa con un usuario niño cualquiera. (Chat en tiempo real)
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)=acceder(4)>
+                <mat-icon>face</mat-icon>
+                Acceder CHAT
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="card">
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>chat</mat-icon>
+                Reportes
+            </mat-card-title>
+            <mat-card-subtitle>Reportes estadisticos</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="reportesimg" class="imagen" (click)=acceder(5)>
+        <mat-card-content>
+            <p>
+                Obtener Reportes estadisticos sobre diferentes secciones del sistemas como:
+                Top 10 productos, Top 10 departamentos, etc.
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)=acceder(5)>
+                <mat-icon>face</mat-icon>
+                Acceder Reportes
+            </button>
+        </mat-card-actions>
+    </mat-card>
+    
+    <mat-card class="card">
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>toys</mat-icon>
+                Buenas Acciones
+            </mat-card-title>
+            <mat-card-subtitle>CRUD Acciones </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="goodActionsimg" class="imagen" (click)=acceder(0)>
+        <mat-card-content>
+            <p>
+                CRUD Completo para las buenas acciones, permite Insertar, Leer, Actualizar y Borrar
+                las buenas acciones que pueden realizar los niños
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)=acceder(0)>
+                <mat-icon>face</mat-icon>
+                Acceder CRUD
+            </button>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card class="card">
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>inventory_2</mat-icon>
+                Productos
+            </mat-card-title>
+            <mat-card-subtitle>CRUD Productos </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="productsimg" class="imagen" (click)=acceder(1)>
+        <mat-card-content>
+            <p>
+                CRUD Completo para los productos, permite Insertar, Leer, Actualizar y Borrar
+                los productos que pueden canjear los niños por sus bastones.
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)=acceder(1)>
+                <mat-icon>face</mat-icon>
+                Acceder CRUD
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="card">
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>people_alt</mat-icon>
+                Perfiles
+            </mat-card-title>
+            <mat-card-subtitle>CRUD Perfiles </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="profileimg" class="imagen" (click)=acceder(2)>
+        <mat-card-content>
+            <p>
+                CRUD Completo para los perfiles de usuario, permite Insertar, Leer, Actualizar y Borrar
+                cualquier perfil. Se puede modificar los roles, nombre, email, etc.
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)=acceder(2)>
+                <mat-icon>face</mat-icon>
+                Acceder CRUD
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
