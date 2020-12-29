@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -w",
-    "dev": "nodemon build/index.js"
+    "img": "cd images && http-server -p 3020",
+    "dev": "nodemon build/index.js",
+    "start": "concurrently \"npm run dev\" \"npm run img\""
   },
   "keywords": [],
   "author": "",
@@ -14,6 +16,7 @@
     "@types/cors": "^2.8.9",
     "@types/express": "^4.17.9",
     "@types/morgan": "^1.9.2",
+    "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "morgan": "^1.10.0",

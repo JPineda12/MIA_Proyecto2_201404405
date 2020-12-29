@@ -249,10 +249,6 @@ var UserController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = req.headers, email = _a.email, password = _a.password;
-                        console.log(email);
-                        console.log(password);
-                        console.log(req.headers);
-                        console.log(req.params);
                         sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol, nombre FROM Usuario WHERE email = :email AND contrasena = :password ";
                         return [4 /*yield*/, database_1.default.Open(sql, [email, password], true)];
                     case 1:
@@ -283,7 +279,7 @@ var UserController = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = req.body, nickname = _a.nickname, password = _a.password;
+                        _a = req.headers, nickname = _a.nickname, password = _a.password;
                         sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol FROM Usuario WHERE nickname = :nickname AND contrasena = :password ";
                         return [4 /*yield*/, database_1.default.Open(sql, [nickname, password], true)];
                     case 1:

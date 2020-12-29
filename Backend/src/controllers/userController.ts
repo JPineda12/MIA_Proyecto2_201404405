@@ -160,10 +160,6 @@ class UserController {
 
     public async loginEmail(req: Request, res: Response) {
         const { email, password } = req.headers;
-        console.log(email)
-        console.log(password)
-        console.log(req.headers)
-        console.log(req.params)
         let sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol, nombre FROM Usuario WHERE email = :email AND contrasena = :password ";
         let ok = await database.Open(sql, [email, password], true);
 
@@ -184,7 +180,7 @@ class UserController {
     }
 
     public async loginNickname(req: Request, res: Response) {
-        const { nickname, password } = req.body;
+        const { nickname, password } = req.headers;
         let sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol FROM Usuario WHERE nickname = :nickname AND contrasena = :password ";
         let ok = await database.Open(sql, [nickname, password], true);
 
