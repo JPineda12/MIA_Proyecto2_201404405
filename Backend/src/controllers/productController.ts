@@ -110,7 +110,7 @@ class ProductController {
     }
 
     public async deleteCategoria(req: Request, res: Response){
-        const{idCategoria} = req.body;
+        const{idCategoria} = req.params;
         let sql = "DELETE FROM CATEGORIA WHERE idCategoria= :idCategoria";
         try {
             await database.Open(sql, [idCategoria], true);
@@ -126,7 +126,7 @@ class ProductController {
     }
 
     public async deleteProducto(req: Request, res:Response){
-        const {idProducto } = req.body
+        const {idProducto } = req.params;
         let sql = "DELETE FROM Producto WHERE idProducto = :idProducto"
         try {
             let ok = await database.Open(sql, [idProducto], true);

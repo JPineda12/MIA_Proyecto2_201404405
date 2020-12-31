@@ -241,7 +241,7 @@ class UserController {
     }
 
     public async deleteUser(req: Request, res: Response) {
-        const { idUsuario } = req.body;
+        const { idUsuario } = req.params;
         let sql = "DELETE FROM Usuario WHERE idUsuario = :idUsuario ";
 
         try {

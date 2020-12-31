@@ -68,9 +68,6 @@ class GoodActionsController {
 
     public async deleteGoodAction(req: Request, res: Response) {
         const { idAccion } = req.params;
-        console.log(req.params);
-        console.log(req.headers);
-        console.log(req.body);
         let sql = "DELETE FROM Buena_Accion WHERE idBuena_Accion = :idAccion"
         try {
             await database.Open(sql, [idAccion], true);

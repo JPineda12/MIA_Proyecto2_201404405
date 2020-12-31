@@ -225,7 +225,7 @@ var ProductController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        idCategoria = req.body.idCategoria;
+                        idCategoria = req.params.idCategoria;
                         sql = "DELETE FROM CATEGORIA WHERE idCategoria= :idCategoria";
                         _a.label = 1;
                     case 1:
@@ -254,7 +254,7 @@ var ProductController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        idProducto = req.body.idProducto;
+                        idProducto = req.params.idProducto;
                         sql = "DELETE FROM Producto WHERE idProducto = :idProducto";
                         _a.label = 1;
                     case 1:

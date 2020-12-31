@@ -99,8 +99,7 @@ export class ApiService {
   }
 
   deleteAccion(idAccion: string){
-    const customHeaders = { 'idAccion': idAccion}
-    return this.http.delete(`${this.API_URI}/api/goodActions/`, { headers: customHeaders });
+    return this.http.delete(`${this.API_URI}/api/goodActions/${idAccion}`);
   }
 
 }

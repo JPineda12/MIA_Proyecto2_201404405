@@ -21,25 +21,25 @@ var ApiRoutes = /** @class */ (function () {
         this.router.get('/getUserByEmail/:correo', userController_1.userController.getUserByEmail);
         this.router.post('/users', userController_1.userController.newUser);
         this.router.put('/users', userController_1.userController.updateUser);
-        this.router.delete('/users/', userController_1.userController.deleteUser);
+        this.router.delete('/users/:idUsuario', userController_1.userController.deleteUser);
         this.router.get('/loginEmail', userController_1.userController.loginEmail);
         this.router.get('/loginNickname', userController_1.userController.loginNickname);
         //Product Routes
         this.router.get('/products', productController_1.productController.getProductos);
         this.router.get('/products/:id', productController_1.productController.getProductById);
         this.router.post('/products', productController_1.productController.insertProducto);
-        this.router.delete('/products/', productController_1.productController.deleteProducto);
+        this.router.delete('/products/:idProductos', productController_1.productController.deleteProducto);
         this.router.put('/products/', productController_1.productController.updateProducto);
         this.router.get('/categories', productController_1.productController.getCategorias);
         this.router.post('/categories', productController_1.productController.insertCategoria);
         this.router.put('/categories/', productController_1.productController.updateCategoria);
-        this.router.delete('/categories/', productController_1.productController.deleteCategoria);
+        this.router.delete('/categories/:idProductos', productController_1.productController.deleteCategoria);
         //GoodActions Routes
         this.router.get('/goodActions', goodActionsController_1.goodActionsController.getGoodActions);
         this.router.get('/goodActions/:id', goodActionsController_1.goodActionsController.getActionById);
         this.router.post('/goodActions', goodActionsController_1.goodActionsController.insertGoodaction);
         this.router.put('/goodActions', goodActionsController_1.goodActionsController.updateGoodAction);
-        this.router.delete('/goodActions/:id', goodActionsController_1.goodActionsController.deleteGoodAction);
+        this.router.delete('/goodActions/:idAccion', goodActionsController_1.goodActionsController.deleteGoodAction);
     };
     return ApiRoutes;
 }());

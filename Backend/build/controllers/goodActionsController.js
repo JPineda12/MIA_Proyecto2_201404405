@@ -151,9 +151,6 @@ var GoodActionsController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         idAccion = req.params.idAccion;
-                        console.log(req.params);
-                        console.log(req.headers);
-                        console.log(req.body);
                         sql = "DELETE FROM Buena_Accion WHERE idBuena_Accion = :idAccion";
                         _a.label = 1;
                     case 1:

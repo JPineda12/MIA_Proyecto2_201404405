@@ -358,7 +358,7 @@ var UserController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        idUsuario = req.body.idUsuario;
+                        idUsuario = req.params.idUsuario;
                         sql = "DELETE FROM Usuario WHERE idUsuario = :idUsuario ";
                         _a.label = 1;
                     case 1:
