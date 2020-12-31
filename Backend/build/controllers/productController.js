@@ -203,7 +203,7 @@ var ProductController = /** @class */ (function () {
                         _a = req.body, idProducto = _a.idProducto, nombre = _a.nombre, precio = _a.precio, edadMinima = _a.edadMinima, idCategoria = _a.idCategoria;
                         sql = "UPDATE Producto SET nombre = :nombre, precio = :precio, "
                             + "minedad = :edadMinima, PRODUCTO_IDCATEGORIA = :idCategoria "
-                            + " WHERE IDPRODUCTO  = :idProducto;";
+                            + " WHERE IDPRODUCTO  = :idProducto";
                         return [4 /*yield*/, database_1.default.Open(sql, [nombre, precio, edadMinima, idCategoria, idProducto], true)];
                     case 1:
                         _b.sent();
@@ -250,7 +250,7 @@ var ProductController = /** @class */ (function () {
     };
     ProductController.prototype.deleteProducto = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var idProducto, sql, err_2;
+            var idProducto, sql, ok, err_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -261,10 +261,11 @@ var ProductController = /** @class */ (function () {
                         _a.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, database_1.default.Open(sql, [idProducto], true)];
                     case 2:
-                        _a.sent();
+                        ok = _a.sent();
+                        console.log(idProducto);
                         res.status(200).json({
                             "deleted": true,
-                            "idCategoria": idProducto
+                            "idProducto": idProducto
                         });
                         return [3 /*break*/, 4];
                     case 3:

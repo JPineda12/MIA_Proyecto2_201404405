@@ -4,8 +4,9 @@ class UserController {
 
     public async getUsers(re: Request, res: Response) {
         let sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
-            + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
-            + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO"
+            + "telefono, bastones,direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
+            + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO, capacidadBastones"
+            + ", latitud, longitud"
             + " From Usuario, Rol r, Municipio m, Departamento d "
             + " WHERE r.IDROL = USUARIO_IDROL "
             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
@@ -31,6 +32,9 @@ class UserController {
                 "rol": user[13],
                 "municipio": user[14],
                 "departamento": user[15],
+                "capacidadBastones": user[16],
+                "latitud": user[17],
+                "longitud": user[18]
             }
             Users.push(userSchema);
         })
@@ -41,7 +45,8 @@ class UserController {
         const { idUsuario } = req.params;
         let sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
             + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
-            + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO"
+            + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO,"
+            + "capacidadBastones, latitud, longitud"
             + " From Usuario, Rol r, Municipio m, Departamento d "
             + " WHERE r.IDROL = USUARIO_IDROL "
             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
@@ -68,6 +73,9 @@ class UserController {
                 "rol": user[13],
                 "municipio": user[14],
                 "departamento": user[15],
+                "capacidadBastones": user[16],
+                "latitud": user[17],
+                "longitud": user[18],
             }
             Users.push(userSchema);
         })
@@ -78,7 +86,8 @@ class UserController {
         const { correo } = req.params;
         let sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
             + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
-            + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO"
+            + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO,"
+            + "capacidadBastones, latitud, longitud"
             + " From Usuario, Rol r, Municipio m, Departamento d "
             + " WHERE r.IDROL = USUARIO_IDROL "
             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
@@ -105,6 +114,9 @@ class UserController {
                 "rol": user[13],
                 "municipio": user[14],
                 "departamento": user[15],
+                "capacidadBastones": user[16],
+                "latitud": user[17],
+                "longitud": user[18],
             }
             Users.push(userSchema);
         })
@@ -117,7 +129,8 @@ class UserController {
         const { idPadre } = req.params;
         let sql = "SELECT hijo.idUsuario, hijo.nombre, hijo.nickname, hijo.email,"
             + " hijo.genero, hijo.fechanacimiento,"
-            + " hijo.telefono, hijo.bastones, hijo.direccion "
+            + " hijo.telefono, hijo.bastones, hijo.direccion,"
+            + "hijo.capacidadBastones, hijo.latitud, hijo.longitud"
             + " FROM USUARIO hijo, USUARIO padre "
             + " WHERE hijo.USUARIO_IDPADRE = padre.IDUSUARIO "
             + "AND padre.IDUSUARIO = :idPadre ";
@@ -135,6 +148,9 @@ class UserController {
                 "telefono": user[6],
                 "bastones": user[7],
                 "direccion": user[8],
+                "capacidadBastones": user[9],
+                "latitud": user[10],
+                "longitud": user[11],
             }
             Users.push(userSchema);
         })
@@ -143,13 +159,13 @@ class UserController {
 
     public async newUser(req: Request, res: Response) {
 
-        const { nombre, nickname, email, pass, gender, fecha, tel, bastones, direccion, idRol, idMunicipio, idPadre } = req.body;
+        const { nombre, nickname, email, pass, gender, fecha, tel, bastones, capacidadBastones, direccion, latitud, longitud, idRol, idMunicipio, idPadre } = req.body;
         let sql = "INSERT INTO Usuario(nombre,nickname,email, contrasena, genero,fechaNacimiento, "
-            + "telefono, bastones, direccion, USUARIO_IDROL, USUARIO_IDMUNICIPIO, USUARIO_IDPADRE) "
+            + "telefono, bastones, capacidadBastones, direccion, latitud, longitud, USUARIO_IDROL, USUARIO_IDMUNICIPIO, USUARIO_IDPADRE) "
             + "VALUES(:nombre, :nickname, :email, :pass, :gender, TO_DATE(:fecha, 'MM/DD/YYYY'), :tel,"
-            + ":bastones, :direccion, :idRol, :idMunicipio, :idPadre)";
+            + ":bastones, :capacidadBastones, :direccion, :latitud, :longitud, :idRol, :idMunicipio, :idPadre)";
 
-        let result = await database.Open(sql, [nombre, nickname, email, pass, gender, fecha, tel, bastones, direccion, idRol, idMunicipio, idPadre], true);
+        let result = await database.Open(sql, [nombre, nickname, email, pass, gender, fecha, tel, bastones, capacidadBastones, direccion, latitud, longitud, idRol, idMunicipio, idPadre], true);
         res.status(200).json({
             "email": email,
             "name": nombre,
@@ -160,7 +176,7 @@ class UserController {
 
     public async loginEmail(req: Request, res: Response) {
         const { email, password } = req.headers;
-        let sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol, nombre FROM Usuario WHERE email = :email AND contrasena = :password ";
+        let sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol, nombre, capacidadBastones, latitud, longitud FROM Usuario WHERE email = :email AND contrasena = :password ";
         let ok = await database.Open(sql, [email, password], true);
 
         if (ok.rows.length > 0) {
@@ -170,7 +186,10 @@ class UserController {
                 "bastones": ok.rows[0][1],
                 "fecha": ok.rows[0][2],
                 "idRol": ok.rows[0][3],
-                "nombre": ok.rows[0][4]
+                "nombre": ok.rows[0][4],
+                "capacidadBastones": ok.rows[0][5],
+                "latitud": ok.rows[0][6],
+                "longitud": ok.rows[0][7],
             })
         } else {
             res.json({
@@ -181,7 +200,7 @@ class UserController {
 
     public async loginNickname(req: Request, res: Response) {
         const { nickname, password } = req.headers;
-        let sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol FROM Usuario WHERE nickname = :nickname AND contrasena = :password ";
+        let sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol, nombre, capacidadBastones, latitud, longitud FROM Usuario WHERE nickname = :nickname AND contrasena = :password ";
         let ok = await database.Open(sql, [nickname, password], true);
 
         if (ok.rows.length > 0) {
@@ -191,6 +210,10 @@ class UserController {
                 "bastones": ok.rows[0][1],
                 "fecha": ok.rows[0][2],
                 "idRol": ok.rows[0][3],
+                "nombre": ok.rows[0][4],
+                "capacidadBastones": ok.rows[0][5],
+                "latitud": ok.rows[0][6],
+                "longitud": ok.rows[0][7]
             })
         } else {
             res.json({
@@ -202,13 +225,13 @@ class UserController {
 
     public async updateUser(req: Request, res: Response) {
         const { idUsuario, nombre, nickname, email, pass, gender, fecha, tel,
-            bastones, direccion, idRol, idMunicipio, idPadre } = req.body;
+            bastones, capacidadBastones, direccion, latitud, longitud, idRol, idMunicipio, idPadre } = req.body;
         let sql = "UPDATE USUARIO SET nombre = :nombre, nickname = :nickname, email = :email,"
-            + " contrasena = :pass, genero = :gender, fechanacimiento = TO_DATE(:fecha, 'YYYY/MM/DD'), telefono = :tel,"
-            + " bastones = :bastones, direccion = :direccion, USUARIO_IDROL = :idRol,"
+            + " contrasena = :pass, genero = :gender, fechanacimiento = TO_DATE(:fecha, 'MM/DD/YYYY'), telefono = :tel,"
+            + " bastones = :bastones, capacidadBastones = :capacidadBastones, direccion = :direccion, latitud = :latitud, longitud = :longitud, USUARIO_IDROL = :idRol,"
             + "USUARIO_IDMUNICIPIO = :idMunicipio, USUARIO_IDPADRE = :idPadre "
             + "WHERE idUsuario = :idUsuario";
-        await database.Open(sql, [nombre, nickname, email, pass, gender, fecha, tel, bastones, direccion, idRol, idMunicipio, idPadre, idUsuario], true);
+        await database.Open(sql, [nombre, nickname, email, pass, gender, fecha, tel, bastones, capacidadBastones, direccion, latitud, longitud, idRol, idMunicipio, idPadre, idUsuario], true);
         res.status(200).json({
             "email": email,
             "name": nombre,

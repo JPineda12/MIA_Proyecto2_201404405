@@ -98,7 +98,7 @@ class ProductController {
         const { idProducto, nombre, precio, edadMinima, idCategoria } = req.body;
         let sql = "UPDATE Producto SET nombre = :nombre, precio = :precio, "
             + "minedad = :edadMinima, PRODUCTO_IDCATEGORIA = :idCategoria "
-            + " WHERE IDPRODUCTO  = :idProducto;"
+            + " WHERE IDPRODUCTO  = :idProducto"
         await database.Open(sql, [nombre, precio, edadMinima, idCategoria, idProducto], true);
         res.status(200).json({
             "id": idProducto,
@@ -129,11 +129,11 @@ class ProductController {
         const {idProducto } = req.body
         let sql = "DELETE FROM Producto WHERE idProducto = :idProducto"
         try {
-            await database.Open(sql, [idProducto], true);
-
+            let ok = await database.Open(sql, [idProducto], true);
+            console.log(idProducto)
             res.status(200).json({
                 "deleted": true,
-                "idCategoria": idProducto
+                "idProducto": idProducto
             })
         } catch (err) {
             console.log("Error al realizar la consulta => ", err)
