@@ -3,14 +3,14 @@
 - [ ] Aplicacion Web
 	- [ ] Inicio de Sesion
 		- [ ] Rol: Niño
-		- [ ] Rol: Elfo (admin)
+		- [x] Rol: Elfo (admin)
 	- [ ] Perfil de niño
 		- [ ] Buenas Acciones
 		- [ ] Ver Cartas
 		- [ ] Enviar carta a Santa
 		- [ ] Enviar mensaje a Elfo (chat)
 	- [ ] Perfil de Elfo (administrador)
-		- [ ] CRUD Buenas Acciones 
+		- [x] CRUD Buenas Acciones 
 		- [ ] CRUD Productos
 		- [ ] CRUD Perfiles
 		- [ ] Responder Mensajes (chat) de niños
@@ -44,6 +44,7 @@
 	- [x] CRUD Users
 	- [x] CRUD Products and Categories
 	- [X] Consultas para Roles, departamentos y municipios
+	- [X] CRUD Buenas Acciones
 - [ ] Documentacion
 	- [x] Relational Model
 	- [ ] Descripcion Arquitectura
