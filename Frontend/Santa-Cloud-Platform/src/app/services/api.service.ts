@@ -67,4 +67,40 @@ export class ApiService {
         "idPadre": idPadre
       }, { headers: this.headers }).pipe(map(data => data));
   }
+
+  getAcciones(){
+    return this.http.get(`${this.API_URI}/api/goodActions`);
+  }
+
+  getAccionesById(id: string){
+    return this.http.get(`${this.API_URI}/api/goodActions/${id}`);
+  }
+
+  insertarAccion(titulo: string, descripcion: string, recompensa: string, minEdad: string){
+    return this.http.post(`${this.API_URI}/api/goodActions/`,
+      {
+        "titulo": titulo,
+        "descripcion": descripcion,
+        "recompensa": recompensa,
+        "minEdad": minEdad
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  updateAccion(titulo: string, descripcion: string, recompensa: string, edadMinima: string, idAccion: string){
+
+    return this.http.put(`${this.API_URI}/api/goodActions/`,
+    {
+      "titulo": titulo,
+      "descripcion": descripcion,
+      "recompensa": recompensa,
+      "edadMinima": edadMinima,
+      "idAccion": idAccion
+    }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  deleteAccion(idAccion: string){
+    const customHeaders = { 'idAccion': idAccion}
+    return this.http.delete(`${this.API_URI}/api/goodActions/`, { headers: customHeaders });
+  }
+
 }

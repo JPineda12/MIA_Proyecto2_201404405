@@ -23,7 +23,7 @@ const modules = [
     MatIconModule,
     MatProgressBarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
 ];
 
 

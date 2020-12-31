@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Crear Buena Accion</h1>
+<div mat-dialog-content>
+    <div class="fields">
+        <mat-form-field>
+            <input type="text" matInput placeholder="Titulo" formControlName="title" id="title">
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput placeholder="Descripcion" formControlName="descripcion" id="descripcion">
+        </textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" maxlength="20" matInput placeholder="Recompensa" formControlName="recompensa"
+                id="recompensa">
+        </mat-form-field>
+        <mat-form-field>
+            <input type="number" matInput placeholder="Edad Recomendada" formControlName="edad" id="edad">
+        </mat-form-field>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button class="mat-raised-button" color="warn" (click)="save()">Editar</button>
+    <button mat-button class="mat-raised-button" color="warn" (click)="close()">Cancelar</button>
+</div>

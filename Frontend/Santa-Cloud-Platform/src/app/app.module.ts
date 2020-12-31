@@ -15,7 +15,8 @@ import { KidComponent } from './components/home/kid/kid.component';
 import { ElfoComponent } from './components/home/elfo/elfo.component';
 import { PadreComponent } from './components/home/padre/padre.component';
 import { CRUDAccionesComponent } from './components/admin/crudacciones/crudacciones.component';
-
+import { AddAccionComponent } from './components/admin/crudacciones/add-accion/add-accion.component';
+import { EditAccionComponent } from './components/admin/crudacciones/edit-accion/edit-accion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,9 @@ import { CRUDAccionesComponent } from './components/admin/crudacciones/crudaccio
     KidComponent,
     ElfoComponent,
     PadreComponent,
-    CRUDAccionesComponent
+    CRUDAccionesComponent,
+    AddAccionComponent,
+    EditAccionComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import { CRUDAccionesComponent } from './components/admin/crudacciones/crudaccio
     MaterialModule
   ],
   providers: [ApiService, DatePipe],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddAccionComponent, EditAccionComponent]
 })
 export class AppModule { }
