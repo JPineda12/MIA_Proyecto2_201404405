@@ -50,7 +50,8 @@ var ProductController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        sql = "SELECT idCategoria, categoria FROM CATEGORIA";
+                        sql = "SELECT idCategoria, categoria FROM CATEGORIA"
+                            + " WHERE ESTADO = 0";
                         return [4 /*yield*/, database_1.default.Open(sql, [], false)];
                     case 1:
                         result = _a.sent();
@@ -58,7 +59,7 @@ var ProductController = /** @class */ (function () {
                         result.rows.map(function (cat) {
                             var categoriasSchema = {
                                 "id": cat[0],
-                                "categorias": cat[1]
+                                "categoria": cat[1]
                             };
                             categorias.push(categoriasSchema);
                         });
@@ -74,9 +75,10 @@ var ProductController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        sql = "SELECT idProducto, nombre, precio, minEdad, Producto_idCategoria, c.categoria "
-                            + "FROM Producto, CATEGORIA c "
-                            + "WHERE PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA";
+                        sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.categoria "
+                            + "FROM Producto p, CATEGORIA c "
+                            + "WHERE p.PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA"
+                            + " AND p.ESTADO = 0";
                         return [4 /*yield*/, database_1.default.Open(sql, [], false)];
                     case 1:
                         result = _a.sent();
@@ -105,10 +107,11 @@ var ProductController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         idProducto = req.params.idProducto;
-                        sql = "SELECT idProducto, nombre, precio, minEdad, Producto_idCategoria, c.CATEGORIA "
-                            + " FROM Producto, CATEGORIA c "
-                            + " WHERE PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA "
-                            + "AND idProducto = :idProducto";
+                        sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.CATEGORIA "
+                            + " FROM Producto p, CATEGORIA c "
+                            + " WHERE p.PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA "
+                            + " AND p.ESTADO = 0"
+                            + " AND idProducto = :idProducto";
                         return [4 /*yield*/, database_1.default.Open(sql, [idProducto], true)];
                     case 1:
                         result = _a.sent();
@@ -137,7 +140,7 @@ var ProductController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         categoria = req.body.categoria;
-                        sql = "INSERT INTO CATEGORIA(categoria) VALUES(:categoria)";
+                        sql = "INSERT INTO CATEGORIA(categoria, estado) VALUES(:categoria, 0)";
                         return [4 /*yield*/, database_1.default.Open(sql, [categoria], true)];
                     case 1:
                         result = _a.sent();
@@ -157,8 +160,8 @@ var ProductController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = req.body, nombre = _a.nombre, precio = _a.precio, edadMinima = _a.edadMinima, idCategoria = _a.idCategoria;
-                        sql = "INSERT INTO PRODUCTO(NOMBRE , PRECIO , MINEDAD, PRODUCTO_IDCATEGORIA)"
-                            + " VALUES(:nombre, :precio, :edadMinima, :idCategoria)";
+                        sql = "INSERT INTO PRODUCTO(NOMBRE , PRECIO , MINEDAD, PRODUCTO_IDCATEGORIA, ESTADO)"
+                            + " VALUES(:nombre, :precio, :edadMinima, :idCategoria, 0)";
                         return [4 /*yield*/, database_1.default.Open(sql, [nombre, precio, edadMinima, idCategoria], true)];
                     case 1:
                         result = _b.sent();
@@ -225,8 +228,8 @@ var ProductController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        idCategoria = req.params.idCategoria;
-                        sql = "DELETE FROM CATEGORIA WHERE idCategoria= :idCategoria";
+                        idCategoria = req.body.idCategoria;
+                        sql = "UPDATE CATEGORIA SET ESTADO = 1 WHERE idCategoria= :idCategoria";
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
@@ -234,8 +237,8 @@ var ProductController = /** @class */ (function () {
                     case 2:
                         _a.sent();
                         res.status(200).json({
-                            "deleted": true,
-                            "idCategoria": idCategoria
+                            "idCategoria": idCategoria,
+                            "deleted": true
                         });
                         return [3 /*break*/, 4];
                     case 3:
@@ -254,15 +257,14 @@ var ProductController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        idProducto = req.params.idProducto;
-                        sql = "DELETE FROM Producto WHERE idProducto = :idProducto";
+                        idProducto = req.body.idProducto;
+                        sql = "UPDATE Producto SET ESTADO = 1 WHERE idProducto = :idProducto";
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, database_1.default.Open(sql, [idProducto], true)];
                     case 2:
                         ok = _a.sent();
-                        console.log(idProducto);
                         res.status(200).json({
                             "deleted": true,
                             "idProducto": idProducto

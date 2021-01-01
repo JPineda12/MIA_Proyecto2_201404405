@@ -10,7 +10,8 @@ class UserController {
             + " From Usuario, Rol r, Municipio m, Departamento d "
             + " WHERE r.IDROL = USUARIO_IDROL "
             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
-            + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO ";
+            + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
+            + "  AND ESTADO = 0"
 
         const result = await database.Open(sql, [], false);
         let Users: any = [];
@@ -51,7 +52,8 @@ class UserController {
             + " WHERE r.IDROL = USUARIO_IDROL "
             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
             + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
-            + " AND idUsuario = :idUsuario";
+            + " AND idUsuario = :idUsuario"
+            + " AND ESTADO = 0";
 
         const result = await database.Open(sql, [idUsuario], true);
         let Users: any = [];
@@ -92,7 +94,8 @@ class UserController {
             + " WHERE r.IDROL = USUARIO_IDROL "
             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
             + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
-            + " AND email = :correo";
+            + " AND email = :correo"
+            + " AND ESTADO = 0";
 
         const result = await database.Open(sql, [correo], true);
         let Users: any = [];
@@ -133,7 +136,8 @@ class UserController {
             + "hijo.capacidadBastones, hijo.latitud, hijo.longitud"
             + " FROM USUARIO hijo, USUARIO padre "
             + " WHERE hijo.USUARIO_IDPADRE = padre.IDUSUARIO "
-            + "AND padre.IDUSUARIO = :idPadre ";
+            + "AND padre.IDUSUARIO = :idPadre "
+            + " AND hijo.ESTADO = 0";
 
         const result = await database.Open(sql, [idPadre], true);
         let Users: any = [];
@@ -161,9 +165,9 @@ class UserController {
 
         const { nombre, nickname, email, pass, gender, fecha, tel, bastones, capacidadBastones, direccion, latitud, longitud, idRol, idMunicipio, idPadre } = req.body;
         let sql = "INSERT INTO Usuario(nombre,nickname,email, contrasena, genero,fechaNacimiento, "
-            + "telefono, bastones, capacidadBastones, direccion, latitud, longitud, USUARIO_IDROL, USUARIO_IDMUNICIPIO, USUARIO_IDPADRE) "
+            + "telefono, bastones, capacidadBastones, direccion, estado, latitud, longitud, USUARIO_IDROL, USUARIO_IDMUNICIPIO, USUARIO_IDPADRE) "
             + "VALUES(:nombre, :nickname, :email, :pass, :gender, TO_DATE(:fecha, 'MM/DD/YYYY'), :tel,"
-            + ":bastones, :capacidadBastones, :direccion, :latitud, :longitud, :idRol, :idMunicipio, :idPadre)";
+            + ":bastones, :capacidadBastones, :direccion, 0, :latitud, :longitud, :idRol, :idMunicipio, :idPadre)";
 
         let result = await database.Open(sql, [nombre, nickname, email, pass, gender, fecha, tel, bastones, capacidadBastones, direccion, latitud, longitud, idRol, idMunicipio, idPadre], true);
         res.status(200).json({
@@ -176,8 +180,12 @@ class UserController {
 
     public async loginEmail(req: Request, res: Response) {
         const { email, password } = req.headers;
-        let sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol, nombre, capacidadBastones, latitud, longitud FROM Usuario WHERE email = :email AND contrasena = :password ";
+        let sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol," 
+        +"nombre, capacidadBastones, latitud, longitud FROM Usuario " 
+        +" WHERE email = :email AND contrasena = :password AND ESTADO = 0";
+
         let ok = await database.Open(sql, [email, password], true);
+	
 
         if (ok.rows.length > 0) {
             res.json({
@@ -200,7 +208,9 @@ class UserController {
 
     public async loginNickname(req: Request, res: Response) {
         const { nickname, password } = req.headers;
-        let sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol, nombre, capacidadBastones, latitud, longitud FROM Usuario WHERE nickname = :nickname AND contrasena = :password ";
+        let sql = "SELECT idUsuario, bastones, fechaNacimiento, Usuario_idRol," 
+        +"nombre, capacidadBastones, latitud, longitud FROM Usuario "
+        +" WHERE nickname = :nickname AND contrasena = :password AND ESTADO = 0";
         let ok = await database.Open(sql, [nickname, password], true);
 
         if (ok.rows.length > 0) {
@@ -241,8 +251,8 @@ class UserController {
     }
 
     public async deleteUser(req: Request, res: Response) {
-        const { idUsuario } = req.params;
-        let sql = "DELETE FROM Usuario WHERE idUsuario = :idUsuario ";
+        const { idUsuario } = req.body;
+        let sql = "UPDATE Usuario SET ESTADO = 1 WHERE idUsuario = :idUsuario ";
 
         try {
             await database.Open(sql, [idUsuario], true);

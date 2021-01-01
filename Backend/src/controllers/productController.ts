@@ -5,12 +5,13 @@ class ProductController {
 
     public async getCategorias(req: Request, res: Response) {
         let sql = "SELECT idCategoria, categoria FROM CATEGORIA"
+            + " WHERE ESTADO = 0"
         const result = await database.Open(sql, [], false);
         let categorias: any = [];
         result.rows.map((cat: any) => {
             let categoriasSchema = {
                 "id": cat[0],
-                "categorias": cat[1]
+                "categoria": cat[1]
             }
             categorias.push(categoriasSchema);
         })
@@ -18,9 +19,10 @@ class ProductController {
     }
 
     public async getProductos(req: Request, res: Response) {
-        let sql = "SELECT idProducto, nombre, precio, minEdad, Producto_idCategoria, c.categoria "
-            + "FROM Producto, CATEGORIA c "
-            + "WHERE PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA"
+        let sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.categoria "
+            + "FROM Producto p, CATEGORIA c "
+            + "WHERE p.PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA"
+            + " AND p.ESTADO = 0"
         const result = await database.Open(sql, [], false);
         let productos: any = [];
         result.rows.map((prod: any) => {
@@ -39,10 +41,11 @@ class ProductController {
 
     public async getProductById(req: Request, res: Response) {
         const { idProducto } = req.params;
-        let sql = "SELECT idProducto, nombre, precio, minEdad, Producto_idCategoria, c.CATEGORIA "
-            + " FROM Producto, CATEGORIA c "
-            + " WHERE PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA "
-            + "AND idProducto = :idProducto"
+        let sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.CATEGORIA "
+            + " FROM Producto p, CATEGORIA c "
+            + " WHERE p.PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA "
+            + " AND p.ESTADO = 0"
+            + " AND idProducto = :idProducto"
         const result = await database.Open(sql, [idProducto], true);
         let productos: any = [];
         result.rows.map((prod: any) => {
@@ -61,7 +64,7 @@ class ProductController {
 
     public async insertCategoria(req: Request, res: Response) {
         const { categoria } = req.body;
-        let sql = "INSERT INTO CATEGORIA(categoria) VALUES(:categoria)"
+        let sql = "INSERT INTO CATEGORIA(categoria, estado) VALUES(:categoria, 0)"
 
         const result = await database.Open(sql, [categoria], true);
         res.status(200).json({
@@ -72,8 +75,8 @@ class ProductController {
 
     public async insertProducto(req: Request, res: Response) {
         const { nombre, precio, edadMinima, idCategoria } = req.body;
-        let sql = "INSERT INTO PRODUCTO(NOMBRE , PRECIO , MINEDAD, PRODUCTO_IDCATEGORIA)"
-            + " VALUES(:nombre, :precio, :edadMinima, :idCategoria)"
+        let sql = "INSERT INTO PRODUCTO(NOMBRE , PRECIO , MINEDAD, PRODUCTO_IDCATEGORIA, ESTADO)"
+            + " VALUES(:nombre, :precio, :edadMinima, :idCategoria, 0)"
         const result = await database.Open(sql, [nombre, precio, edadMinima, idCategoria], true);
         res.status(200).json({
             "id": result.id,
@@ -109,15 +112,14 @@ class ProductController {
         })
     }
 
-    public async deleteCategoria(req: Request, res: Response){
-        const{idCategoria} = req.params;
-        let sql = "DELETE FROM CATEGORIA WHERE idCategoria= :idCategoria";
+    public async deleteCategoria(req: Request, res: Response) {
+        const { idCategoria } = req.body;
+        let sql = "UPDATE CATEGORIA SET ESTADO = 1 WHERE idCategoria= :idCategoria";
         try {
             await database.Open(sql, [idCategoria], true);
-
             res.status(200).json({
-                "deleted": true,
-                "idCategoria": idCategoria
+                "idCategoria": idCategoria,
+                "deleted": true
             })
         } catch (err) {
             console.log("Error al realizar la consulta => ", err)
@@ -125,12 +127,11 @@ class ProductController {
         }
     }
 
-    public async deleteProducto(req: Request, res:Response){
-        const {idProducto } = req.params;
-        let sql = "DELETE FROM Producto WHERE idProducto = :idProducto"
+    public async deleteProducto(req: Request, res: Response) {
+        const { idProducto } = req.body;
+        let sql = "UPDATE Producto SET ESTADO = 1 WHERE idProducto = :idProducto"
         try {
             let ok = await database.Open(sql, [idProducto], true);
-            console.log(idProducto)
             res.status(200).json({
                 "deleted": true,
                 "idProducto": idProducto
@@ -140,6 +141,7 @@ class ProductController {
             res.json({ "deleted": false })
         }
     }
+
 }
 
 export const productController = new ProductController(); 

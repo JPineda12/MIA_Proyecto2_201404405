@@ -51,7 +51,7 @@ var GoodActionsController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         sql = "SELECT IDBUENA_ACCION, TITULO, DESCRIPCION, RECOMPENSA,"
-                            + "MINEDAD FROM BUENA_ACCION";
+                            + " MINEDAD FROM BUENA_ACCION WHERE ESTADO = 0";
                         return [4 /*yield*/, database_1.default.Open(sql, [], false)];
                     case 1:
                         result = _a.sent();
@@ -81,7 +81,8 @@ var GoodActionsController = /** @class */ (function () {
                         idAccion = req.body.idAccion;
                         sql = "SELECT IDBUENA_ACCION, TITULO, DESCRIPCION, RECOMPENSA,"
                             + "MINEDAD FROM BUENA_ACCION"
-                            + " WHERE IDBUENA_ACCION = :idAccion";
+                            + " WHERE IDBUENA_ACCION = :idAccion"
+                            + " AND ESTADO = 0";
                         return [4 /*yield*/, database_1.default.Open(sql, [idAccion], true)];
                     case 1:
                         result = _a.sent();
@@ -109,8 +110,8 @@ var GoodActionsController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = req.body, titulo = _a.titulo, descripcion = _a.descripcion, recompensa = _a.recompensa, minEdad = _a.minEdad;
-                        sql = "INSERT INTO Buena_Accion(TITULO, DESCRIPCION, RECOMPENSA, MINEDAD)"
-                            + " VALUES(:titulo,:descripcion,:recompensa,:minEdad)";
+                        sql = "INSERT INTO Buena_Accion(TITULO, DESCRIPCION, RECOMPENSA, MINEDAD, ESTADO)"
+                            + " VALUES(:titulo,:descripcion,:recompensa,:minEdad, 0)";
                         return [4 /*yield*/, database_1.default.Open(sql, [titulo, descripcion, recompensa, minEdad], true)];
                     case 1:
                         _b.sent();
@@ -150,8 +151,8 @@ var GoodActionsController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        idAccion = req.params.idAccion;
-                        sql = "DELETE FROM Buena_Accion WHERE idBuena_Accion = :idAccion";
+                        idAccion = req.body.idAccion;
+                        sql = "UPDATE Buena_Accion SET ESTADO = 1 WHERE idBuena_Accion = :idAccion";
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);

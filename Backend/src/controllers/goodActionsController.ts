@@ -4,7 +4,7 @@ class GoodActionsController {
 
     public async getGoodActions(req: Request, res: Response) {
         let sql = "SELECT IDBUENA_ACCION, TITULO, DESCRIPCION, RECOMPENSA,"
-            + "MINEDAD FROM BUENA_ACCION"
+            + " MINEDAD FROM BUENA_ACCION WHERE ESTADO = 0"
 
         const result = await database.Open(sql, [], false);
         let acciones: any = [];
@@ -27,6 +27,7 @@ class GoodActionsController {
         let sql = "SELECT IDBUENA_ACCION, TITULO, DESCRIPCION, RECOMPENSA,"
             + "MINEDAD FROM BUENA_ACCION"
             + " WHERE IDBUENA_ACCION = :idAccion"
+            + " AND ESTADO = 0"
 
         const result = await database.Open(sql, [idAccion], true);
         let acciones: any = [];
@@ -45,8 +46,8 @@ class GoodActionsController {
 
     public async insertGoodaction(req: Request, res: Response) {
         const { titulo, descripcion, recompensa, minEdad } = req.body;
-        let sql = "INSERT INTO Buena_Accion(TITULO, DESCRIPCION, RECOMPENSA, MINEDAD)"
-            + " VALUES(:titulo,:descripcion,:recompensa,:minEdad)"
+        let sql = "INSERT INTO Buena_Accion(TITULO, DESCRIPCION, RECOMPENSA, MINEDAD, ESTADO)"
+            + " VALUES(:titulo,:descripcion,:recompensa,:minEdad, 0)"
         await database.Open(sql, [titulo, descripcion, recompensa, minEdad], true);
         res.status(200).json({
             "titulo": titulo,
@@ -67,8 +68,8 @@ class GoodActionsController {
     }
 
     public async deleteGoodAction(req: Request, res: Response) {
-        const { idAccion } = req.params;
-        let sql = "DELETE FROM Buena_Accion WHERE idBuena_Accion = :idAccion"
+        const { idAccion } = req.body;
+        let sql = "UPDATE Buena_Accion SET ESTADO = 1 WHERE idBuena_Accion = :idAccion"
         try {
             await database.Open(sql, [idAccion], true);
 
