@@ -75,7 +75,7 @@ var ProductController = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.categoria "
+                        sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.categoria, p.image_url "
                             + "FROM Producto p, CATEGORIA c "
                             + "WHERE p.PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA"
                             + " AND p.ESTADO = 0";
@@ -91,6 +91,7 @@ var ProductController = /** @class */ (function () {
                                 "minEdad": prod[3],
                                 "idCategoria": prod[4],
                                 "categoria": prod[5],
+                                "image_url": prod[6]
                             };
                             productos.push(productsSchema);
                         });
@@ -107,7 +108,7 @@ var ProductController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         idProducto = req.params.idProducto;
-                        sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.CATEGORIA "
+                        sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.CATEGORIA, p.image_url "
                             + " FROM Producto p, CATEGORIA c "
                             + " WHERE p.PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA "
                             + " AND p.ESTADO = 0"
@@ -124,6 +125,7 @@ var ProductController = /** @class */ (function () {
                                 "minEdad": prod[3],
                                 "idCategoria": prod[4],
                                 "categoria": prod[5],
+                                "image_url": prod[6]
                             };
                             productos.push(productsSchema);
                         });
@@ -155,14 +157,14 @@ var ProductController = /** @class */ (function () {
     };
     ProductController.prototype.insertProducto = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, nombre, precio, edadMinima, idCategoria, sql, result;
+            var _a, nombre, precio, edadMinima, idCategoria, urlimagen, sql, result;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = req.body, nombre = _a.nombre, precio = _a.precio, edadMinima = _a.edadMinima, idCategoria = _a.idCategoria;
-                        sql = "INSERT INTO PRODUCTO(NOMBRE , PRECIO , MINEDAD, PRODUCTO_IDCATEGORIA, ESTADO)"
-                            + " VALUES(:nombre, :precio, :edadMinima, :idCategoria, 0)";
-                        return [4 /*yield*/, database_1.default.Open(sql, [nombre, precio, edadMinima, idCategoria], true)];
+                        _a = req.body, nombre = _a.nombre, precio = _a.precio, edadMinima = _a.edadMinima, idCategoria = _a.idCategoria, urlimagen = _a.urlimagen;
+                        sql = "INSERT INTO PRODUCTO(NOMBRE , PRECIO , MINEDAD, PRODUCTO_IDCATEGORIA, ESTADO, image_url)"
+                            + " VALUES(:nombre, :precio, :edadMinima, :idCategoria, 0, :urlimagen)";
+                        return [4 /*yield*/, database_1.default.Open(sql, [nombre, precio, edadMinima, idCategoria, urlimagen], true)];
                     case 1:
                         result = _b.sent();
                         res.status(200).json({
@@ -170,7 +172,8 @@ var ProductController = /** @class */ (function () {
                             "nombre": nombre,
                             "precio": precio,
                             "edadMinima": edadMinima,
-                            "idCategoria": idCategoria
+                            "idCategoria": idCategoria,
+                            "image_url": urlimagen
                         });
                         return [2 /*return*/];
                 }
@@ -199,15 +202,15 @@ var ProductController = /** @class */ (function () {
     };
     ProductController.prototype.updateProducto = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, idProducto, nombre, precio, edadMinima, idCategoria, sql;
+            var _a, idProducto, nombre, precio, edadMinima, idCategoria, image_url, sql;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = req.body, idProducto = _a.idProducto, nombre = _a.nombre, precio = _a.precio, edadMinima = _a.edadMinima, idCategoria = _a.idCategoria;
+                        _a = req.body, idProducto = _a.idProducto, nombre = _a.nombre, precio = _a.precio, edadMinima = _a.edadMinima, idCategoria = _a.idCategoria, image_url = _a.image_url;
                         sql = "UPDATE Producto SET nombre = :nombre, precio = :precio, "
-                            + "minedad = :edadMinima, PRODUCTO_IDCATEGORIA = :idCategoria "
+                            + "minedad = :edadMinima, PRODUCTO_IDCATEGORIA = :idCategoria, image_url = :image_url "
                             + " WHERE IDPRODUCTO  = :idProducto";
-                        return [4 /*yield*/, database_1.default.Open(sql, [nombre, precio, edadMinima, idCategoria, idProducto], true)];
+                        return [4 /*yield*/, database_1.default.Open(sql, [nombre, precio, edadMinima, idCategoria, image_url, idProducto], true)];
                     case 1:
                         _b.sent();
                         res.status(200).json({
@@ -215,7 +218,8 @@ var ProductController = /** @class */ (function () {
                             "nombre": nombre,
                             "precio": precio,
                             "edadMinima": edadMinima,
-                            "idCategoria": idCategoria
+                            "idCategoria": idCategoria,
+                            "image_url": image_url
                         });
                         return [2 /*return*/];
                 }

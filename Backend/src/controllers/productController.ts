@@ -19,7 +19,7 @@ class ProductController {
     }
 
     public async getProductos(req: Request, res: Response) {
-        let sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.categoria "
+        let sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.categoria, p.image_url "
             + "FROM Producto p, CATEGORIA c "
             + "WHERE p.PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA"
             + " AND p.ESTADO = 0"
@@ -33,6 +33,7 @@ class ProductController {
                 "minEdad": prod[3],
                 "idCategoria": prod[4],
                 "categoria": prod[5],
+                "image_url": prod[6]
             }
             productos.push(productsSchema);
         })
@@ -41,7 +42,7 @@ class ProductController {
 
     public async getProductById(req: Request, res: Response) {
         const { idProducto } = req.params;
-        let sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.CATEGORIA "
+        let sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.CATEGORIA, p.image_url "
             + " FROM Producto p, CATEGORIA c "
             + " WHERE p.PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA "
             + " AND p.ESTADO = 0"
@@ -56,6 +57,7 @@ class ProductController {
                 "minEdad": prod[3],
                 "idCategoria": prod[4],
                 "categoria": prod[5],
+                "image_url": prod[6]
             }
             productos.push(productsSchema);
         })
@@ -74,16 +76,17 @@ class ProductController {
     }
 
     public async insertProducto(req: Request, res: Response) {
-        const { nombre, precio, edadMinima, idCategoria } = req.body;
-        let sql = "INSERT INTO PRODUCTO(NOMBRE , PRECIO , MINEDAD, PRODUCTO_IDCATEGORIA, ESTADO)"
-            + " VALUES(:nombre, :precio, :edadMinima, :idCategoria, 0)"
-        const result = await database.Open(sql, [nombre, precio, edadMinima, idCategoria], true);
+        const { nombre, precio, edadMinima, idCategoria, urlimagen } = req.body;
+        let sql = "INSERT INTO PRODUCTO(NOMBRE , PRECIO , MINEDAD, PRODUCTO_IDCATEGORIA, ESTADO, image_url)"
+            + " VALUES(:nombre, :precio, :edadMinima, :idCategoria, 0, :urlimagen)"
+        const result = await database.Open(sql, [nombre, precio, edadMinima, idCategoria, urlimagen], true);
         res.status(200).json({
             "id": result.id,
             "nombre": nombre,
             "precio": precio,
             "edadMinima": edadMinima,
-            "idCategoria": idCategoria
+            "idCategoria": idCategoria,
+            "image_url": urlimagen
         })
     }
 
@@ -98,17 +101,18 @@ class ProductController {
     }
 
     public async updateProducto(req: Request, res: Response) {
-        const { idProducto, nombre, precio, edadMinima, idCategoria } = req.body;
+        const { idProducto, nombre, precio, edadMinima, idCategoria, image_url } = req.body;
         let sql = "UPDATE Producto SET nombre = :nombre, precio = :precio, "
-            + "minedad = :edadMinima, PRODUCTO_IDCATEGORIA = :idCategoria "
+            + "minedad = :edadMinima, PRODUCTO_IDCATEGORIA = :idCategoria, image_url = :image_url "
             + " WHERE IDPRODUCTO  = :idProducto"
-        await database.Open(sql, [nombre, precio, edadMinima, idCategoria, idProducto], true);
+        await database.Open(sql, [nombre, precio, edadMinima, idCategoria, image_url, idProducto], true);
         res.status(200).json({
             "id": idProducto,
             "nombre": nombre,
             "precio": precio,
             "edadMinima": edadMinima,
-            "idCategoria": idCategoria
+            "idCategoria": idCategoria,
+            "image_url": image_url
         })
     }
 
