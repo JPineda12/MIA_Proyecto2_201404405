@@ -62,6 +62,10 @@ mat-card-content {
     margin-left: 10px;
 }
 
+agm-map {
+    height: 300px;
+}
+
 #snowFall {
     background: none;
     height: 100%;

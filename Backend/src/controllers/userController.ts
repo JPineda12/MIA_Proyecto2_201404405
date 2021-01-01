@@ -86,6 +86,7 @@ class UserController {
 
     public async getUserByEmail(req: Request, res: Response) {
         const { correo } = req.params;
+
         let sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
             + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
             + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO,"
@@ -168,7 +169,7 @@ class UserController {
             + "telefono, bastones, capacidadBastones, direccion, estado, latitud, longitud, USUARIO_IDROL, USUARIO_IDMUNICIPIO, USUARIO_IDPADRE) "
             + "VALUES(:nombre, :nickname, :email, :pass, :gender, TO_DATE(:fecha, 'MM/DD/YYYY'), :tel,"
             + ":bastones, :capacidadBastones, :direccion, 0, :latitud, :longitud, :idRol, :idMunicipio, :idPadre)";
-
+	
         let result = await database.Open(sql, [nombre, nickname, email, pass, gender, fecha, tel, bastones, capacidadBastones, direccion, latitud, longitud, idRol, idMunicipio, idPadre], true);
         res.status(200).json({
             "email": email,

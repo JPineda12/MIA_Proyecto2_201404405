@@ -6,6 +6,8 @@ import { DatePipe } from '@angular/common'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AgmCoreModule } from '@agm/core';
+
 import { MaterialModule } from './material.module';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -21,6 +23,9 @@ import { CrudproductosComponent } from './components/admin/crudproductos/crudpro
 import { EditProductComponent } from './components/admin/crudproductos/edit-product/edit-product.component';
 import { AddProductComponent } from './components/admin/crudproductos/add-product/add-product.component';
 import { AddCategoriaComponent } from './components/admin/crudproductos/add-categoria/add-categoria.component';
+import { CRUDPerfilesComponent } from './components/admin/crudperfiles/crudperfiles.component';
+import { AddPerfilComponent } from './components/admin/CRUDPerfiles/add-perfil/add-perfil.component';
+import { EditPerfilComponent } from './components/admin/CRUDPerfiles/edit-perfil/edit-perfil.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,13 +43,20 @@ import { AddCategoriaComponent } from './components/admin/crudproductos/add-cate
     EditProductComponent,
     AddProductComponent,
     AddCategoriaComponent,
+    CRUDPerfilesComponent,
+    AddPerfilComponent,
+    EditPerfilComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule, 
-    MaterialModule
+    MaterialModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyD1sC6IYY17ZLNwyt0E4bSDpeR5oE_Dqr0',
+      libraries: ['places']
+    })
   ],
   providers: [ApiService, DatePipe],
   bootstrap: [AppComponent],

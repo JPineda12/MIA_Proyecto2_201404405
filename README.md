@@ -11,7 +11,7 @@
 		- [ ] Enviar mensaje a Elfo (chat)
 	- [ ] Perfil de Elfo (administrador)
 		- [x] CRUD Buenas Acciones 
-		- [ ] CRUD Productos
+		- [X] CRUD Productos
 		- [ ] CRUD Perfiles
 		- [ ] Responder Mensajes (chat) de niños
 		- [ ] Reportes

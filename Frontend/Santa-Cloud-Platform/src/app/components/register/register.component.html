@@ -7,6 +7,7 @@
         <div class="titulo">REGISTRO DE USUARIO</div>
     </mat-card-title>
     <mat-card-content>
+
         <form>
             <p>
                 <mat-form-field>
@@ -16,13 +17,15 @@
 
             <p>
                 <mat-form-field>
-                    <input type="text" matInput placeholder="Nombre del Padre"  maxlength="80" formControlName="padre" id="padre">
+                    <input type="text" matInput placeholder="Nombre del Padre" maxlength="80" formControlName="padre"
+                        id="padre">
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field>
-                    <input type="text" matInput placeholder="Nombre del Hijo" maxlength="80"  formControlName="hijo" id="hijo">
+                    <input type="text" matInput placeholder="Nombre del Hijo" maxlength="80" formControlName="hijo"
+                        id="hijo">
                 </mat-form-field>
             </p>
 
@@ -30,7 +33,8 @@
 
             <p>
                 <mat-form-field>
-                    <input type="text" matInput placeholder="Nickname Hijo" maxlength="50"  formControlName="nickname" id="nickname">
+                    <input type="text" matInput placeholder="Nickname Hijo" maxlength="50" formControlName="nickname"
+                        id="nickname">
                 </mat-form-field>
             </p>
 
@@ -77,25 +81,40 @@
 
             <p>
                 <mat-form-field>
-                    <input type="text" matInput placeholder="Direccion" maxlength="250" formControlName="direccion" id="direccion">
+                    <input type="text" matInput placeholder="Direccion" maxlength="250" formControlName="direccion"
+                        id="direccion">
+                </mat-form-field>
+            </p>
+
+            <button class="buscarbt" type="button" mat-raised-button color="primary"
+                    (click)="buscarDireccion()">Buscar Direccion</button>
+
+            <agm-map [zoom]="17" [latitude]='lat' [longitude]='long'>
+
+                <agm-marker [latitude]="lat" [longitude]="long" 
+                [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
+                </agm-marker>
+
+            </agm-map>
+
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Telefono" maxlength="10" formControlName="telefono"
+                        id="telefono">
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field>
-                    <input type="text" matInput placeholder="Telefono" maxlength="10" formControlName="telefono" id="telefono">
+                    <input type="password" matInput placeholder="Contraseña" maxlength="200" formControlName="password"
+                        id="pass">
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field>
-                    <input type="password" matInput placeholder="Contraseña" maxlength="200" formControlName="password" id="pass">
-                </mat-form-field>
-            </p>
-
-            <p>
-                <mat-form-field>
-                    <input type="number" matInput placeholder="Bastones Maximos" formControlName="bastones" id="bastones">
+                    <input type="number" matInput placeholder="Bastones Maximos" formControlName="bastones"
+                        id="bastones">
                 </mat-form-field>
             </p>
 
@@ -104,7 +123,7 @@
 
 
             <p class="error">
-                
+
             </p>
 
             <div class="button">

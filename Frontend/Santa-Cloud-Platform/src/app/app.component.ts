@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Santa-Cloud-Platform';
+
+  /*center = {lat: 24, lng: 12};
+  zoom = 15;
+  display?: google.maps.LatLngLiteral;*/
+
 }

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
+import { MouseEvent } from '@agm/core';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -19,13 +21,20 @@ export class RegisterComponent implements OnInit {
   selectedValue: string;
   genderValue: string;
   nuevoUsuario: any
+  lat = 14.5873057;
+  long = -90.55555;
   constructor(private router: Router, private apiService: ApiService) { }
 
+  markerDragEnd($event: MouseEvent) {
+    console.log($event);
+    this.lat = $event.coords.lat;
+    this.long = $event.coords.lng;
+  }
   ngOnInit(): void {
     this.getDepartamentos();
   }
 
-  validateRegistro() {
+  async validateRegistro() {
     let email = ((document.getElementById("email") as HTMLInputElement).value);
     let padre = ((document.getElementById("padre") as HTMLInputElement).value);
     let hijo = ((document.getElementById("hijo") as HTMLInputElement).value);
@@ -40,28 +49,38 @@ export class RegisterComponent implements OnInit {
       this.genderValue, this.munValue, this.depValue, direccion)) {
 
       //Crear Padre
-      this.crearUsuario(padre, null, email, this.genderValue, myDate,
+      await this.crearUsuario(padre, null, email, this.genderValue, myDate,
         telefono, null, direccion, null,
         '3', this.obtenerIdMunicipio(), this.depIdValue, pass)
       //Obtener Id del padre recien creado
-        let idPadre = this.obtenerIdPadre(email) 
+      let idPadre = await this.obtenerIdPadre(email)
       //Crear Hijo
-      this.crearUsuario(hijo, nickname, email, this.genderValue, myDate, telefono,
+      await this.crearUsuario(hijo, nickname, email, this.genderValue, myDate, telefono,
         bastones, direccion, idPadre,
         '4', this.obtenerIdMunicipio(), this.depIdValue, pass)
+        swal.fire({
+          icon: 'success',
+          title: 'Registro Completo',
+          text: 'Usuarios creados, puede iniciar sesion con sus credenciales',
+        })
+        this.router.navigate(["/login"]);
+
     }
 
 
   }
 
-  obtenerIdPadre(email: string): string{
+  async obtenerIdPadre(email: string): Promise<string> {
     let padre: any
-    this.apiService.getUserByEmail(email).toPromise().then((res) => {
-      padre = res
-      console.log()
-    });
-    
-    return padre.idUsuario
+    let myId: string = await new Promise((resolve, reject) => {
+      this.apiService.getUserByEmail(email).toPromise().then((res) => {
+        padre = res
+        console.log("DAD", padre)
+        resolve(padre[0].idUsuario)
+      });
+    })
+
+    return myId;
   }
 
   obtenerIdMunicipio(): string {
@@ -73,27 +92,17 @@ export class RegisterComponent implements OnInit {
     return "-1"
   }
 
-  crearUsuario(nombre: string, nickname: string, email: string, genero: string, fecha: string,
+  async crearUsuario(nombre: string, nickname: string, email: string, genero: string, fecha: string,
     telefono: string, bastones: string, direccion: string, idPadre: string, idRol: string,
-    idMunicipio: string, idDepartamento: string, pass: string){
+    idMunicipio: string, idDepartamento: string, pass: string) {
 
-    console.log("nombre: ", nombre)
-    console.log("nick: ", nickname)
-    console.log("email: ", email)
-    console.log("genero: ", genero)
-    console.log("fecha: ", fecha)
-    console.log("telefono: ", telefono)
-    console.log("bastones:", bastones)
-    console.log("direccion: ", direccion)
-    console.log("idPadre: ", idPadre)
-    console.log("idRol: ", idRol)
-    console.log("idMunicipio: ", idMunicipio)
-    console.log("idDepartamento: ", idDepartamento)
+    this.nuevoUsuario = await new Promise(async (resolve, reject) => {
+      (await this.apiService.newUser(nombre, nickname, email, pass, genero, fecha,
+        telefono, "0", direccion, idRol, idMunicipio, idPadre, bastones, "" + this.lat, "" + this.long)).toPromise().then((res) => {
+          resolve(res)
+        })
+    });
 
-    this.apiService.newUser(nombre, nickname, email, pass, genero, fecha,
-      telefono, bastones, direccion, idRol, idMunicipio, idPadre).toPromise().then((res) => {
-        this.nuevoUsuario = res;
-      })
   }
 
 
@@ -106,23 +115,39 @@ export class RegisterComponent implements OnInit {
       direccion.length > 0, municipio.length > 0, departamento.length > 0) {
 
       if (!this.emailIsValid(correo)) {
-        alert("Porfavor ingrese un correo valido");
+        swal.fire({
+          icon: 'error',
+          title: 'Correo Invalido',
+          text: 'Porfavor ingrese un correo valido',
+        })        
         return false
       }
 
       if (nickname.length > 50) {
-        alert("Porfavor ingrese un nickname menor a 50 caracteres");
+        swal.fire({
+          icon: 'error',
+          title: 'Nickname invalido',
+          text: 'Porfavor ingrese un nickname menor a 50 caracteres',
+        })        
         return false
       }
 
-      if (telefono.length > 10){
-        alert("Porfavor ingrese un telefono menor a 10")
+      if (telefono.length > 10) {
+        swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Ingrese un telefono menor a 10 caracteres',
+        })
         return false
       }
 
 
     } else {
-      alert("Porfavor Llene todos los campos");
+      swal.fire({
+        icon: 'error',
+        title: 'Error Faltan campos por llenar',
+        text: 'Complete todos los campos!',
+      })      
       return false
     }
 
@@ -174,5 +199,15 @@ export class RegisterComponent implements OnInit {
 
       err => console.log("Error de conexion DB: ", err)
     );
+  }
+  buscarDireccion() {
+    let direccion = ((document.getElementById("direccion") as HTMLInputElement).value);
+    let ubicacion = direccion + "," + this.munValue + "," + this.depValue
+    let datos: any;
+    this.apiService.getUbicacion(ubicacion).subscribe(res => {
+      datos = res
+      this.lat = datos.results[0].geometry.location.lat
+      this.long = datos.results[0].geometry.location.lng
+    })
   }
 }
