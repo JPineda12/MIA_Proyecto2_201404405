@@ -5,29 +5,13 @@
 
         <!-- OPCIONES PARA USUARIO 'ELFO' (ADMIN) -->
         <button mat-button [routerLink]="'/admin'" *ngIf="this.Usuario.idRol == 1">Home</button>
-        <button mat-button [matMenuTriggerFor]="menu" *ngIf="this.Usuario.idRol == 1">Buenas Acciones</button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item [routerLink]="'/adminacciones'">Create Buenas Acciones</button>
-            <button mat-menu-item>Read Buenas Acciones</button>
-            <button mat-menu-item>Update Buenas Acciones</button>
-            <button mat-menu-item>Delete Buenas Acciones</button>
-        </mat-menu>
+        <button mat-button [routerLink]="'/adminacciones'" *ngIf="this.Usuario.idRol == 1">Buenas Acciones</button>
 
-        <button mat-button [matMenuTriggerFor]="menu1" *ngIf="this.Usuario.idRol == 1">Productos</button>
-        <mat-menu #menu1="matMenu">
-            <button mat-menu-item [routerLink]="'/'">Create Productos</button>
-            <button mat-menu-item>Read Productos</button>
-            <button mat-menu-item>Update Productos</button>
-            <button mat-menu-item>Delete Productos</button>
-        </mat-menu>
 
-        <button mat-button [matMenuTriggerFor]="menu2" *ngIf="this.Usuario.idRol == 1">Perfiles</button>
-        <mat-menu #menu2="matMenu">
-            <button mat-menu-item [routerLink]="'/'">Create Perfiles</button>
-            <button mat-menu-item>Read Perfiles</button>
-            <button mat-menu-item>Update Perfiles</button>
-            <button mat-menu-item>Delete Perfiles</button>
-        </mat-menu>
+        <button mat-button [routerLink]="'/adminproductos'" *ngIf="this.Usuario.idRol == 1">Productos</button>
+
+        <button mat-button [routerLink]="'/admin'" *ngIf="this.Usuario.idRol == 1">Perfiles</button>
+
 
         <button mat-button *ngIf="this.Usuario.idRol == 1">Mensajeria de Elfos</button>
         <button mat-button [matMenuTriggerFor]="menu3" *ngIf="this.Usuario.idRol == 1">Reportes</button>

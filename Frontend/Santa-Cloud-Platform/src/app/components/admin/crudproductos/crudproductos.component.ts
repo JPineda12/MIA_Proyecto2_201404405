@@ -1,30 +1,24 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { AddAccionComponent } from './add-accion/add-accion.component';
-import { EditAccionComponent } from './edit-accion/edit-accion.component';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from '../../../services/api.service';
 import { Router, NavigationEnd } from '@angular/router';
 import swal from 'sweetalert2';
-
-
-
+import { AddProductComponent } from './add-product/add-product.component';
+import { EditProductComponent } from './edit-product/edit-product.component'
 @Component({
-  selector: 'app-crudacciones',
-  templateUrl: './crudacciones.component.html',
-  styleUrls: ['./crudacciones.component.css']
+  selector: 'app-crudproductos',
+  templateUrl: './crudproductos.component.html',
+  styleUrls: ['./crudproductos.component.css']
 })
-export class CRUDAccionesComponent implements OnInit {
+export class CrudproductosComponent implements OnInit {
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  buenasAcciones: any
-
-
-  displayedColumns: string[] = ['Titulo', 'Descripcion', 'Recompensa', 'EdadMinima'];
-
+  productos: any
+  displayedColumns: string[] = ['Nombre', 'Precio', 'EdadMinima', 'Categoria'];
 
 
   constructor(private router: Router, public dialog: MatDialog, private apiService: ApiService) {
@@ -40,54 +34,47 @@ export class CRUDAccionesComponent implements OnInit {
         window.scrollTo(0, 0);
       }
     });
-
   }
-
-
 
   ngOnInit(): void {
-    this.getAcciones()
+    this.getProductos()
   }
 
-  private getAcciones() {
-    this.apiService.getAcciones().toPromise().then((res) => {
-      this.buenasAcciones = res
+  getProductos() {
+    this.apiService.getProductos().toPromise().then((res) => {
+      this.productos = res
     });
   }
 
-  public crearDialog() {
-
-    const dialogRef = this.dialog.open(AddAccionComponent, {
-      width: '250px',
-      data: { name: "", animal: "" }
+  crearDialog() {
+    const dialogRef = this.dialog.open(AddProductComponent, {
+      width: '400px',
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result)
-      this.router.navigate(["/adminacciones"]);
+      this.router.navigate(["/adminproductos"]);
     });
-
   }
 
-
-  private editarRegistro(buenaAccion: any) {
-    const dialogRef = this.dialog.open(EditAccionComponent, {
-      width: '250px',
+  editarRegistro(producto: any) {
+    const dialogRef = this.dialog.open(EditProductComponent, {
+      width: '400px',
       data: {
-        idAccion: buenaAccion.id, titulo: buenaAccion.titulo,
-        descripcion: buenaAccion.descripcion,
-        recompensa: buenaAccion.recompensa,
-        edad: buenaAccion.minEdad
+        idProducto: producto.id, nombre: producto.nombre,
+        precio: producto.precio,
+        edad: producto.minEdad, 
+        categoria: producto.categoria
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate(["/adminacciones"]);
+      this.router.navigate(["/adminproductos"]);
     });
-
   }
-  private borrarRegistro(buenaAccion: any) {
 
+  borrarRegistro(producto: any) {
     swal.fire({
       title: 'Desea Borrar este registro?',
       showDenyButton: false,
@@ -95,19 +82,17 @@ export class CRUDAccionesComponent implements OnInit {
       confirmButtonText: `Borrar`,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.apiService.deleteAccion(buenaAccion.id).toPromise().then((res) => {
+        this.apiService.deleteProducto(producto.id).toPromise().then((res) => {
 
           swal.fire({
             icon: 'success',
             title: 'Registro Eliminado!',
             text: 'Se Elimino un registro satisfactoriamente!',
           })
-          this.router.navigate(["/adminacciones"]);
+          this.router.navigate(["/adminproductos"]);
         });
       }
     })
-
-
-
   }
+
 }

@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Crear Producto</h1>
+<div mat-dialog-content>
+    <div class="fields">
+        <mat-form-field>
+            <input type="text" matInput placeholder="Nombre Producto" formControlName="nombre" id="nombre">
+        </mat-form-field>
+        <mat-form-field>
+            <input type="number" matInput placeholder="Precio" formControlName="precio" id="precio">
+        </mat-form-field>
+        <mat-form-field>
+            <input type="number" matInput placeholder="Edad Recomendada" formControlName="edad" id="edad">
+        </mat-form-field>
+    </div>
+    <div class="uploadFile" >
+        <mat-file-upload [labelText]="''" [selectButtonText]="selectText" [uploadButtonText]="'Subir'"
+            [showUploadButton]="showButton" [acceptedTypes]="'.png, .jpg, .jpeg'"
+            (uploadClicked) = "uploadAction($event)">
+
+        </mat-file-upload>
+    </div>
+    <mat-form-field>
+        <mat-label>Categoria</mat-label>
+        <mat-select name="Categoria" [(value)]="catValue">
+            <mat-option [value]="cat.categoria" *ngFor="let cat of Categorias">
+                {{cat.categoria}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button class="mat-raised-button" color="warn" (click)="save()">Insertar</button>
+    <button mat-button class="mat-raised-button" color="warn" (click)="close()">Cancelar</button>
+</div>

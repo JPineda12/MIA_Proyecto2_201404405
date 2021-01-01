@@ -23,23 +23,23 @@ export class ApiService {
     return this.http.get(`${this.API_URI}/api/roles`);
   }
 
-  getDepartamentos(){
+  getDepartamentos() {
     return this.http.get(`${this.API_URI}/api/departamentos`);
   }
 
-  getMunicipios(idDepartamento: string){
+  getMunicipios(idDepartamento: string) {
     return this.http.get(`${this.API_URI}/api/municipios/${idDepartamento}`);
   }
 
-  getUsersById(id: string){
+  getUsersById(id: string) {
     return this.http.get(`${this.API_URI}/api/users/${id}`);
   }
 
-  getUserByEmail(correo: string){
+  getUserByEmail(correo: string) {
     return this.http.get(`${this.API_URI}/api/users/${correo}`);
   }
 
-  getHijos(idPadre: string){
+  getHijos(idPadre: string) {
     return this.http.get(`${this.API_URI}/api/getHijos/${idPadre}`);
   }
 
@@ -49,7 +49,7 @@ export class ApiService {
   }
 
   newUser(nombre: string, nickname: string, email: string, pass: string,
-    gender: string, fecha: string, tel: string, bastones: string, direccion: string, 
+    gender: string, fecha: string, tel: string, bastones: string, direccion: string,
     idRol: string, idMunicipio: String, idPadre: String) {
     return this.http.post(`${this.API_URI}/api/users/`,
       {
@@ -68,15 +68,15 @@ export class ApiService {
       }, { headers: this.headers }).pipe(map(data => data));
   }
 
-  getAcciones(){
+  getAcciones() {
     return this.http.get(`${this.API_URI}/api/goodActions`);
   }
 
-  getAccionesById(id: string){
+  getAccionesById(id: string) {
     return this.http.get(`${this.API_URI}/api/goodActions/${id}`);
   }
 
-  insertarAccion(titulo: string, descripcion: string, recompensa: string, minEdad: string){
+  insertarAccion(titulo: string, descripcion: string, recompensa: string, minEdad: string) {
     return this.http.post(`${this.API_URI}/api/goodActions/`,
       {
         "titulo": titulo,
@@ -86,20 +86,90 @@ export class ApiService {
       }, { headers: this.headers }).pipe(map(data => data));
   }
 
-  updateAccion(titulo: string, descripcion: string, recompensa: string, edadMinima: string, idAccion: string){
+  updateAccion(titulo: string, descripcion: string, recompensa: string, edadMinima: string, idAccion: string) {
 
     return this.http.put(`${this.API_URI}/api/goodActions/`,
-    {
-      "titulo": titulo,
-      "descripcion": descripcion,
-      "recompensa": recompensa,
-      "edadMinima": edadMinima,
-      "idAccion": idAccion
-    }, { headers: this.headers }).pipe(map(data => data));
+      {
+        "titulo": titulo,
+        "descripcion": descripcion,
+        "recompensa": recompensa,
+        "edadMinima": edadMinima,
+        "idAccion": idAccion
+      }, { headers: this.headers }).pipe(map(data => data));
   }
 
-  deleteAccion(idAccion: string){
-    return this.http.delete(`${this.API_URI}/api/goodActions/${idAccion}`);
+  deleteAccion(idAccion: string) {
+    return this.http.put(`${this.API_URI}/api/deleteGoodAction/`,
+      {
+        "idAccion": idAccion,
+      }, { headers: this.headers }).pipe(map(data => data));
   }
 
+
+  getProductos() {
+    return this.http.get(`${this.API_URI}/api/products`);
+  }
+
+  getProductosById(idProducto: string) {
+    return this.http.get(`${this.API_URI}/api/products/${idProducto}`);
+  }
+
+  insertProducto(nombre: string, precio: string, edadMinima: string, idCategoria: string) {
+    return this.http.post(`${this.API_URI}/api/products/`,
+      {
+        "nombre": nombre,
+        "precio": precio,
+        "edadMinima": edadMinima,
+        "idCategoria": idCategoria
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  updateProducto(idProducto: string, nombre: string, precio: string, edadMinima: string, idCategoria: string) {
+    return this.http.put(`${this.API_URI}/api/products/`,
+      {
+        "idProducto": idProducto,
+        "nombre": nombre,
+        "precio": precio,
+        "edadMinima": edadMinima,
+        "idCategoria": idCategoria
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  deleteProducto(idProducto: string) {
+    return this.http.put(`${this.API_URI}/api/deleteProduct/`,
+      {
+        "idProducto": idProducto,
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  getCategorias() {
+    return this.http.get(`${this.API_URI}/api/categories`);
+  }
+
+  createCategoria(categoria: string) {
+    return this.http.post(`${this.API_URI}/api/categories/`,
+      {
+        "categoria": categoria
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  updateCategoria(categoria: string, idCategoria: string) {
+    return this.http.put(`${this.API_URI}/api/categories/`,
+      {
+        "idCategoria": idCategoria,
+        "categoria": categoria
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  deleteCategoria(idCategoria: string) {
+    return this.http.put(`${this.API_URI}/api/deletecategory/`,
+      {
+        "idCategoria": idCategoria,
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  uploadImage(archivo: any) {
+    return this.http.post(`${this.API_URI}/api/uploadImage/`, archivo)
+
+  }
 }

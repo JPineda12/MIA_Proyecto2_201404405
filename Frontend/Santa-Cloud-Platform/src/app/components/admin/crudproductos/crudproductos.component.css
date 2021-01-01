@@ -1,0 +1,29 @@
+.mat-display-2{
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.container {
+    height: 70%;
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+    background-color: seagreen;
+}
+
+tr.mat-footer-row {
+    font-weight: bold;
+}
+
+.mat-table-sticky {
+    border-top: 1px solid #e0e0e0;
+}
+
+.button{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}

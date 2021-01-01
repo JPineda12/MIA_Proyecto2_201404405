@@ -17,6 +17,9 @@ import { PadreComponent } from './components/home/padre/padre.component';
 import { CRUDAccionesComponent } from './components/admin/crudacciones/crudacciones.component';
 import { AddAccionComponent } from './components/admin/crudacciones/add-accion/add-accion.component';
 import { EditAccionComponent } from './components/admin/crudacciones/edit-accion/edit-accion.component';
+import { CrudproductosComponent } from './components/admin/crudproductos/crudproductos.component';
+import { EditProductComponent } from './components/admin/crudproductos/edit-product/edit-product.component';
+import { AddProductComponent } from './components/admin/crudproductos/add-product/add-product.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +33,9 @@ import { EditAccionComponent } from './components/admin/crudacciones/edit-accion
     CRUDAccionesComponent,
     AddAccionComponent,
     EditAccionComponent,
+    CrudproductosComponent,
+    EditProductComponent,
+    AddProductComponent,
   ],
   imports: [
     BrowserModule,

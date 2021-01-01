@@ -1,12 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from '../../../../services/api.service';
 import swal from 'sweetalert2';
 
 
 export interface DialogData {
-  animal: string;
-  name: string;
+
 }
 
 

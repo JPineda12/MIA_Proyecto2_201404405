@@ -35,6 +35,7 @@ export class AdminComponent implements OnInit {
         title: 'Productos',
         text: 'CRUD Productos',
       })
+      this.router.navigate(["/adminproductos"]);
     }else if (opcion == 2) {
       swal.fire({
         icon: 'info',
