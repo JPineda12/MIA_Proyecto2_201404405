@@ -38,21 +38,37 @@ export class AddProductComponent {
   }
 
   save() {
+    if (!this.imagen) {
+      swal.fire({
+        title: 'No ha subido imagen del producto!',
+        text: '¿Desea insertar un producto sin imagen?',
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: `Aceptar`,
+        cancelButtonText: 'Regresar'
+      }).then((result) => {
+        this.insertarProducto("http://localhost:3020/sinimagen.jpg")
+      })
+    } else {
+      this.insertarProducto(this.imagen.Message)
+    }
+  }
+
+  insertarProducto(imagen_url: string) {
     let nombre = ((document.getElementById("nombre") as HTMLInputElement).value);
     let precio = ((document.getElementById("precio") as HTMLInputElement).value);
     let edad = ((document.getElementById("edad") as HTMLInputElement).value);
     let categoriaID = this.getCategoriaId()
-    this.apiService.insertProducto(nombre, precio, edad, categoriaID).toPromise().then((res) => {
+    this.apiService.insertProducto(nombre, precio, edad, categoriaID, imagen_url).toPromise().then((res) => {
       this.producto = res;
       if (this.producto.nombre != "") {
         swal.fire({
           icon: 'success',
           title: 'Nuevo registro insertado!',
-          text: 'Se inserto una nueva buena accion',
+          text: 'Se inserto un nuevo Producto',
         })
       }
     });
-
     this.dialogRef.close();
   }
 
@@ -60,9 +76,9 @@ export class AddProductComponent {
     this.dialogRef.close();
   }
 
-  getCategoriaId(): string{
-    for(let i = 0; i < this.Categorias.length; i){
-      if(this.Categorias[i].categoria == this.catValue){
+  getCategoriaId(): string {
+    for (let i = 0; i < this.Categorias.length; i) {
+      if (this.Categorias[i].categoria == this.catValue) {
         return this.Categorias[i].id
       }
     }
@@ -70,9 +86,9 @@ export class AddProductComponent {
   }
 
   uploadAction(files: any) {
-    console.log(files.item(0))
     let data = new FormData();
-    this.apiService.uploadProductImage(data).toPromise().then(res => {
+    data.append('file', files.item(0));
+    this.apiService.uploadImage(data).toPromise().then(res => {
       this.imagen = res;
       this.selectText = "Imagen Subida: ";
       this.showButton = false;

@@ -3,8 +3,13 @@
 }
 
 .btnInsertar{
-    margin-right: 10px;
+    margin-right: 20px;
 }
+
+.btnCancelar{
+    margin-left: 20px;
+}
+
 
 #uploadFile {
     align-items: left;

@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Crear Producto</h1>
+<div mat-dialog-content>
+    <div class="fields">
+        <mat-form-field>
+            <input type="text" matInput placeholder="Nombre Categoria" formControlName="nombre" id="nombre">
+        </mat-form-field>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button class="mat-raised-button" color="warn" (click)="save()">Insertar</button>
+    <button mat-button class="mat-raised-button" color="warn" (click)="close()">Cancelar</button>
+</div>

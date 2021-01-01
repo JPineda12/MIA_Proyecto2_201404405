@@ -7,6 +7,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import swal from 'sweetalert2';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component'
+import { AddCategoriaComponent} from './add-categoria/add-categoria.component'
 @Component({
   selector: 'app-crudproductos',
   templateUrl: './crudproductos.component.html',
@@ -18,7 +19,7 @@ export class CrudproductosComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   productos: any
-  displayedColumns: string[] = ['Nombre', 'Precio', 'EdadMinima', 'Categoria'];
+  displayedColumns: string[] = ['Nombre', 'Precio', 'EdadMinima', 'Categoria', 'Imagen'];
 
 
   constructor(private router: Router, public dialog: MatDialog, private apiService: ApiService) {
@@ -58,14 +59,27 @@ export class CrudproductosComponent implements OnInit {
     });
   }
 
+  crearCategoria(){
+    const dialogRef = this.dialog.open(AddCategoriaComponent, {
+      width: '400px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigate(["/adminproductos"]);
+    });
+  }
+
   editarRegistro(producto: any) {
+    console.log(producto)
     const dialogRef = this.dialog.open(EditProductComponent, {
       width: '400px',
       data: {
         idProducto: producto.id, nombre: producto.nombre,
         precio: producto.precio,
         edad: producto.minEdad, 
-        categoria: producto.categoria
+        categoria: producto.categoria,
+        imagen: producto.image_url
       }
     });
 

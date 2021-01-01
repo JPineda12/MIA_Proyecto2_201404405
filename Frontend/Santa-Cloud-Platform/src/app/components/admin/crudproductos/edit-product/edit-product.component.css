@@ -1,0 +1,21 @@
+.mat-form-field {
+    display: block;
+}
+
+.btnInsertar{
+    margin-right: 10px;
+}
+
+#uploadFile {
+    align-items: left;
+    margin-left: 100px;
+}
+.imagen1{
+    align-items: center;
+}
+
+.imagen{
+    margin-left: 50px;
+    height: 150px;
+    width: 150px
+}

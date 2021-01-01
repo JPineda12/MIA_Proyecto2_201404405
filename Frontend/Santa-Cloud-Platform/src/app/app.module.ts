@@ -20,6 +20,7 @@ import { EditAccionComponent } from './components/admin/crudacciones/edit-accion
 import { CrudproductosComponent } from './components/admin/crudproductos/crudproductos.component';
 import { EditProductComponent } from './components/admin/crudproductos/edit-product/edit-product.component';
 import { AddProductComponent } from './components/admin/crudproductos/add-product/add-product.component';
+import { AddCategoriaComponent } from './components/admin/crudproductos/add-categoria/add-categoria.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { AddProductComponent } from './components/admin/crudproductos/add-produc
     CrudproductosComponent,
     EditProductComponent,
     AddProductComponent,
+    AddCategoriaComponent,
   ],
   imports: [
     BrowserModule,

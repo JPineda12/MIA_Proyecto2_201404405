@@ -114,24 +114,26 @@ export class ApiService {
     return this.http.get(`${this.API_URI}/api/products/${idProducto}`);
   }
 
-  insertProducto(nombre: string, precio: string, edadMinima: string, idCategoria: string) {
+  insertProducto(nombre: string, precio: string, edadMinima: string, idCategoria: string, urlimagen: string) {
     return this.http.post(`${this.API_URI}/api/products/`,
       {
         "nombre": nombre,
         "precio": precio,
         "edadMinima": edadMinima,
-        "idCategoria": idCategoria
+        "idCategoria": idCategoria,
+        "urlimagen": urlimagen
       }, { headers: this.headers }).pipe(map(data => data));
   }
 
-  updateProducto(idProducto: string, nombre: string, precio: string, edadMinima: string, idCategoria: string) {
+  updateProducto(idProducto: string, nombre: string, precio: string, edadMinima: string, idCategoria: string, image_url: string) {
     return this.http.put(`${this.API_URI}/api/products/`,
       {
         "idProducto": idProducto,
         "nombre": nombre,
         "precio": precio,
         "edadMinima": edadMinima,
-        "idCategoria": idCategoria
+        "idCategoria": idCategoria,
+        "image_url": image_url,
       }, { headers: this.headers }).pipe(map(data => data));
   }
 
@@ -170,6 +172,5 @@ export class ApiService {
 
   uploadImage(archivo: any) {
     return this.http.post(`${this.API_URI}/api/uploadImage/`, archivo)
-
   }
 }
