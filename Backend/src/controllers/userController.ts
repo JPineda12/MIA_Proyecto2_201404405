@@ -12,6 +12,7 @@ class UserController {
             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
             + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
             + "  AND ESTADO = 0"
+            + " ORDER BY idUsuario";
 
         const result = await database.Open(sql, [], false);
         let Users: any = [];

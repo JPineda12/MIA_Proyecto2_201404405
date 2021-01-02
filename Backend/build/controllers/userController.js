@@ -58,7 +58,8 @@ var UserController = /** @class */ (function () {
                             + " WHERE r.IDROL = USUARIO_IDROL "
                             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
                             + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
-                            + "  AND ESTADO = 0";
+                            + "  AND ESTADO = 0"
+                            + " ORDER BY idUsuario";
                         return [4 /*yield*/, database_1.default.Open(sql, [], false)];
                     case 1:
                         result = _a.sent();
