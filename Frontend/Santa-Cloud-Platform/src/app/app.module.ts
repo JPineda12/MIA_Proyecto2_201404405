@@ -24,8 +24,8 @@ import { EditProductComponent } from './components/admin/crudproductos/edit-prod
 import { AddProductComponent } from './components/admin/crudproductos/add-product/add-product.component';
 import { AddCategoriaComponent } from './components/admin/crudproductos/add-categoria/add-categoria.component';
 import { CRUDPerfilesComponent } from './components/admin/crudperfiles/crudperfiles.component';
-import { AddPerfilComponent } from './components/admin/CRUDPerfiles/add-perfil/add-perfil.component';
-import { EditPerfilComponent } from './components/admin/CRUDPerfiles/edit-perfil/edit-perfil.component';
+import { EditperfilComponent } from './components/admin/crudperfiles/editperfil/editperfil.component';
+import { AddperfilComponent } from './components/admin/crudperfiles/addperfil/addperfil.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,8 +44,8 @@ import { EditPerfilComponent } from './components/admin/CRUDPerfiles/edit-perfil
     AddProductComponent,
     AddCategoriaComponent,
     CRUDPerfilesComponent,
-    AddPerfilComponent,
-    EditPerfilComponent,
+    EditperfilComponent,
+    AddperfilComponent
   ],
   imports: [
     BrowserModule,

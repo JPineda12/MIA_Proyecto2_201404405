@@ -5,7 +5,12 @@ import swal from 'sweetalert2';
 
 
 export interface DialogData {
-
+  nombre: string
+  precio: number,
+  minEdad: number,
+  image_url: any,
+  categoria: string,
+  idProducto: string
 }
 
 
@@ -55,11 +60,13 @@ export class AddProductComponent {
   }
 
   insertarProducto(imagen_url: string) {
-    let nombre = ((document.getElementById("nombre") as HTMLInputElement).value);
-    let precio = ((document.getElementById("precio") as HTMLInputElement).value);
-    let edad = ((document.getElementById("edad") as HTMLInputElement).value);
+    this.data.nombre = ((document.getElementById("nombre") as HTMLInputElement).value);
+    this.data.precio = +((document.getElementById("precio") as HTMLInputElement).value);
+    this.data.minEdad = +((document.getElementById("edad") as HTMLInputElement).value);
     let categoriaID = this.getCategoriaId()
-    this.apiService.insertProducto(nombre, precio, edad, categoriaID, imagen_url).toPromise().then((res) => {
+    this.data.categoria = this.catValue
+    this.apiService.insertProducto(this.data.nombre, ""+this.data.precio, ""+this.data.minEdad, 
+    categoriaID, this.data.image_url).toPromise().then((res) => {
       this.producto = res;
       if (this.producto.nombre != "") {
         swal.fire({
@@ -69,11 +76,11 @@ export class AddProductComponent {
         })
       }
     });
-    this.dialogRef.close();
+    this.dialogRef.close(this.data);
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   getCategoriaId(): string {
@@ -92,6 +99,7 @@ export class AddProductComponent {
       this.imagen = res;
       this.selectText = "Imagen Subida: ";
       this.showButton = false;
+      this.data.image_url = this.imagen.Message;
     }, error => console.log(error)
     )
   }

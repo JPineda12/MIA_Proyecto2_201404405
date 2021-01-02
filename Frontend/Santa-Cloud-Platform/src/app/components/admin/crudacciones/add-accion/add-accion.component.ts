@@ -4,10 +4,13 @@ import { ApiService } from '../../../../services/api.service';
 import swal from 'sweetalert2';
 
 
-export interface DialogData {
-
+export interface AccionData {
+  idAccion: string
+  titulo: string;
+  descripcion: string;
+  recompensa: number;
+  minEdad: number
 }
-
 
 @Component({
   selector: 'app-add-accion',
@@ -19,7 +22,7 @@ export class AddAccionComponent {
 
 
   constructor(public dialogRef: MatDialogRef<AddAccionComponent>
-    , @Inject(MAT_DIALOG_DATA) public data: DialogData, private apiService: ApiService) { }
+    , @Inject(MAT_DIALOG_DATA) public data: AccionData, private apiService: ApiService) { }
 
   buenaAccion: any;
 
@@ -27,12 +30,13 @@ export class AddAccionComponent {
   }
 
   save() {
-    let titulo = ((document.getElementById("title") as HTMLInputElement).value);
-    let descripcion = ((document.getElementById("descripcion") as HTMLInputElement).value);
-    let recompensa = ((document.getElementById("recompensa") as HTMLInputElement).value);
-    let edad = ((document.getElementById("edad") as HTMLInputElement).value);
+    this.data.titulo = ((document.getElementById("title") as HTMLInputElement).value);
+    this.data.descripcion = ((document.getElementById("descripcion") as HTMLInputElement).value);
+    this.data.recompensa = +((document.getElementById("recompensa") as HTMLInputElement).value);
+    this.data.minEdad = +((document.getElementById("edad") as HTMLInputElement).value);
 
-    this.apiService.insertarAccion(titulo, descripcion, recompensa, edad).toPromise().then((res) => {
+    this.apiService.insertarAccion(this.data.titulo, this.data.descripcion, 
+      ""+this.data.recompensa, ""+this.data.minEdad).toPromise().then((res) => {
       this.buenaAccion = res;
       if (this.buenaAccion.titulo != "") {
         swal.fire({
@@ -42,12 +46,11 @@ export class AddAccionComponent {
         })
       }
     });
-
-    this.dialogRef.close();
+    this.dialogRef.close(this.data);
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
 }

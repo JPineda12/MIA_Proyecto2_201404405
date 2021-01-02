@@ -1,5 +1,16 @@
-.mat-display-2{
-    margin-bottom: 25px;
+
+h1 {
+    font-size: 45px;
+    font-family: Bebas, arial, sans;
+    color: #fff;
+}
+
+.shadow {
+    text-shadow: #AAA 1px 0px 2px, #222 1px 1.23px 2px, #AAA 2px 1.23px 2px, #222 2px 2.46px 2px, rgba(33, 36, 39, 0.109804) 4px 0px 3px, rgba(33, 36, 39, 0.0980392) 3.184px 1.23px 3px, rgba(33, 36, 39, 0.0941176) 2.368px 2.46px 3px, rgba(33, 36, 39, 0.0823529) 1.552px 3.69px 3px, rgba(33, 36, 39, 0.0784314) 0.736px 4.92px 3px, rgba(33, 36, 39, 0.0745098) -0.08000000000000007px 6.15px 3px, rgba(33, 36, 39, 0.0666667) -0.8959999999999999px 7.38px 3px, rgba(33, 36, 39, 0.0627451) -1.712px 8.61px 3px, rgba(33, 36, 39, 0.0588235) -2.528px 9.84px 3px, rgba(33, 36, 39, 0.054902) -3.3440000000000003px 11.07px 3px, rgba(33, 36, 39, 0.0470588) -4.16px 12.3px 3px, rgba(33, 36, 39, 0.0431373) -4.976px 13.530000000000001px 3px, rgba(33, 36, 39, 0.0392157) -5.792px 14.76px 3px, rgba(33, 36, 39, 0.0313726) -6.6080000000000005px 15.99px 3px, rgba(33, 36, 39, 0.027451) -7.4239999999999995px 17.22px 3px, rgba(33, 36, 39, 0.0235294) -8.24px 18.45px 3px;
+}
+
+.mat-display-2 {
+    margin-top: 30px;
     text-align: center;
 }
 
@@ -21,20 +32,20 @@ tr.mat-footer-row {
     border-top: 1px solid #e0e0e0;
 }
 
-.button{
+.button {
     margin-top: 10px;
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
 }
 
-.imagen{
+.imagen {
     margin-left: auto;
     margin-right: auto;
     width: 150px;
     height: 150px;
 }
 
-.categoriabt{
+.categoriabt {
     margin-left: 10px;
 }

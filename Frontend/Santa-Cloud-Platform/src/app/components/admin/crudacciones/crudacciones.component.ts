@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { AddAccionComponent } from './add-accion/add-accion.component';
 import { EditAccionComponent } from './edit-accion/edit-accion.component';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from '../../../services/api.service';
-import { Router, NavigationEnd } from '@angular/router';
 import swal from 'sweetalert2';
 
 
@@ -27,19 +26,7 @@ export class CRUDAccionesComponent implements OnInit {
 
 
 
-  constructor(private router: Router, public dialog: MatDialog, private apiService: ApiService) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    }
-
-    this.router.events.subscribe((evt) => {
-      if (evt instanceof NavigationEnd) {
-        // trick the Router into believing it's last link wasn't previously loaded
-        this.router.navigated = false;
-        // if you need to scroll back to top, here is the right place
-        window.scrollTo(0, 0);
-      }
-    });
+  constructor(public dialog: MatDialog, private apiService: ApiService) {
 
   }
 
@@ -59,35 +46,55 @@ export class CRUDAccionesComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AddAccionComponent, {
       width: '250px',
-      data: { name: "", animal: "" }
+      disableClose: true,
+      data: {
+        data: {
+          idAccion: "", titulo: "",
+          descripcion: "",
+          recompensa: "",
+          minEdad: ""
+        }
+      }
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result)
-      this.router.navigate(["/adminacciones"]);
+      if (result != false) {
+        this.buenasAcciones.push(result)
+        this.table.renderRows();
+      }
     });
 
   }
 
 
   private editarRegistro(buenaAccion: any) {
+    console.log(buenaAccion)
     const dialogRef = this.dialog.open(EditAccionComponent, {
       width: '250px',
+      disableClose: true,
       data: {
         idAccion: buenaAccion.id, titulo: buenaAccion.titulo,
         descripcion: buenaAccion.descripcion,
         recompensa: buenaAccion.recompensa,
-        edad: buenaAccion.minEdad
+        minEdad: buenaAccion.minEdad
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate(["/adminacciones"]);
+      if (result != false) {
+        var index = this.buenasAcciones.indexOf(buenaAccion);
+
+        if (~index) {
+          this.buenasAcciones[index] = result;
+        }
+        this.table.renderRows();
+      }
     });
 
   }
   private borrarRegistro(buenaAccion: any) {
-
     swal.fire({
       title: 'Desea Borrar este registro?',
       showDenyButton: false,
@@ -96,18 +103,15 @@ export class CRUDAccionesComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.apiService.deleteAccion(buenaAccion.id).toPromise().then((res) => {
-
+          this.buenasAcciones.splice(this.buenasAcciones.indexOf(buenaAccion), 1);
+          this.table.renderRows();
           swal.fire({
             icon: 'success',
             title: 'Registro Eliminado!',
             text: 'Se Elimino un registro satisfactoriamente!',
           })
-          this.router.navigate(["/adminacciones"]);
         });
       }
     })
-
-
-
   }
 }

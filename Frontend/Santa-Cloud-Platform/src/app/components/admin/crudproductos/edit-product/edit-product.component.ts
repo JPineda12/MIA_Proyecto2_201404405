@@ -6,8 +6,8 @@ import swal from 'sweetalert2';
 export interface DialogData {
   nombre: string
   precio: number,
-  edad: number,
-  imagen: any,
+  minEdad: number,
+  image_url: any,
   categoria: string,
   idProducto: string
 }
@@ -38,8 +38,7 @@ export class EditProductComponent {
     this.getCategorias();
     ((document.getElementById("nombre") as HTMLInputElement).value) = this.data.nombre;
     ((document.getElementById("precio") as HTMLInputElement).value) = "" + this.data.precio;
-    ((document.getElementById("edad") as HTMLInputElement).value) = "" + this.data.edad;
-    console.log(this.data.imagen)
+    ((document.getElementById("edad") as HTMLInputElement).value) = "" + this.data.minEdad;
     this.catValue = this.data.categoria;
   }
 
@@ -56,11 +55,13 @@ export class EditProductComponent {
   }
 
   editarProducto() {
-    let nombre = ((document.getElementById("nombre") as HTMLInputElement).value);
-    let precio = ((document.getElementById("precio") as HTMLInputElement).value);
-    let edad = ((document.getElementById("edad") as HTMLInputElement).value);
+    this.data.nombre = ((document.getElementById("nombre") as HTMLInputElement).value);
+    this.data.precio = +((document.getElementById("precio") as HTMLInputElement).value);
+    this.data.minEdad = +((document.getElementById("edad") as HTMLInputElement).value);
+    this.data.categoria = this.catValue
     let categoriaID = this.getCategoriaId()
-    this.apiService.updateProducto(this.data.idProducto, nombre, precio, edad, categoriaID, this.data.imagen).toPromise().then((res) => {
+    this.apiService.updateProducto(this.data.idProducto, this.data.nombre, ""+this.data.precio, 
+    ""+this.data.minEdad, categoriaID, this.data.image_url).toPromise().then((res) => {
       this.producto = res;
       if (this.producto.nombre != "") {
         swal.fire({
@@ -70,16 +71,17 @@ export class EditProductComponent {
         })
       }
     });
-    this.dialogRef.close();
+    this.dialogRef.close(this.data);
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
 
   }
 
 
   getCategoriaId(): string {
+    console.log(this.Categorias)
     for (let i = 0; i < this.Categorias.length; i) {
       if (this.Categorias[i].categoria == this.catValue) {
         return this.Categorias[i].id
@@ -95,7 +97,7 @@ export class EditProductComponent {
       this.imagen = res;
       this.selectText = "Imagen Subida: ";
       this.showButton = false;
-      this.data.imagen = this.imagen.Message;
+      this.data.image_url= this.imagen.Message;
     }, error => console.log(error)
     )
   }

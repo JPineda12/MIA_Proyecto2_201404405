@@ -10,7 +10,7 @@
 
         <button mat-button [routerLink]="'/adminproductos'" *ngIf="this.Usuario.idRol == 1">Productos</button>
 
-        <button mat-button [routerLink]="'/admin'" *ngIf="this.Usuario.idRol == 1">Perfiles</button>
+        <button mat-button [routerLink]="'/adminperfiles'" *ngIf="this.Usuario.idRol == 1">Perfiles</button>
 
 
         <button mat-button *ngIf="this.Usuario.idRol == 1">Mensajeria de Elfos</button>

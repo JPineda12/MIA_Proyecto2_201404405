@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog,} from '@angular/material/dialog';
 import { ApiService } from '../../../services/api.service';
-import { Router, NavigationEnd } from '@angular/router';
 import swal from 'sweetalert2';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component'
-import { AddCategoriaComponent} from './add-categoria/add-categoria.component'
+import { AddCategoriaComponent } from './add-categoria/add-categoria.component'
 @Component({
   selector: 'app-crudproductos',
   templateUrl: './crudproductos.component.html',
@@ -22,19 +21,7 @@ export class CrudproductosComponent implements OnInit {
   displayedColumns: string[] = ['Nombre', 'Precio', 'EdadMinima', 'Categoria', 'Imagen'];
 
 
-  constructor(private router: Router, public dialog: MatDialog, private apiService: ApiService) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    }
-
-    this.router.events.subscribe((evt) => {
-      if (evt instanceof NavigationEnd) {
-        // trick the Router into believing it's last link wasn't previously loaded
-        this.router.navigated = false;
-        // if you need to scroll back to top, here is the right place
-        window.scrollTo(0, 0);
-      }
-    });
+  constructor(public dialog: MatDialog, private apiService: ApiService) {
   }
 
   ngOnInit(): void {
@@ -50,23 +37,26 @@ export class CrudproductosComponent implements OnInit {
   crearDialog() {
     const dialogRef = this.dialog.open(AddProductComponent, {
       width: '400px',
-      data: {}
+      disableClose: true,
+      data: { nombre: "", precio: 0, minEdad: 0, image_url: null, categoria: null, idProducto: null }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
-      this.router.navigate(["/adminproductos"]);
+      if (result != false) {
+        this.productos.push(result)
+        this.table.renderRows();
+      }
     });
   }
 
-  crearCategoria(){
+  crearCategoria() {
     const dialogRef = this.dialog.open(AddCategoriaComponent, {
       width: '400px',
+      disableClose: true,
       data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate(["/adminproductos"]);
     });
   }
 
@@ -74,17 +64,26 @@ export class CrudproductosComponent implements OnInit {
     console.log(producto)
     const dialogRef = this.dialog.open(EditProductComponent, {
       width: '400px',
+      disableClose: true,
       data: {
         idProducto: producto.id, nombre: producto.nombre,
         precio: producto.precio,
-        edad: producto.minEdad, 
+        minEdad: producto.minEdad,
         categoria: producto.categoria,
-        imagen: producto.image_url
+        image_url: producto.image_url
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate(["/adminproductos"]);
+      if (result != false) {
+        var index = this.productos.indexOf(producto);
+
+        if (~index) {
+          this.productos[index] = result;
+        }
+        this.table.renderRows();
+
+      }
     });
   }
 
@@ -97,13 +96,13 @@ export class CrudproductosComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.apiService.deleteProducto(producto.id).toPromise().then((res) => {
-
           swal.fire({
             icon: 'success',
             title: 'Registro Eliminado!',
             text: 'Se Elimino un registro satisfactoriamente!',
           })
-          this.router.navigate(["/adminproductos"]);
+          this.productos.splice(this.productos.indexOf(producto), 1);
+          this.table.renderRows();
         });
       }
     })

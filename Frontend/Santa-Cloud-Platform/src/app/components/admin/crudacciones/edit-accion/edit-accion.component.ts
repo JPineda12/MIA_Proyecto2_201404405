@@ -9,7 +9,7 @@ export interface AccionData {
   titulo: string;
   descripcion: string;
   recompensa: number;
-  edad: number
+  minEdad: number
 }
 
 
@@ -19,7 +19,7 @@ export interface AccionData {
   templateUrl: './edit-accion.component.html',
   styleUrls: ['./edit-accion.component.css']
 })
-export class EditAccionComponent{
+export class EditAccionComponent {
 
   constructor(public dialogRef: MatDialogRef<EditAccionComponent>
     , @Inject(MAT_DIALOG_DATA) public data: AccionData, private apiService: ApiService) { }
@@ -27,29 +27,29 @@ export class EditAccionComponent{
   ngOnInit(): void {
     ((document.getElementById("title") as HTMLInputElement).value) = this.data.titulo;
     ((document.getElementById("descripcion") as HTMLInputElement).value) = this.data.descripcion;
-    ((document.getElementById("recompensa") as HTMLInputElement).value) = ""+this.data.recompensa;
-    ((document.getElementById("edad") as HTMLInputElement).value) = ""+this.data.edad;
-    console.log(this.data)
+    ((document.getElementById("recompensa") as HTMLInputElement).value) = "" + this.data.recompensa;
+    ((document.getElementById("edad") as HTMLInputElement).value) = "" + this.data.minEdad;
   }
 
   save() {
-    let titulo = ((document.getElementById("title") as HTMLInputElement).value);
-    let descripcion = ((document.getElementById("descripcion") as HTMLInputElement).value);
-    let recompensa = ((document.getElementById("recompensa") as HTMLInputElement).value);
-    let edad = ((document.getElementById("edad") as HTMLInputElement).value);
-    this.apiService.updateAccion(titulo, descripcion, recompensa, edad, this.data.idAccion).toPromise().then((res) => {
+    this.data.titulo = ((document.getElementById("title") as HTMLInputElement).value);
+    this.data.descripcion = ((document.getElementById("descripcion") as HTMLInputElement).value);
+    this.data.recompensa = +((document.getElementById("recompensa") as HTMLInputElement).value);
+    this.data.minEdad = +((document.getElementById("edad") as HTMLInputElement).value);
+    this.apiService.updateAccion(this.data.titulo, this.data.descripcion, "" + this.data.recompensa,
+      "" + this.data.minEdad, this.data.idAccion).toPromise().then((res) => {
 
-      swal.fire({
-        icon: 'success',
-        title: 'Registro Editado!',
-        text: 'Se Edito un registro satisfactoriamente!',
-      })
+        swal.fire({
+          icon: 'success',
+          title: 'Registro Editado!',
+          text: 'Se Edito un registro satisfactoriamente!',
+        })
 
-    });
-    this.dialogRef.close();
+      });
+    this.dialogRef.close(this.data);
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 }

@@ -8,6 +8,7 @@ import { ElfoComponent} from './components/home/elfo/elfo.component'
 import { PadreComponent} from './components/home/padre/padre.component'
 import { CRUDAccionesComponent} from './components/admin/crudacciones/crudacciones.component'
 import { CrudproductosComponent} from './components/admin/crudproductos/crudproductos.component'
+import { CRUDPerfilesComponent} from './components/admin/crudperfiles/crudperfiles.component'
 const routes: Routes = [
   { 
     path: '',
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: 'adminproductos',
     component: CrudproductosComponent,
+  },
+  {
+    path: 'adminperfiles',
+    component: CRUDPerfilesComponent,
   },
   {
     path: '**',

@@ -42,6 +42,7 @@ export class AdminComponent implements OnInit {
         title: 'Perfiles',
         text: 'CRUD Perfiles',
       })
+      this.router.navigate(["/adminperfiles"]);
     }else if (opcion == 3) {
       swal.fire({
         icon: 'info',
