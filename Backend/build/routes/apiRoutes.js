@@ -4,7 +4,7 @@ var express_1 = require("express");
 var apiController_1 = require("../controllers/apiController");
 var userController_1 = require("../controllers/userController");
 var productController_1 = require("../controllers/productController");
-var goodActionsController_1 = require("../controllers/goodActionsController");
+var goodDeedsController_1 = require("../controllers/goodDeedsController");
 var ApiRoutes = /** @class */ (function () {
     function ApiRoutes() {
         this.router = express_1.Router();
@@ -36,11 +36,12 @@ var ApiRoutes = /** @class */ (function () {
         this.router.put('/categories/', productController_1.productController.updateCategoria);
         this.router.put('/deletecategory/', productController_1.productController.deleteCategoria);
         //GoodActions Routes
-        this.router.get('/goodActions', goodActionsController_1.goodActionsController.getGoodActions);
-        this.router.get('/goodActions/:id', goodActionsController_1.goodActionsController.getActionById);
-        this.router.post('/goodActions', goodActionsController_1.goodActionsController.insertGoodaction);
-        this.router.put('/goodActions', goodActionsController_1.goodActionsController.updateGoodAction);
-        this.router.put('/deleteGoodAction', goodActionsController_1.goodActionsController.deleteGoodAction);
+        this.router.get('/goodDeeds', goodDeedsController_1.goodDeedsController.getGoodDeeds);
+        this.router.get('/goodDeedsByAge/:minEdad', goodDeedsController_1.goodDeedsController.getGoodDeedsByAge);
+        this.router.get('/goodDeeds/:idAccion', goodDeedsController_1.goodDeedsController.getDeedById);
+        this.router.post('/goodDeeds', goodDeedsController_1.goodDeedsController.insertGoodDeed);
+        this.router.put('/goodDeeds', goodDeedsController_1.goodDeedsController.updateGoodDeed);
+        this.router.put('/deleteGoodDeeds', goodDeedsController_1.goodDeedsController.deleteGoodDeed);
     };
     return ApiRoutes;
 }());

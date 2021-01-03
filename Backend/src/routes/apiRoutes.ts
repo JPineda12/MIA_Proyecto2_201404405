@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { apiController} from '../controllers/apiController';
 import { userController} from '../controllers/userController';
 import { productController} from '../controllers/productController';
-import { goodActionsController} from '../controllers/goodActionsController';
+import { goodDeedsController} from '../controllers/goodDeedsController';
 class ApiRoutes{
     public router: Router = Router();
 
@@ -37,11 +37,12 @@ class ApiRoutes{
         this.router.put('/categories/', productController.updateCategoria);
         this.router.put('/deletecategory/', productController.deleteCategoria);
         //GoodActions Routes
-        this.router.get('/goodActions', goodActionsController.getGoodActions);
-        this.router.get('/goodActions/:id', goodActionsController.getActionById);
-        this.router.post('/goodActions', goodActionsController.insertGoodaction);
-        this.router.put('/goodActions', goodActionsController.updateGoodAction);
-        this.router.put('/deleteGoodAction', goodActionsController.deleteGoodAction)
+        this.router.get('/goodDeeds', goodDeedsController.getGoodDeeds);
+        this.router.get('/goodDeedsByAge/:minEdad', goodDeedsController.getGoodDeedsByAge);
+        this.router.get('/goodDeeds/:idAccion', goodDeedsController.getDeedById);
+        this.router.post('/goodDeeds', goodDeedsController.insertGoodDeed);
+        this.router.put('/goodDeeds', goodDeedsController.updateGoodDeed);
+        this.router.put('/deleteGoodDeeds', goodDeedsController.deleteGoodDeed)
 
     }
 

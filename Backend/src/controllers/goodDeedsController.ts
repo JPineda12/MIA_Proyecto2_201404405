@@ -1,8 +1,8 @@
 import { Request, response, Response } from 'express';
 import database from '../database';
-class GoodActionsController {
+class GoodDeedsController {
 
-    public async getGoodActions(req: Request, res: Response) {
+    public async getGoodDeeds(req: Request, res: Response) {
         let sql = "SELECT IDBUENA_ACCION, TITULO, DESCRIPCION, RECOMPENSA,"
             + " MINEDAD FROM BUENA_ACCION WHERE ESTADO = 0"
 
@@ -20,9 +20,29 @@ class GoodActionsController {
         })
         res.json(acciones);
     }
+    
+    public async getGoodDeedsByAge(req: Request, res: Response) {
+            const { minEdad } = req.params;
+        let sql = "SELECT IDBUENA_ACCION, TITULO, DESCRIPCION, RECOMPENSA,"
+            + " MINEDAD FROM BUENA_ACCION WHERE ESTADO = 0 AND MINEDAD <= :minEdad"
 
-    public async getActionById(req: Request, res: Response) {
-        const { idAccion } = req.body;
+        const result = await database.Open(sql, [minEdad], true);
+        let acciones: any = [];
+        result.rows.map((accion: any) => {
+            let accionesSchema = {
+                "id": accion[0],
+                "titulo": accion[1],
+                "descripcion": accion[2],
+                "recompensa": accion[3],
+                "minEdad": accion[4],
+            }
+            acciones.push(accionesSchema);
+        })
+        res.json(acciones);
+    } 
+
+    public async getDeedById(req: Request, res: Response) {
+        const { idAccion } = req.params;
 
         let sql = "SELECT IDBUENA_ACCION, TITULO, DESCRIPCION, RECOMPENSA,"
             + "MINEDAD FROM BUENA_ACCION"
@@ -44,7 +64,7 @@ class GoodActionsController {
         res.json(acciones);
     }
 
-    public async insertGoodaction(req: Request, res: Response) {
+    public async insertGoodDeed(req: Request, res: Response) {
         const { titulo, descripcion, recompensa, minEdad } = req.body;
         let sql = "INSERT INTO Buena_Accion(TITULO, DESCRIPCION, RECOMPENSA, MINEDAD, ESTADO)"
             + " VALUES(:titulo,:descripcion,:recompensa,:minEdad, 0)"
@@ -55,7 +75,7 @@ class GoodActionsController {
         })
     }
 
-    public async updateGoodAction(req: Request, res: Response) {
+    public async updateGoodDeed(req: Request, res: Response) {
         const { idAccion, titulo, descripcion, recompensa, edadMinima } = req.body;
         let sql = "UPDATE BUENA_ACCION SET TITULO =:titulo, DESCRIPCION =:descripcion,"
             + " RECOMPENSA =:recompensa, MINEDAD =:edadMinima WHERE IDBUENA_ACCION =:idAccion"
@@ -67,7 +87,7 @@ class GoodActionsController {
         })
     }
 
-    public async deleteGoodAction(req: Request, res: Response) {
+    public async deleteGoodDeed(req: Request, res: Response) {
         const { idAccion } = req.body;
         let sql = "UPDATE Buena_Accion SET ESTADO = 1 WHERE idBuena_Accion = :idAccion"
         try {
@@ -85,4 +105,4 @@ class GoodActionsController {
     }
 }
 
-export const goodActionsController = new GoodActionsController(); 
+export const goodDeedsController = new GoodDeedsController(); 
