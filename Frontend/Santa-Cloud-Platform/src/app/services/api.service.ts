@@ -19,7 +19,7 @@ export class ApiService {
     return this.http.get(`${this.API_URI}/api/users`);
   }
 
-  getUbicacion(direccion: string){
+  getUbicacion(direccion: string) {
     return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?key=${this.API_KEY}&address=${direccion}`)
   }
 
@@ -29,6 +29,11 @@ export class ApiService {
 
   getDepartamentos() {
     return this.http.get(`${this.API_URI}/api/departamentos`);
+  }
+
+  async getPadres() {
+    return this.http.get(`${this.API_URI}/api/getallpadres`);
+
   }
 
   getMunicipios(idDepartamento: string) {
@@ -54,7 +59,24 @@ export class ApiService {
 
   async newUser(nombre: string, nickname: string, email: string, pass: string,
     gender: string, fecha: string, tel: string, bastones: string, direccion: string,
-    idRol: string, idMunicipio: String, idPadre: String, capacidadBastones: string, latitud: string, longitud: string) {
+    idRol: string, idMunicipio: String, idPadre: String, capacidadBastones: string,
+    latitud: string, longitud: string) {
+    console.log("Nombre: ", nombre);
+    console.log("nickname: ", nickname);
+    console.log("email: ", email);
+    console.log("pass: ", pass);
+    console.log("genero: ", gender);
+    console.log("fecha: ", fecha);
+    console.log("tel: ", tel);
+    console.log("bastones: ", bastones);
+    console.log("capacidad: ", capacidadBastones);
+    console.log("idPadre: ", idPadre);
+    console.log("idRol:", idRol);
+    console.log("idMunicipio: ", idMunicipio);
+    console.log("latitud: ", latitud);
+    console.log("longitud: ", longitud);
+
+
     return this.http.post(`${this.API_URI}/api/users/`,
       {
         "nombre": nombre,
@@ -76,9 +98,10 @@ export class ApiService {
   }
 
   updateUser(idUsuario: string, nombre: string, nickname: string, email: string, pass: string,
-    gender: string, fecha: string, tel: string, bastones: string, capacidadBastones: string,
-    direccion: string, latitud: string, longitud: string, idRol: string,
-    idMunicipio: String, idPadre: String) {
+    gender: string, fecha: string, tel: string, bastones: string,
+    direccion: string, idRol: string, idMunicipio: String, idPadre: String,
+    capacidadBastones: string, latitud: string, longitud: string) {
+
     return this.http.put(`${this.API_URI}/api/users/`,
       {
         "idUsuario": idUsuario,
@@ -100,11 +123,11 @@ export class ApiService {
       }, { headers: this.headers }).pipe(map(data => data));
   }
 
-  deleteUser(idUsuario: string){
+  deleteUser(idUsuario: string) {
     return this.http.put(`${this.API_URI}/api/deleteUser/`,
-    {
-      "idUsuario": idUsuario,
-    }, { headers: this.headers }).pipe(map(data => data));
+      {
+        "idUsuario": idUsuario,
+      }, { headers: this.headers }).pipe(map(data => data));
   }
 
   getAcciones() {

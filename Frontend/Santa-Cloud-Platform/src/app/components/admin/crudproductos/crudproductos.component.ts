@@ -49,6 +49,14 @@ export class CrudproductosComponent implements OnInit {
     });
   }
 
+  save(){
+
+  }
+
+  close(){
+    
+  }
+
   crearCategoria() {
     const dialogRef = this.dialog.open(AddCategoriaComponent, {
       width: '400px',
@@ -61,7 +69,6 @@ export class CrudproductosComponent implements OnInit {
   }
 
   editarRegistro(producto: any) {
-    console.log(producto)
     const dialogRef = this.dialog.open(EditProductComponent, {
       width: '400px',
       disableClose: true,

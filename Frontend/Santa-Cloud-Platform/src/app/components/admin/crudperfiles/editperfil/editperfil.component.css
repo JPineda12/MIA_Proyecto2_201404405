@@ -1,0 +1,37 @@
+.map {
+    display: flex;
+    justify-content: center;
+}
+
+.boton {
+    text-align: center;
+}
+
+agm-map {
+    height: 200px;
+    width: 90%;
+}
+
+.row {
+    overflow: hidden;
+}
+
+.first {
+    width: 40%;
+    float: left;
+}
+
+.second {
+    width: 40%;
+    overflow: hidden;
+    /* if you don't want #second to wrap below #first */
+    float: right;
+}
+
+.btnInsertar {
+    margin-right: 20px;
+}
+
+.btnCancelar {
+    margin-left: 20px;
+}

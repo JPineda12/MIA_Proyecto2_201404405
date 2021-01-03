@@ -12,6 +12,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { MatFileUploadModule } from 'mat-file-upload'; 
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 const modules = [
     MatCardModule,
     MatMenuModule,
@@ -25,7 +28,9 @@ const modules = [
     MatProgressBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    MatDialogModule,
+    MatTooltipModule
 ];
 
 

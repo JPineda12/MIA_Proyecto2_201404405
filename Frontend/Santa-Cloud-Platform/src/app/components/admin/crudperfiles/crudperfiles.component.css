@@ -14,13 +14,15 @@ h1 {
 }
 
 .container {
-    height: 95%;
+    height: 80%;
     overflow: auto;
+    overflow-x: scroll;
 }
 
 table {
     width: 150%;
     background-color: seagreen;
+    overflow-x: scroll;
 }
 
 tr.mat-footer-row {

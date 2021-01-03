@@ -26,7 +26,6 @@ export class AddProductComponent {
     , @Inject(MAT_DIALOG_DATA) public data: DialogData, private apiService: ApiService) { }
 
   Categorias: any
-  Productos: any
   catValue: string
   producto: any
   imagen: any
@@ -52,14 +51,15 @@ export class AddProductComponent {
         confirmButtonText: `Aceptar`,
         cancelButtonText: 'Regresar'
       }).then((result) => {
-        this.insertarProducto("http://localhost:3020/sinimagen.jpg")
+        this.data.image_url = "http://localhost:3020/sinimagen.jpg"
+        this.insertarProducto()
       })
     } else {
-      this.insertarProducto(this.imagen.Message)
+      this.insertarProducto()
     }
   }
 
-  insertarProducto(imagen_url: string) {
+  insertarProducto() {
     this.data.nombre = ((document.getElementById("nombre") as HTMLInputElement).value);
     this.data.precio = +((document.getElementById("precio") as HTMLInputElement).value);
     this.data.minEdad = +((document.getElementById("edad") as HTMLInputElement).value);

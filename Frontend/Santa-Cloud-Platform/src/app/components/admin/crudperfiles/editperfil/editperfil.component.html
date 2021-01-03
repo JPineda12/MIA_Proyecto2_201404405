@@ -1,1 +1,189 @@
-<p>editperfil works!</p>
+<mat-dialog-content>
+    <div class="row">
+        <div class="first">
+            <p>
+                <mat-form-field>
+                    <mat-label>Rol de Usuario</mat-label>
+                    <mat-select name="rol" [(value)]="rolValue" (selectionChange)="clearInputs()">
+                        <mat-option [value]="option.nombre" *ngFor="let option of Roles">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+        </div>
+
+        <div class="second">
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Email" maxlength="100" formControlName="email" id="email"
+                        [disabled]="rolValue != 'Padre' && rolValue != 'Santa'">
+                    <mat-hint *ngIf="rolValue != 'Padre' && rolValue != 'Santa'">Solo para Roles: Padre, Santa
+                    </mat-hint>
+                </mat-form-field>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="first">
+            <mat-form-field appearance="fill">
+                <mat-label>Fecha de Nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker" id="fecha">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+        </div>
+        <div class="second">
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Nickname" maxlength="80" formControlName="nickname"
+                        id="nickname" [disabled]="rolValue != 'Kid' && rolValue != 'Elfo'">
+                    <mat-hint *ngIf="rolValue != 'Kid' && rolValue != 'Elfo'">Solo para Roles: Elfo, Kid</mat-hint>
+                </mat-form-field>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="first">
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Nombre" maxlength="80" formControlName="nombre"
+                        id="nombre">
+                </mat-form-field>
+            </p>
+
+
+        </div>
+        <div class="second">
+            <p>
+                <mat-form-field>
+                    <mat-label>Padre</mat-label>
+                    <mat-select name="padre" [(value)]="padreValue" [disabled]="rolValue != 'Kid'">
+                        <mat-option [value]="option.nombre" *ngFor="let option of Padres">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="rolValue != 'Kid'">Solo para Rol: Kid</mat-hint>
+                </mat-form-field>
+            </p>
+
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="first">
+            <p>
+                <mat-form-field>
+                    <mat-label>Sexo</mat-label>
+                    <mat-select name="genero" [(value)]="genderValue">
+                        <mat-option [value]="option.nombre" *ngFor="let option of Generos">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+
+
+        </div>
+        <div class="second">
+            <p>
+                <mat-form-field>
+                    <input type="password" matInput placeholder="Contraseña" maxlength="200" formControlName="password"
+                        id="pass">
+                </mat-form-field>
+            </p>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="first">
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Telefono" maxlength="10" formControlName="telefono"
+                        id="telefono">
+                </mat-form-field>
+            </p>
+
+
+        </div>
+        <div class="second">
+            <p>
+                <mat-form-field>
+                    <input type="number" matInput placeholder="Bastones Maximos" formControlName="capacidadBastones"
+                        id="bastones" [disabled]="rolValue != 'Kid'">
+                    <mat-hint *ngIf="rolValue != 'Kid'">Solo para Rol: Kid</mat-hint>
+                </mat-form-field>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="first">
+            <mat-form-field>
+                <input type="number" matInput placeholder="Bastones Actuales" formControlName="bastones"
+                    id="capacidadBastones" [disabled]="rolValue != 'Kid'">
+                <mat-hint *ngIf="rolValue != 'Kid'">Solo para Rol: Kid</mat-hint>
+            </mat-form-field>
+
+
+        </div>
+        <div class="second">
+            <p>
+                <mat-form-field>
+                    <mat-label>Departamentos</mat-label>
+                    <mat-select name="Departamentos" [(value)]="depValue" (selectionChange)="getMunicipios(depValue)">
+                        <mat-option [value]="option.nombre" *ngFor="let option of Departamentos">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class = "first">
+            <p>
+                <mat-form-field>
+                    <mat-label>Municipios</mat-label>
+                    <mat-select name="Municipios" [(value)]="munValue">
+                        <mat-option [value]="option.nombre" *ngFor="let option of Municipios">
+                            {{option.nombre}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="!depValue">Elige primero un Departamento</mat-hint>
+                </mat-form-field>
+            </p>
+        </div>
+        <div class="second">
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Direccion" maxlength="250" formControlName="direccion"
+                        id="direccion">
+                </mat-form-field>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="boton">
+            <button class="buscarbt" type="button" mat-raised-button color="primary" (click)="buscarDireccion()">Buscar
+                Direccion</button>
+        </div>
+        <div class="map">
+            <agm-map [zoom]="17" [latitude]='lat' [longitude]='long'>
+                <agm-marker [latitude]="lat" [longitude]="long" [markerDraggable]="true"
+                    (dragEnd)="markerDragEnd($event)">
+                </agm-marker>
+            </agm-map>
+        </div>
+    </div>
+
+
+</mat-dialog-content>
+<div mat-dialog-actions>
+    <button class="btnInsertar" mat-button class="mat-raised-button" color="warn" (click)="save()">Insertar</button>
+    <button class="btnCancelar" mat-button class="mat-raised-button" color="warn" (click)="close()">Cancelar</button>
+</div>

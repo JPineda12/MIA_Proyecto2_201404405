@@ -89,7 +89,7 @@ export class RegisterComponent implements OnInit {
         return this.Municipios[i].id
       }
     }
-    return "-1"
+    return null
   }
 
   async crearUsuario(nombre: string, nickname: string, email: string, genero: string, fecha: string,
@@ -162,16 +162,7 @@ export class RegisterComponent implements OnInit {
     this.router.navigate(["/login"]);
   }
 
-  getRoles() {
-    this.apiService.getRoles().subscribe(
-      res => {
-        console.log(res);
-        this.Roles = res;
-      },
 
-      err => console.log("Error de conexion DB: ", err)
-    );
-  }
 
   getDepartamentos() {
     this.apiService.getDepartamentos().subscribe(
