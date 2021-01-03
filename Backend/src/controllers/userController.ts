@@ -6,7 +6,7 @@ class UserController {
         let sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
             + "telefono, bastones,direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
             + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO, capacidadBastones"
-            + ", latitud, longitud"
+            + ", latitud, longitud, contrasena"
             + " From Usuario, Rol r, Municipio m, Departamento d "
             + " WHERE r.IDROL = USUARIO_IDROL "
             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
@@ -36,7 +36,8 @@ class UserController {
                 "departamento": user[15],
                 "capacidadBastones": user[16],
                 "latitud": user[17],
-                "longitud": user[18]
+                "longitud": user[18],
+                "pass": user[19]
             }
             Users.push(userSchema);
         })
@@ -48,7 +49,7 @@ class UserController {
         let sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
             + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
             + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO,"
-            + "capacidadBastones, latitud, longitud"
+            + "capacidadBastones, latitud, longitud, contrasena"
             + " From Usuario, Rol r, Municipio m, Departamento d "
             + " WHERE r.IDROL = USUARIO_IDROL "
             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
@@ -57,6 +58,48 @@ class UserController {
             + " AND ESTADO = 0";
 
         const result = await database.Open(sql, [idUsuario], true);
+        let Users: any = [];
+        result.rows.map((user: any) => {
+            let userSchema = {
+                "idUsuario": user[0],
+                "nombre": user[1],
+                "nickname": user[2],
+                "email": user[3],
+                "genero": user[4],
+                "fecha": user[5],
+                "telefono": user[6],
+                "bastones": user[7],
+                "direccion": user[8],
+                "idPadre": user[9],
+                "idRol": user[10],
+                "idMunicipio": user[11],
+                "idDepartamento": user[12],
+                "rol": user[13],
+                "municipio": user[14],
+                "departamento": user[15],
+                "capacidadBastones": user[16],
+                "latitud": user[17],
+                "longitud": user[18],
+                "pass": user[19]
+            }
+            Users.push(userSchema);
+        })
+        res.json(Users);
+    }
+
+    public async getAllPadres(req: Request, res: Response) {
+        let sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
+            + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
+            + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO,"
+            + "capacidadBastones, latitud, longitud"
+            + " From Usuario, Rol r, Municipio m, Departamento d "
+            + " WHERE r.IDROL = USUARIO_IDROL "
+            + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
+            + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
+            + " AND USUARIO_IDROL = 3"
+            + " AND ESTADO = 0";
+
+        const result = await database.Open(sql, [], false);
         let Users: any = [];
         result.rows.map((user: any) => {
             let userSchema = {
@@ -240,15 +283,17 @@ class UserController {
             bastones, capacidadBastones, direccion, latitud, longitud, idRol, idMunicipio, idPadre } = req.body;
         let sql = "UPDATE USUARIO SET nombre = :nombre, nickname = :nickname, email = :email,"
             + " contrasena = :pass, genero = :gender, fechanacimiento = TO_DATE(:fecha, 'MM/DD/YYYY'), telefono = :tel,"
-            + " bastones = :bastones, capacidadBastones = :capacidadBastones, direccion = :direccion, latitud = :latitud, longitud = :longitud, USUARIO_IDROL = :idRol,"
+            + " bastones = :bastones, capacidadBastones = :capacidadBastones, direccion = :direccion,"
+            + " latitud = :latitud, longitud = :longitud, USUARIO_IDROL = :idRol,"
             + "USUARIO_IDMUNICIPIO = :idMunicipio, USUARIO_IDPADRE = :idPadre "
-            + "WHERE idUsuario = :idUsuario";
+            + " WHERE idUsuario = :idUsuario";
         await database.Open(sql, [nombre, nickname, email, pass, gender, fecha, tel, bastones, capacidadBastones, direccion, latitud, longitud, idRol, idMunicipio, idPadre, idUsuario], true);
         res.status(200).json({
+            "idUsuario": idUsuario,
             "email": email,
             "name": nombre,
             "bastones": bastones,
-            "fecha": fecha,
+            "fecha": fecha
         })
     }
 

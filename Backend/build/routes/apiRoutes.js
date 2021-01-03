@@ -24,6 +24,7 @@ var ApiRoutes = /** @class */ (function () {
         this.router.put('/deleteUser', userController_1.userController.deleteUser);
         this.router.get('/loginEmail', userController_1.userController.loginEmail);
         this.router.get('/loginNickname', userController_1.userController.loginNickname);
+        this.router.get('/getAllPadres/', userController_1.userController.getAllPadres);
         //Product Routes
         this.router.get('/products', productController_1.productController.getProductos);
         this.router.get('/products/:id', productController_1.productController.getProductById);

@@ -53,7 +53,7 @@ var UserController = /** @class */ (function () {
                         sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
                             + "telefono, bastones,direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
                             + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO, capacidadBastones"
-                            + ", latitud, longitud"
+                            + ", latitud, longitud, contrasena"
                             + " From Usuario, Rol r, Municipio m, Departamento d "
                             + " WHERE r.IDROL = USUARIO_IDROL "
                             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
@@ -84,7 +84,8 @@ var UserController = /** @class */ (function () {
                                 "departamento": user[15],
                                 "capacidadBastones": user[16],
                                 "latitud": user[17],
-                                "longitud": user[18]
+                                "longitud": user[18],
+                                "pass": user[19]
                             };
                             Users.push(userSchema);
                         });
@@ -104,7 +105,7 @@ var UserController = /** @class */ (function () {
                         sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
                             + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
                             + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO,"
-                            + "capacidadBastones, latitud, longitud"
+                            + "capacidadBastones, latitud, longitud, contrasena"
                             + " From Usuario, Rol r, Municipio m, Departamento d "
                             + " WHERE r.IDROL = USUARIO_IDROL "
                             + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
@@ -112,6 +113,57 @@ var UserController = /** @class */ (function () {
                             + " AND idUsuario = :idUsuario"
                             + " AND ESTADO = 0";
                         return [4 /*yield*/, database_1.default.Open(sql, [idUsuario], true)];
+                    case 1:
+                        result = _a.sent();
+                        Users = [];
+                        result.rows.map(function (user) {
+                            var userSchema = {
+                                "idUsuario": user[0],
+                                "nombre": user[1],
+                                "nickname": user[2],
+                                "email": user[3],
+                                "genero": user[4],
+                                "fecha": user[5],
+                                "telefono": user[6],
+                                "bastones": user[7],
+                                "direccion": user[8],
+                                "idPadre": user[9],
+                                "idRol": user[10],
+                                "idMunicipio": user[11],
+                                "idDepartamento": user[12],
+                                "rol": user[13],
+                                "municipio": user[14],
+                                "departamento": user[15],
+                                "capacidadBastones": user[16],
+                                "latitud": user[17],
+                                "longitud": user[18],
+                                "pass": user[19]
+                            };
+                            Users.push(userSchema);
+                        });
+                        res.json(Users);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserController.prototype.getAllPadres = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, result, Users;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
+                            + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
+                            + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO,"
+                            + "capacidadBastones, latitud, longitud"
+                            + " From Usuario, Rol r, Municipio m, Departamento d "
+                            + " WHERE r.IDROL = USUARIO_IDROL "
+                            + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
+                            + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
+                            + " AND USUARIO_IDROL = 3"
+                            + " AND ESTADO = 0";
+                        return [4 /*yield*/, database_1.default.Open(sql, [], false)];
                     case 1:
                         result = _a.sent();
                         Users = [];
@@ -344,17 +396,19 @@ var UserController = /** @class */ (function () {
                         _a = req.body, idUsuario = _a.idUsuario, nombre = _a.nombre, nickname = _a.nickname, email = _a.email, pass = _a.pass, gender = _a.gender, fecha = _a.fecha, tel = _a.tel, bastones = _a.bastones, capacidadBastones = _a.capacidadBastones, direccion = _a.direccion, latitud = _a.latitud, longitud = _a.longitud, idRol = _a.idRol, idMunicipio = _a.idMunicipio, idPadre = _a.idPadre;
                         sql = "UPDATE USUARIO SET nombre = :nombre, nickname = :nickname, email = :email,"
                             + " contrasena = :pass, genero = :gender, fechanacimiento = TO_DATE(:fecha, 'MM/DD/YYYY'), telefono = :tel,"
-                            + " bastones = :bastones, capacidadBastones = :capacidadBastones, direccion = :direccion, latitud = :latitud, longitud = :longitud, USUARIO_IDROL = :idRol,"
+                            + " bastones = :bastones, capacidadBastones = :capacidadBastones, direccion = :direccion,"
+                            + " latitud = :latitud, longitud = :longitud, USUARIO_IDROL = :idRol,"
                             + "USUARIO_IDMUNICIPIO = :idMunicipio, USUARIO_IDPADRE = :idPadre "
-                            + "WHERE idUsuario = :idUsuario";
+                            + " WHERE idUsuario = :idUsuario";
                         return [4 /*yield*/, database_1.default.Open(sql, [nombre, nickname, email, pass, gender, fecha, tel, bastones, capacidadBastones, direccion, latitud, longitud, idRol, idMunicipio, idPadre, idUsuario], true)];
                     case 1:
                         _b.sent();
                         res.status(200).json({
+                            "idUsuario": idUsuario,
                             "email": email,
                             "name": nombre,
                             "bastones": bastones,
-                            "fecha": fecha,
+                            "fecha": fecha
                         });
                         return [2 /*return*/];
                 }
