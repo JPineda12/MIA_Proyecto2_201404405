@@ -2,6 +2,58 @@
 
 <div class="cards">
     
+
+    <mat-card class="donecard" *ngFor="let gDeed of accionesRealizadas">
+        <div id="snowFall"></div>
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>military_tech</mat-icon>
+                {{gDeed.titulo}}
+            </mat-card-title>
+            <mat-card-subtitle>Edad Minima: {{gDeed.minEdad}}</mat-card-subtitle>
+        </mat-card-header>
+        <p>
+            <mat-card-title class="rec">Recompensa: {{gDeed.recompensa}}</mat-card-title>
+        </p>
+        <mat-card-content>
+            <p>
+                {{gDeed.descripcion}}
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button class ="boton" mat-button (click)="accionPendiente(gDeed)">
+                <mat-icon>emoji_events</mat-icon>
+                Buena Accion Realizada
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="pendingcard" *ngFor="let gDeed of accionesPendientes">
+        <div id="snowFall"></div>
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>military_tech</mat-icon>
+                {{gDeed.titulo}}
+            </mat-card-title>
+            <mat-card-subtitle>Edad Minima: {{gDeed.minEdad}}</mat-card-subtitle>
+        </mat-card-header>
+        <p>
+            <mat-card-title class="rec">Recompensa: {{gDeed.recompensa}}</mat-card-title>
+        </p>
+        <mat-card-content>
+            <p>
+                {{gDeed.descripcion}}
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button class ="boton" mat-button (click)="accionPendiente(gDeed)">
+                <mat-icon>emoji_events</mat-icon>
+                Terminar Buena Accion
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+
     <mat-card class="card" *ngFor="let gDeed of buenasAcciones">
         <div id="snowFall"></div>
         <mat-card-header>
@@ -20,7 +72,7 @@
             </p>
         </mat-card-content>
         <mat-card-actions>
-            <button class ="boton" mat-button (click)="realizar()">
+            <button class ="boton" mat-button (click)="realizarAccion(gDeed)">
                 <mat-icon>emoji_events</mat-icon>
                 Realizar Buena Accion
             </button>

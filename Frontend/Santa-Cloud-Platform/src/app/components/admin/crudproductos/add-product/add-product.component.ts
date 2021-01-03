@@ -51,8 +51,10 @@ export class AddProductComponent {
         confirmButtonText: `Aceptar`,
         cancelButtonText: 'Regresar'
       }).then((result) => {
-        this.data.image_url = "http://localhost:3020/sinimagen.jpg"
-        this.insertarProducto()
+        if (result.isConfirmed) {
+          this.data.image_url = "http://localhost:3020/sinimagen.jpg"
+          this.insertarProducto()
+        }
       })
     } else {
       this.insertarProducto()
@@ -65,17 +67,17 @@ export class AddProductComponent {
     this.data.minEdad = +((document.getElementById("edad") as HTMLInputElement).value);
     let categoriaID = this.getCategoriaId()
     this.data.categoria = this.catValue
-    this.apiService.insertProducto(this.data.nombre, ""+this.data.precio, ""+this.data.minEdad, 
-    categoriaID, this.data.image_url).toPromise().then((res) => {
-      this.producto = res;
-      if (this.producto.nombre != "") {
-        swal.fire({
-          icon: 'success',
-          title: 'Nuevo registro insertado!',
-          text: 'Se inserto un nuevo Producto',
-        })
-      }
-    });
+    this.apiService.insertProducto(this.data.nombre, "" + this.data.precio, "" + this.data.minEdad,
+      categoriaID, this.data.image_url).toPromise().then((res) => {
+        this.producto = res;
+        if (this.producto.nombre != "") {
+          swal.fire({
+            icon: 'success',
+            title: 'Nuevo registro insertado!',
+            text: 'Se inserto un nuevo Producto',
+          })
+        }
+      });
     this.dialogRef.close(this.data);
   }
 

@@ -57,6 +57,11 @@ export class ApiService {
     return this.http.get(`${this.API_URI}/api/loginemail/`, { headers: customHeaders });
   }
 
+  loginNickname(nickname: string, pass: string){
+    const customHeaders = { 'nickname': nickname, 'password': pass }
+    return this.http.get(`${this.API_URI}/api/loginnickname/`, { headers: customHeaders });
+  }
+
   async newUser(nombre: string, nickname: string, email: string, pass: string,
     gender: string, fecha: string, tel: string, bastones: string, direccion: string,
     idRol: string, idMunicipio: String, idPadre: String, capacidadBastones: string,
@@ -118,9 +123,37 @@ export class ApiService {
   getAcciones() {
     return this.http.get(`${this.API_URI}/api/goodDeeds`);
   }
-  getAccionesByAge(minEdad: string){
-    return this.http.get(`${this.API_URI}/api/goodDeedsByAge/${minEdad}`);
+  getAccionesByAge(idUsuario: string, minEdad: string){
+    const customHeaders = { 'minedad': minEdad, 'idusuario': idUsuario }
+    return this.http.get(`${this.API_URI}/api/goodDeedsByAge/`, { headers: customHeaders });
+  }
 
+  getPendingGoodDeeds(idUsuario: string){
+    return this.http.get(`${this.API_URI}/api/pendingGoodDeeds/${idUsuario}`);
+  }
+
+  insertarAccionRealizar(idAccion: string, idUsuario: string, fecha: string, estado: string, recompensa: string){
+    return this.http.post(`${this.API_URI}/api/goodDeedDone/`,
+    {
+      "idAccion": idAccion,
+      "idUsuario": idUsuario,
+      "fecha": fecha,
+      "estado": estado,
+      "recompensa": recompensa,
+    }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  changeGoodDeedState(idAccion: string, idUsuario: string, nuevoEstado: string){
+    return this.http.put(`${this.API_URI}/api/changeGoodDeedState/`,
+      {
+        "idAccion": idAccion,
+        "idUsuario": idUsuario,
+        "estado": nuevoEstado
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  getGoodDeedsDone(idUsuario: string){
+    return this.http.get(`${this.API_URI}/api/goodDeedsDone/${idUsuario}`);
   }
   getAccionesById(id: string) {
     return this.http.get(`${this.API_URI}/api/goodDeeds/${id}`);

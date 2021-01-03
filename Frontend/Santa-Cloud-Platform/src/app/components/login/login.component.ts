@@ -18,9 +18,9 @@ export class LoginComponent implements OnInit {
   }
 
   validateLogin() {
-    let email = ((document.getElementById("username") as HTMLInputElement).value);
+    let nickname = ((document.getElementById("username") as HTMLInputElement).value);
     let pass = ((document.getElementById("pass") as HTMLInputElement).value);
-    this.apiService.loginemail(email, pass).subscribe(res => {
+    this.apiService.loginNickname(nickname, pass).subscribe(res => {
       this.usuario = res;
       console.log(this.usuario)
       if (this.usuario.auth) {

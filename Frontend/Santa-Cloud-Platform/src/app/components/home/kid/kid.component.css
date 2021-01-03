@@ -6,6 +6,20 @@
 
 }
 
+.pendingcard{
+    flex: 0 0 20%;
+    box-sizing: border-box;
+    margin: 1rem .25em;
+    background-color:orange ; 
+}
+
+.donecard{
+    flex: 0 0 20%;
+    box-sizing: border-box;
+    margin: 1rem .25em;
+    background-color:salmon;  
+}
+
 .card {
     flex: 0 0 20%;
     box-sizing: border-box;
