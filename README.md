@@ -5,9 +5,9 @@
 		- [ ] Rol: Niño
 		- [x] Rol: Elfo (admin)
 	- [ ] Perfil de niño
-		- [ ] Buenas Acciones
+		- [x] Buenas Acciones
 			- [x] Mostrar segun edad
-			- [ ] Marcar como completa
+			- [x] Marcar como completa
 		- [ ] Ver Cartas
 		- [ ] Enviar carta a Santa
 		- [ ] Enviar mensaje a Elfo (chat)
