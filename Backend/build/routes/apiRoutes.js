@@ -37,11 +37,15 @@ var ApiRoutes = /** @class */ (function () {
         this.router.put('/deletecategory/', productController_1.productController.deleteCategoria);
         //GoodActions Routes
         this.router.get('/goodDeeds', goodDeedsController_1.goodDeedsController.getGoodDeeds);
-        this.router.get('/goodDeedsByAge/:minEdad', goodDeedsController_1.goodDeedsController.getGoodDeedsByAge);
+        this.router.get('/goodDeedsByAge/', goodDeedsController_1.goodDeedsController.getGoodDeedsByAge);
         this.router.get('/goodDeeds/:idAccion', goodDeedsController_1.goodDeedsController.getDeedById);
         this.router.post('/goodDeeds', goodDeedsController_1.goodDeedsController.insertGoodDeed);
+        this.router.post('/goodDeedDone', goodDeedsController_1.goodDeedsController.insertGoodDeedDone);
         this.router.put('/goodDeeds', goodDeedsController_1.goodDeedsController.updateGoodDeed);
         this.router.put('/deleteGoodDeeds', goodDeedsController_1.goodDeedsController.deleteGoodDeed);
+        this.router.get('/goodDeedsDone/:idUsuario', goodDeedsController_1.goodDeedsController.getGoodDeedsDone);
+        this.router.put('/ChangeGoodDeedState', goodDeedsController_1.goodDeedsController.ChangeGoodDeedState);
+        this.router.get('/pendingGoodDeeds/:idUsuario', goodDeedsController_1.goodDeedsController.getPendingGoodDeeds);
     };
     return ApiRoutes;
 }());

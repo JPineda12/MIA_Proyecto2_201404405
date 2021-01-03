@@ -72,22 +72,27 @@ var GoodDeedsController = /** @class */ (function () {
             });
         });
     };
+    //Obtiene todas las buenas acciones menos o iguales que su edad y que NO ha realizado.
     GoodDeedsController.prototype.getGoodDeedsByAge = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var minEdad, sql, result, acciones;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, idusuario, minedad, sql, result, acciones;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        minEdad = req.params.minEdad;
-                        sql = "SELECT IDBUENA_ACCION, TITULO, DESCRIPCION, RECOMPENSA,"
-                            + " MINEDAD FROM BUENA_ACCION WHERE ESTADO = 0 AND MINEDAD <= :minEdad";
-                        return [4 /*yield*/, database_1.default.Open(sql, [minEdad], true)];
+                        _a = req.headers, idusuario = _a.idusuario, minedad = _a.minedad;
+                        sql = "SELECT b.IDBUENA_ACCION, b.titulo, b.descripcion, b.recompensa, b.MINEDAD, u.NICKNAME "
+                            + " FROM BUENA_ACCION b, USUARIO u"
+                            + " WHERE NOT EXISTS (SELECT '?' FROM ACCION_REALIZAR a "
+                            + "         WHERE a.REALIZAR_IDBUENA_ACCION = b.IDBUENA_ACCION)"
+                            + " AND u.IDUSUARIO = :idusuario"
+                            + " AND b.MINEDAD <= :minedad";
+                        return [4 /*yield*/, database_1.default.Open(sql, [idusuario, minedad], true)];
                     case 1:
-                        result = _a.sent();
+                        result = _b.sent();
                         acciones = [];
                         result.rows.map(function (accion) {
                             var accionesSchema = {
-                                "id": accion[0],
+                                "idAccion": accion[0],
                                 "titulo": accion[1],
                                 "descripcion": accion[2],
                                 "recompensa": accion[3],
@@ -96,6 +101,118 @@ var GoodDeedsController = /** @class */ (function () {
                             acciones.push(accionesSchema);
                         });
                         res.json(acciones);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    GoodDeedsController.prototype.getPendingGoodDeeds = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var idUsuario, sql, result, acciones;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        idUsuario = req.params.idUsuario;
+                        sql = "SELECT ba.IDBUENA_ACCION, ba.TITULO, ba.DESCRIPCION,"
+                            + "ar.RECOMPENSA, ba.MINEDAD, u.NICKNAME, ar.ESTADO "
+                            + " FROM BUENA_ACCION ba, USUARIO u, ACCION_REALIZAR ar "
+                            + " WHERE ar.REALIZAR_IDBUENA_ACCION = ba.IDBUENA_ACCION "
+                            + " AND ar.REALIZAR_IDUSUARIO = u.IDUSUARIO "
+                            + " AND ar.ESTADO != 3"
+                            + " AND u.IDUSUARIO = :idUsuario";
+                        return [4 /*yield*/, database_1.default.Open(sql, [idUsuario], true)];
+                    case 1:
+                        result = _a.sent();
+                        acciones = [];
+                        result.rows.map(function (accion) {
+                            var accionesSchema = {
+                                "idAccion": accion[0],
+                                "titulo": accion[1],
+                                "descripcion": accion[2],
+                                "recompensa": accion[3],
+                                "minEdad": accion[4],
+                                "nickname": accion[5],
+                                "estado": accion[6],
+                            };
+                            acciones.push(accionesSchema);
+                        });
+                        res.json(acciones);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    GoodDeedsController.prototype.ChangeGoodDeedState = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, idAccion, idUsuario, estado, sql, x;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = req.body, idAccion = _a.idAccion, idUsuario = _a.idUsuario, estado = _a.estado;
+                        sql = "UPDATE ACCION_REALIZAR SET estado = :estado"
+                            + " WHERE REALIZAR_IDBUENA_ACCION = :idAccion AND REALIZAR_IDUSUARIO = :idUsuario ";
+                        return [4 /*yield*/, database_1.default.Open(sql, [estado, idAccion, idUsuario], true)];
+                    case 1:
+                        x = _b.sent();
+                        res.status(200).json({
+                            "idAccion": idAccion,
+                            "idUsuario": idUsuario,
+                            "estado": estado
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    GoodDeedsController.prototype.getGoodDeedsDone = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var idUsuario, sql, result, acciones;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        idUsuario = req.params.idUsuario;
+                        sql = "SELECT * FROM ACCION_REALIZAR ar"
+                            + " WHERE ESTADO = 3"
+                            + " AND REALIZAR_IDUSUARIO = :idUsuario";
+                        return [4 /*yield*/, database_1.default.Open(sql, [idUsuario], true)];
+                    case 1:
+                        result = _a.sent();
+                        acciones = [];
+                        result.rows.map(function (accion) {
+                            var accionesSchema = {
+                                "idAccion": accion[0],
+                                "idUsuario": accion[1],
+                                "Fecha": accion[2],
+                                "Estado": accion[3],
+                                "Recompensa": accion[4],
+                            };
+                            acciones.push(accionesSchema);
+                        });
+                        res.json(acciones);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    GoodDeedsController.prototype.insertGoodDeedDone = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, idAccion, idUsuario, fecha, estado, recompensa, sql;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = req.body, idAccion = _a.idAccion, idUsuario = _a.idUsuario, fecha = _a.fecha, estado = _a.estado, recompensa = _a.recompensa;
+                        sql = "INSERT INTO ACCION_REALIZAR(REALIZAR_IDBUENA_ACCION, REALIZAR_IDUSUARIO, FECHA, ESTADO, RECOMPENSA)"
+                            + " VALUES(:idAccion,:idUsuario,TO_DATE(:fecha, 'MM/DD/YYYY'), :estado, :recompensa)";
+                        return [4 /*yield*/, database_1.default.Open(sql, [idAccion, idUsuario, fecha, estado, recompensa], true)];
+                    case 1:
+                        _b.sent();
+                        res.status(200).json({
+                            "idAccion": idAccion,
+                            "idUsuario": idUsuario,
+                            "fecha": fecha,
+                            "estado": estado,
+                            "recompensa": recompensa
+                        });
                         return [2 /*return*/];
                 }
             });
@@ -118,7 +235,7 @@ var GoodDeedsController = /** @class */ (function () {
                         acciones = [];
                         result.rows.map(function (accion) {
                             var accionesSchema = {
-                                "id": accion[0],
+                                "idAccion": accion[0],
                                 "titulo": accion[1],
                                 "descripcion": accion[2],
                                 "recompensa": accion[3],

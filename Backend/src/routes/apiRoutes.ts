@@ -38,11 +38,16 @@ class ApiRoutes{
         this.router.put('/deletecategory/', productController.deleteCategoria);
         //GoodActions Routes
         this.router.get('/goodDeeds', goodDeedsController.getGoodDeeds);
-        this.router.get('/goodDeedsByAge/:minEdad', goodDeedsController.getGoodDeedsByAge);
+        this.router.get('/goodDeedsByAge/', goodDeedsController.getGoodDeedsByAge);
         this.router.get('/goodDeeds/:idAccion', goodDeedsController.getDeedById);
         this.router.post('/goodDeeds', goodDeedsController.insertGoodDeed);
+        this.router.post('/goodDeedDone', goodDeedsController.insertGoodDeedDone);
         this.router.put('/goodDeeds', goodDeedsController.updateGoodDeed);
         this.router.put('/deleteGoodDeeds', goodDeedsController.deleteGoodDeed)
+        this.router.get('/goodDeedsDone/:idUsuario', goodDeedsController.getGoodDeedsDone);
+        this.router.put('/ChangeGoodDeedState', goodDeedsController.ChangeGoodDeedState);
+        this.router.get('/pendingGoodDeeds/:idUsuario', goodDeedsController.getPendingGoodDeeds);
+        
 
     }
 
