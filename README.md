@@ -6,13 +6,15 @@
 		- [x] Rol: Elfo (admin)
 	- [ ] Perfil de niño
 		- [ ] Buenas Acciones
+			- [x] Mostrar segun edad
+			- [ ] Marcar como completa
 		- [ ] Ver Cartas
 		- [ ] Enviar carta a Santa
 		- [ ] Enviar mensaje a Elfo (chat)
 	- [ ] Perfil de Elfo (administrador)
 		- [x] CRUD Buenas Acciones 
 		- [X] CRUD Productos
-		- [ ] CRUD Perfiles
+		- [X] CRUD Perfiles
 		- [ ] Responder Mensajes (chat) de niños
 		- [ ] Reportes
 			- [ ] Top 10 productos mas comprados.

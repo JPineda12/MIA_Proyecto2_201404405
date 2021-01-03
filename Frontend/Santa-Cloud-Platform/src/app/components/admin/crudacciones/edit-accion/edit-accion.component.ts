@@ -29,6 +29,7 @@ export class EditAccionComponent {
     ((document.getElementById("descripcion") as HTMLInputElement).value) = this.data.descripcion;
     ((document.getElementById("recompensa") as HTMLInputElement).value) = "" + this.data.recompensa;
     ((document.getElementById("edad") as HTMLInputElement).value) = "" + this.data.minEdad;
+
   }
 
   save() {
@@ -36,6 +37,7 @@ export class EditAccionComponent {
     this.data.descripcion = ((document.getElementById("descripcion") as HTMLInputElement).value);
     this.data.recompensa = +((document.getElementById("recompensa") as HTMLInputElement).value);
     this.data.minEdad = +((document.getElementById("edad") as HTMLInputElement).value);
+
     this.apiService.updateAccion(this.data.titulo, this.data.descripcion, "" + this.data.recompensa,
       "" + this.data.minEdad, this.data.idAccion).toPromise().then((res) => {
 

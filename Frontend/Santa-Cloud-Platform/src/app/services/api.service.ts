@@ -61,21 +61,6 @@ export class ApiService {
     gender: string, fecha: string, tel: string, bastones: string, direccion: string,
     idRol: string, idMunicipio: String, idPadre: String, capacidadBastones: string,
     latitud: string, longitud: string) {
-    console.log("Nombre: ", nombre);
-    console.log("nickname: ", nickname);
-    console.log("email: ", email);
-    console.log("pass: ", pass);
-    console.log("genero: ", gender);
-    console.log("fecha: ", fecha);
-    console.log("tel: ", tel);
-    console.log("bastones: ", bastones);
-    console.log("capacidad: ", capacidadBastones);
-    console.log("idPadre: ", idPadre);
-    console.log("idRol:", idRol);
-    console.log("idMunicipio: ", idMunicipio);
-    console.log("latitud: ", latitud);
-    console.log("longitud: ", longitud);
-
 
     return this.http.post(`${this.API_URI}/api/users/`,
       {
@@ -131,15 +116,18 @@ export class ApiService {
   }
 
   getAcciones() {
-    return this.http.get(`${this.API_URI}/api/goodActions`);
+    return this.http.get(`${this.API_URI}/api/goodDeeds`);
   }
+  getAccionesByAge(minEdad: string){
+    return this.http.get(`${this.API_URI}/api/goodDeedsByAge/${minEdad}`);
 
+  }
   getAccionesById(id: string) {
-    return this.http.get(`${this.API_URI}/api/goodActions/${id}`);
+    return this.http.get(`${this.API_URI}/api/goodDeeds/${id}`);
   }
 
   insertarAccion(titulo: string, descripcion: string, recompensa: string, minEdad: string) {
-    return this.http.post(`${this.API_URI}/api/goodActions/`,
+    return this.http.post(`${this.API_URI}/api/goodDeeds/`,
       {
         "titulo": titulo,
         "descripcion": descripcion,
@@ -150,7 +138,7 @@ export class ApiService {
 
   updateAccion(titulo: string, descripcion: string, recompensa: string, edadMinima: string, idAccion: string) {
 
-    return this.http.put(`${this.API_URI}/api/goodActions/`,
+    return this.http.put(`${this.API_URI}/api/goodDeeds/`,
       {
         "titulo": titulo,
         "descripcion": descripcion,
@@ -161,7 +149,7 @@ export class ApiService {
   }
 
   deleteAccion(idAccion: string) {
-    return this.http.put(`${this.API_URI}/api/deleteGoodAction/`,
+    return this.http.put(`${this.API_URI}/api/deleteGoodDeeds/`,
       {
         "idAccion": idAccion,
       }, { headers: this.headers }).pipe(map(data => data));

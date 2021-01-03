@@ -70,7 +70,7 @@ export class CRUDAccionesComponent implements OnInit {
 
 
   private editarRegistro(buenaAccion: any) {
-    console.log(buenaAccion)
+
     const dialogRef = this.dialog.open(EditAccionComponent, {
       width: '250px',
       disableClose: true,
