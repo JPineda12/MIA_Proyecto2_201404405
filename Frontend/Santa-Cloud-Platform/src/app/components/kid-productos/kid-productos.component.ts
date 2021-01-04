@@ -12,7 +12,8 @@ export interface Producto {
   minEdad: number,
   idCategoria: number,
   categoria: string,
-  image_url: string
+  image_url: string,
+  cantidad: number
 }
 
 @Component({
@@ -26,15 +27,16 @@ export class KidProductosComponent implements OnInit {
 
 
 
-  constructor(private router: Router, private apiService: ApiService) { }
+  constructor(public dialog: MatDialog, private router: Router, private apiService: ApiService) { }
 
   displayedColumns: string[] = ['Nombre', 'Precio', 'Imagen'];
   Productos: Producto[] = [];
   Usuario: any;
+  ProductosDeseados: Producto[] = [];
+  total: number = 0;
   ngOnInit(): void {
     this.Usuario = JSON.parse(localStorage.getItem("user"));
     this.getProductos()
-    console.log(this.Productos);
   }
 
   getProductos() {
@@ -51,13 +53,12 @@ export class KidProductosComponent implements OnInit {
             minEdad: prod.minEdad,
             idCategoria: prod.idCategoria,
             categoria: prod.categoria,
-            image_url: prod.image_url
+            image_url: prod.image_url,
+            cantidad: 1
           }
           this.Productos.push(p);
         }
       }
-      this.table.renderRows();
-
     });
   }
 
@@ -72,38 +73,133 @@ export class KidProductosComponent implements OnInit {
     return age;
   }
 
-  public adquirir(producto: any) {
-    /*swal.fire({
-      title: '¿Deseas Adquirir este producto?!',
-      text: '¿Marcar esta Buena Accion como Realizando?',
-      showDenyButton: false,
-      showCancelButton: true,
-      confirmButtonText: `Aceptar`,
-      cancelButtonText: 'Regresar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.apiService.insertarAccionRealizar("" + gDeed.idAccion, "" + this.Usuario.idUsuario,
-          this.obtenerFecha(), "1", gDeed.recompensa).toPromise().then((res) => {
-            console.log(res)
-            this.accionesPendientes.push(gDeed);
-            const index = this.buenasAcciones.indexOf(gDeed, 0);
-            if (index > -1) {
-              this.buenasAcciones.splice(index, 1);
-            }
-          });
-      }
-    })
-    */
+  public enviar() {
+    let textoCarta = ((document.getElementById("notes") as HTMLInputElement).value);
+    if (this.listaJuguetes.length == 0) {
+      swal.fire(
+        'Escoge un juguete!',
+        'Para enviar una carta debes agregar al menos un juguete a la lista :)',
+        'error'
+      )
+    } else {
+      swal.fire({
+        title: '¿Enviar carta a santa?',
+        text: "Tu carta sera enviada a santa :)",
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, enviar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swal.fire(
+            'Carta Enviada!',
+            'Tu carta y lista de juguetes fue enviada :)',
+            'success'
+          )
+        }
+      })
+    }
   }
 
   listaJuguetes: any[] = []
-  public agregarJuguete(prod: any) {
-    this.listaJuguetes.push(prod)
-    let texto = "Lista de Juguetes: "
-    for (let i = 0; i < this.listaJuguetes.length-1; i++) {
-      texto += this.listaJuguetes[i].nombre+",";
+  public agregarJuguete(producto: any) {
+    if (!this.listaJuguetes.includes(producto)) {
+      swal.fire({
+        title: '¿Deseas agregar este juguete?',
+        text: "Este Juguete se agregara a tu carta a santa",
+        icon: 'info',
+        imageUrl: producto.image_url,
+        imageWidth: 250,
+        imageHeight: 250,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, agregar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let auxTotal = this.total + producto.precio;
+          if (auxTotal > this.Usuario.bastones) {
+            swal.fire(
+              'NO se pudo agregar!',
+              'Con este juguete se excederia la cantidad de bastones que tienes!',
+              'error'
+            )
+          } else {
+            this.listaJuguetes.push(producto);
+            swal.fire(
+              'Agregado!',
+              'Tu juguete ha sido agregado.',
+              'success'
+            )
+            this.total += producto.precio;
+          }
+        }
+      })
+    } else {
+      swal.fire({
+        title: 'Este Juguete ya esta en tu lista',
+        text: "Ya agregaste este juguete a tu lista, ¿Deseas agregar otro igual?",
+        icon: 'info',
+        imageUrl: producto.image_url,
+        imageWidth: 200,
+        imageHeight: 200,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, agregar uno mas!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let auxTotal = this.total + producto.precio;
+          if (auxTotal > this.Usuario.bastones) {
+            swal.fire(
+              'NO se pudo agregar!',
+              'Con este juguete se excederia la cantidad de bastones que tienes!',
+              'error'
+            )
+          } else {
+            const index = this.listaJuguetes.indexOf(producto, 0);
+            if (index > -1) {
+              this.listaJuguetes[index].cantidad += 1
+            }
+            swal.fire(
+              'Agregado!',
+              'Se agrego el juguete.',
+              'success'
+            )
+            this.total += producto.precio;
+          }
+        }
+      })
     }
-    texto += prod.nombre;
-    ((document.getElementById("text") as HTMLInputElement).value) = texto;
+  }
+
+  public quitarDeLista(producto: any) {
+    swal.fire({
+      title: '¿Eliminar Juguete de lista?',
+      text: "¿Deseas eliminar este juguete de tu lista?",
+      icon: 'error',
+      imageUrl: producto.image_url,
+      imageWidth: 200,
+      imageHeight: 200,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const index = this.listaJuguetes.indexOf(producto, 0);
+        this.total = this.total - producto.precio * this.listaJuguetes[index].cantidad;
+        if (index > -1) {
+          this.listaJuguetes[index].cantidad = 1;
+          this.listaJuguetes.splice(index, 1);
+        }
+        swal.fire(
+          'Eliminado!',
+          'El juguete ha sido eliminado.',
+          'success'
+        )
+      }
+    })
   }
 }

@@ -68,7 +68,6 @@ export class KidComponent implements OnInit {
       if (result.isConfirmed) {
         this.apiService.insertarAccionRealizar("" + gDeed.idAccion, "" + this.Usuario.idUsuario,
           this.obtenerFecha(), "1", gDeed.recompensa).toPromise().then((res) => {
-            console.log(res)
             this.accionesPendientes.push(gDeed);
             const index = this.buenasAcciones.indexOf(gDeed, 0);
             if (index > -1) {

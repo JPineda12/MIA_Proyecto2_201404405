@@ -27,7 +27,7 @@ import { CRUDPerfilesComponent } from './components/admin/crudperfiles/crudperfi
 import { EditperfilComponent } from './components/admin/crudperfiles/editperfil/editperfil.component';
 import { AddperfilComponent } from './components/admin/crudperfiles/addperfil/addperfil.component';
 import { KidProductosComponent } from './components/kid-productos/kid-productos.component';
-import { KidSantaProfileComponent } from './components/kid-santa-profile/kid-santa-profile.component'
+import { KidSantaProfileComponent } from './components/kid-santa-profile/kid-santa-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +49,7 @@ import { KidSantaProfileComponent } from './components/kid-santa-profile/kid-san
     EditperfilComponent,
     AddperfilComponent,
     KidProductosComponent,
-    KidSantaProfileComponent
+    KidSantaProfileComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,8 @@
 			- [x] Marcar como completa
 		- [ ] Ver Cartas
 		- [ ] Enviar carta a Santa
+			- [x] Escribir Carta
+			- [x] Ver Productos y agregar 
 		- [ ] Enviar mensaje a Elfo (chat)
 	- [ ] Perfil de Elfo (administrador)
 		- [x] CRUD Buenas Acciones 
