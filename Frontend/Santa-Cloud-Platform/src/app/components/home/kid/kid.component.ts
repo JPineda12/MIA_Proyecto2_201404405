@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
-import { templateJitUrl } from '@angular/compiler';
 @Component({
   selector: 'app-kid',
   templateUrl: './kid.component.html',

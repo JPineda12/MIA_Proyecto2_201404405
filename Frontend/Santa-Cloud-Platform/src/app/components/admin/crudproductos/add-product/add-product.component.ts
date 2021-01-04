@@ -86,7 +86,7 @@ export class AddProductComponent {
   }
 
   getCategoriaId(): string {
-    for (let i = 0; i < this.Categorias.length; i) {
+    for (let i = 0; i < this.Categorias.length; i++) {
       if (this.Categorias[i].categoria == this.catValue) {
         return this.Categorias[i].id
       }

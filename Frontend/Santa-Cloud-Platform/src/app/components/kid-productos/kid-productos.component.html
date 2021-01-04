@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+<div class="signup">
+    <div class="signup-connect">
+        <div id="snowFall"></div>
+        <p class="mat-display-1">Carta a Santa</p>
+        <mat-form-field class="mensaje">
+            <textarea id="notes" class="notes" maxlength="300" rows="15" matInput></textarea>
+            <button class="santaButton" type="button" mat-raised-button color="primary">Enviar Carta</button>
+        </mat-form-field>
+
+    </div>
+
+    <div class="segunda-mitad">
+        <div id="snowFall"></div>
+
+        <p class="mat-display-1">Escoge tus Regalos</p>
+
+        <div class="container">
+            <mat-card class="btn" *ngFor="let p of Productos" (click)="agregarJuguete(p)">
+                <div id="snowFall"></div>
+                <mat-card-title>{{p.nombre}}</mat-card-title>
+                <div id="snowFall"></div>
+                <div class="contenedor">
+                    <img mat-card-image [src]="p.image_url" class="imagen">
+                    <button mat-button>
+                        <mat-icon>store</mat-icon>
+                        {{p.precio}} bastones
+                    </button>
+                </div>
+            </mat-card>
+
+        </div>
+    </div>
+</div>

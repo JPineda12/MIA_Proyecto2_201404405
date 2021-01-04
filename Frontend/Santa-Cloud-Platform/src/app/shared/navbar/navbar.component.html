@@ -23,11 +23,12 @@
         </mat-menu>
 
         <!-- OPCIONES PARA USUARIO 4 'NIÑO' (KID) -->
-        <button mat-button [routerLink]="'/'" *ngIf="this.Usuario.idRol == 4">Acumular Puntos</button>
-        <button mat-button [routerLink]="'/'" *ngIf="this.Usuario.idRol == 4">Ver Productos</button>
+        <button mat-button class="bastones" *ngIf="this.Usuario.idRol == 4">BASTONES ACUMULADOS: {{Usuario.bastones}}</button>
+        <button mat-button [routerLink]="'/kid'" *ngIf="this.Usuario.idRol == 4">Acumular Puntos</button>
+        <button mat-button [routerLink]="'/kidproductos'" *ngIf="this.Usuario.idRol == 4">Ver Productos</button>
         <button mat-button [matMenuTriggerFor]="menu4" *ngIf="this.Usuario.idRol == 4">Perfil de Santa</button>
         <mat-menu #menu4="matMenu">
-            <button mat-menu-item [routerLink]="'/'">Ver Perfil</button>
+            <button mat-menu-item [routerLink]="'/kidsanta'">Ver Perfil</button>
             <button mat-menu-item *ngIf="this.Usuario.idRol == 4">Enviar Carta a Santa</button>
             <button mat-menu-item *ngIf="this.Usuario.idRol == 4">Mensajeria a Elfos</button>
         </mat-menu>

@@ -25,7 +25,9 @@ import { AddProductComponent } from './components/admin/crudproductos/add-produc
 import { AddCategoriaComponent } from './components/admin/crudproductos/add-categoria/add-categoria.component';
 import { CRUDPerfilesComponent } from './components/admin/crudperfiles/crudperfiles.component';
 import { EditperfilComponent } from './components/admin/crudperfiles/editperfil/editperfil.component';
-import { AddperfilComponent } from './components/admin/crudperfiles/addperfil/addperfil.component'
+import { AddperfilComponent } from './components/admin/crudperfiles/addperfil/addperfil.component';
+import { KidProductosComponent } from './components/kid-productos/kid-productos.component';
+import { KidSantaProfileComponent } from './components/kid-santa-profile/kid-santa-profile.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,9 @@ import { AddperfilComponent } from './components/admin/crudperfiles/addperfil/ad
     AddCategoriaComponent,
     CRUDPerfilesComponent,
     EditperfilComponent,
-    AddperfilComponent
+    AddperfilComponent,
+    KidProductosComponent,
+    KidSantaProfileComponent
   ],
   imports: [
     BrowserModule,

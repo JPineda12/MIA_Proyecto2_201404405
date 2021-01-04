@@ -9,6 +9,8 @@ import { PadreComponent} from './components/home/padre/padre.component'
 import { CRUDAccionesComponent} from './components/admin/crudacciones/crudacciones.component'
 import { CrudproductosComponent} from './components/admin/crudproductos/crudproductos.component'
 import { CRUDPerfilesComponent} from './components/admin/crudperfiles/crudperfiles.component'
+import { KidProductosComponent} from './components/kid-productos/kid-productos.component'
+import { KidSantaProfileComponent} from './components/kid-santa-profile/kid-santa-profile.component'
 const routes: Routes = [
   { 
     path: '',
@@ -50,6 +52,14 @@ const routes: Routes = [
   {
     path: 'adminperfiles',
     component: CRUDPerfilesComponent,
+  },
+  {
+    path: 'kidproductos',
+    component: KidProductosComponent,
+  },
+  {
+    path: 'kidsanta',
+    component: KidSantaProfileComponent,
   },
   {
     path: '**',
