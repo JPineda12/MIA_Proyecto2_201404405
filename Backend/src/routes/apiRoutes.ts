@@ -3,6 +3,7 @@ import { apiController} from '../controllers/apiController';
 import { userController} from '../controllers/userController';
 import { productController} from '../controllers/productController';
 import { goodDeedsController} from '../controllers/goodDeedsController';
+import { cartasController} from '../controllers/cartasController';
 class ApiRoutes{
     public router: Router = Router();
 
@@ -48,7 +49,15 @@ class ApiRoutes{
         this.router.put('/ChangeGoodDeedState', goodDeedsController.ChangeGoodDeedState);
         this.router.get('/pendingGoodDeeds/:idUsuario', goodDeedsController.getPendingGoodDeeds);
         
-
+        //Cartas Routes
+        this.router.get('/cartas', cartasController.getCartasByUser);
+        this.router.get('/lastIdCarta', cartasController.getLastId);
+        this.router.get('/allCartas', cartasController.getAllCartas);
+        this.router.put('/cartas', cartasController.updateEstadoCarta);
+        this.router.post('/createCarta', cartasController.createCarta);
+        this.router.get('/articulos/:idCarta', cartasController.getDetalleCarta);
+        this.router.post('/articulos', cartasController.createDetalleCarta);
+        this.router.delete('/articulos/:idArticulo', cartasController.borrarArticulo);
     }
 
 }

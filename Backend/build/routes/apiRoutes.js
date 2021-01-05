@@ -5,6 +5,7 @@ var apiController_1 = require("../controllers/apiController");
 var userController_1 = require("../controllers/userController");
 var productController_1 = require("../controllers/productController");
 var goodDeedsController_1 = require("../controllers/goodDeedsController");
+var cartasController_1 = require("../controllers/cartasController");
 var ApiRoutes = /** @class */ (function () {
     function ApiRoutes() {
         this.router = express_1.Router();
@@ -46,6 +47,15 @@ var ApiRoutes = /** @class */ (function () {
         this.router.get('/goodDeedsDone/:idUsuario', goodDeedsController_1.goodDeedsController.getGoodDeedsDone);
         this.router.put('/ChangeGoodDeedState', goodDeedsController_1.goodDeedsController.ChangeGoodDeedState);
         this.router.get('/pendingGoodDeeds/:idUsuario', goodDeedsController_1.goodDeedsController.getPendingGoodDeeds);
+        //Cartas Routes
+        this.router.get('/cartas', cartasController_1.cartasController.getCartasByUser);
+        this.router.get('/lastIdCarta', cartasController_1.cartasController.getLastId);
+        this.router.get('/allCartas', cartasController_1.cartasController.getAllCartas);
+        this.router.put('/cartas', cartasController_1.cartasController.updateEstadoCarta);
+        this.router.post('/createCarta', cartasController_1.cartasController.createCarta);
+        this.router.get('/articulos/:idCarta', cartasController_1.cartasController.getDetalleCarta);
+        this.router.post('/articulos', cartasController_1.cartasController.createDetalleCarta);
+        this.router.delete('/articulos/:idArticulo', cartasController_1.cartasController.borrarArticulo);
     };
     return ApiRoutes;
 }());
