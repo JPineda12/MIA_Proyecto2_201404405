@@ -2,14 +2,14 @@
 
 - [ ] Aplicacion Web
 	- [ ] Inicio de Sesion
-		- [ ] Rol: Niño
+		- [X] Rol: Niño
 		- [x] Rol: Elfo (admin)
 	- [ ] Perfil de niño
 		- [x] Buenas Acciones
 			- [x] Mostrar segun edad
 			- [x] Marcar como completa
 		- [ ] Ver Cartas
-		- [ ] Enviar carta a Santa
+		- [X] Enviar carta a Santa
 			- [x] Escribir Carta
 			- [x] Ver Productos y agregar 
 		- [ ] Enviar mensaje a Elfo (chat)
@@ -37,8 +37,8 @@
 				- [ ] Ubicacion con Google Maps (API de google)
 			- [ ] Entregar regalo
 	- [ ] Perfil de Padre
-		- [ ] Confirmar buenas acciones de hijo
-			- [ ] Sumar bastones a hijo
+		- [x] Confirmar buenas acciones de hijo
+			- [x] Sumar bastones a hijo
 		- [ ] Confirmar regalo 
 			- [ ] Ver cartas y editar productos
 		- [ ] Editar perfil del hijo

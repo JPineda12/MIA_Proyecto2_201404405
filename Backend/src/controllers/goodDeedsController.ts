@@ -65,6 +65,7 @@ class GoodDeedsController {
                 "minEdad": accion[4],
                 "nickname": accion[5],
                 "estado": accion[6],
+                "idUsuario": idUsuario,
             }
             acciones.push(accionesSchema);
         })
