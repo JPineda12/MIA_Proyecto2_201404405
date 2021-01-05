@@ -256,4 +256,50 @@ export class ApiService {
   uploadImage(archivo: any) {
     return this.http.post(`${this.API_URI}/api/uploadImage/`, archivo)
   }
+
+
+  getCartas(idUsuario: string, estado: string){
+    const customHeaders = { 'idUsuario': idUsuario, 'estado': estado }
+    return this.http.get(`${this.API_URI}/api/cartas/`, { headers: customHeaders });
+  }
+
+  updateEstadoCarta(idCarta: string, estado: string){
+    return this.http.put(`${this.API_URI}/api/cartas/`,
+      {
+        "idCarta": idCarta,
+        "estado": estado
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  createCarta(mensaje: string, fecha: string, estado:string, idUsuario: string){
+    return this.http.post(`${this.API_URI}/api/createCarta/`,
+      {
+        "mensaje": mensaje, 
+        "fecha": fecha, 
+        "estado": estado,
+        "idUsuario": idUsuario
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+  getLastIdCarta(){
+    return this.http.get(`${this.API_URI}/api/lastIdCarta`);
+  }
+  createDetalleCarta(cantidad: string, precio: string, idcarta: string, idProducto: string){
+    console.log("AVERRRR: ",idcarta);
+    return this.http.post(`${this.API_URI}/api/articulos/`,
+      {
+        "cantidad": cantidad,
+        "precio": precio,
+        "idCarta": idcarta,
+        "idProducto": idProducto
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  getDetalleCarta(idCarta: string){
+    return this.http.get(`${this.API_URI}/api/articulos/${idCarta}`);
+  }
+
+  borrarArticulo(idArticulo: string){
+    return this.http.delete(`${this.API_URI}/api/articulos/${idArticulo}`);
+
+  }
 }

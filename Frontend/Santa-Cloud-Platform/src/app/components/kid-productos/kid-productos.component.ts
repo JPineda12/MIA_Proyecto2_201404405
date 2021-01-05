@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { MatTable } from '@angular/material/table';
 import { MatDialog, } from '@angular/material/dialog';
 
@@ -27,12 +27,28 @@ export class KidProductosComponent implements OnInit {
 
 
 
-  constructor(public dialog: MatDialog, private router: Router, private apiService: ApiService) { }
+  constructor(public dialog: MatDialog, private router: Router, private apiService: ApiService) {
+
+
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    }
+
+    this.router.events.subscribe((evt) => {
+      if (evt instanceof NavigationEnd) {
+        // trick the Router into believing it's last link wasn't previously loaded
+        this.router.navigated = false;
+        // if you need to scroll back to top, here is the right place
+        window.scrollTo(0, 0);
+      }
+    });
+
+
+  }
 
   displayedColumns: string[] = ['Nombre', 'Precio', 'Imagen'];
   Productos: Producto[] = [];
   Usuario: any;
-  ProductosDeseados: Producto[] = [];
   total: number = 0;
   ngOnInit(): void {
     this.Usuario = JSON.parse(localStorage.getItem("user"));
@@ -92,14 +108,56 @@ export class KidProductosComponent implements OnInit {
         confirmButtonText: 'Si, enviar!'
       }).then((result) => {
         if (result.isConfirmed) {
-          swal.fire(
-            'Carta Enviada!',
-            'Tu carta y lista de juguetes fue enviada :)',
-            'success'
-          )
+          this.apiService.createCarta(textoCarta, this.obtenerFecha(), "0", this.Usuario.idUsuario)
+            .toPromise().then(async (res) => {
+              console.log(res)
+              let lastId = await this.getLastidCarta();
+              console.log("---Enviando Lista de Articulos (Detalle Carta) with id:", lastId)
+              await this.insertDetalles(lastId)
+              swal.fire(
+                'Carta Enviada!',
+                'Tu carta y lista de juguetes fue enviada :)',
+                'success'
+              )
+            });
         }
       })
     }
+  }
+
+  async getLastidCarta(): Promise<string> {
+    let lastId: string = await new Promise((resolve, reject) => {
+      this.apiService.getLastIdCarta()
+        .toPromise().then((res) => {
+          let aux: any = res;
+          resolve(aux[0].idCarta)
+        });
+    });
+    return lastId;
+  }
+  async insertDetalles(idCarta: string) {
+    for await (let juguete of this.listaJuguetes) {
+      this.apiService.createDetalleCarta(juguete.cantidad, juguete.precio, idCarta, juguete.idProducto)
+        .toPromise().then((res) => {
+          this.Usuario.bastones = this.Usuario.bastones - (juguete.precio * juguete.cantidad)
+          localStorage.setItem("user", JSON.stringify(this.Usuario))
+          this.vaciarTodo();
+        });
+    }
+  }
+
+  vaciarTodo() {
+    this.listaJuguetes = [];
+    (document.getElementById("notes") as HTMLInputElement).value = "";
+    this.total = 0;
+    this.router.navigate(["/kidproductos"]);
+  }
+  obtenerFecha(): string {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    return mm + '/' + dd + '/' + yyyy;
   }
 
   listaJuguetes: any[] = []
