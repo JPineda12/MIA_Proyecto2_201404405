@@ -13,8 +13,6 @@ export class LoginComponent implements OnInit {
   usuario: any;
   titularAlerta: string = ""
   ngOnInit(): void {
-
-
   }
 
   validateLogin() {

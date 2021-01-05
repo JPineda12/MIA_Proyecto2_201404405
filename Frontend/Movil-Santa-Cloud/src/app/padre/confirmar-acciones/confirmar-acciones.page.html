@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Confirmar Buenas Acciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card class="realizadas" *ngFor="let gDeed of accionesRealizadas">
+    <div id="snowFall"></div>
+    <ion-card-header>
+      <ion-card-subtitle>Hecho por: {{gDeed.nickname}}</ion-card-subtitle>
+      <ion-card-title>{{gDeed.titulo}}
+        <ion-badge color="success"> Recompensa {{gDeed.recompensa}}</ion-badge>
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{gDeed.descripcion}}
+    </ion-card-content>
+    <div class="botones">
+      <ion-button (click)="confirmar(gDeed)">Confirmar</ion-button>
+      <ion-button (click)="eliminar(gDeed)">Eliminar</ion-button>
+    </div>
+  </ion-card>
+
+  <ion-card class="pendientes" *ngFor="let gDeed of accionesPendientes">
+    <div id="snowFall"></div>
+    <ion-card-header>
+      <ion-card-subtitle>Pendiente de hacer por: {{gDeed.nickname}}</ion-card-subtitle>
+      <ion-card-title>{{gDeed.titulo}}
+        <ion-badge color="primary"> Recompensa {{gDeed.recompensa}}</ion-badge>
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{gDeed.descripcion}}
+    </ion-card-content>
+    <div class="botones">
+      <ion-button (click)="confirmar(gDeed)">Confirmar</ion-button>
+      <ion-button (click)="eliminar(gDeed)">Eliminar</ion-button>
+    </div>
+  </ion-card>
+
+  <ion-card *ngIf="sinAcciones == true">
+    <ion-card-content >
+      Sin buenas acciones por confirmar
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

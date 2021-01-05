@@ -1,0 +1,7 @@
+{
+  "name": "Movil-Santa-Cloud",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
