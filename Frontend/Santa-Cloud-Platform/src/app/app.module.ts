@@ -28,6 +28,8 @@ import { EditperfilComponent } from './components/admin/crudperfiles/editperfil/
 import { AddperfilComponent } from './components/admin/crudperfiles/addperfil/addperfil.component';
 import { KidProductosComponent } from './components/kid-productos/kid-productos.component';
 import { KidSantaProfileComponent } from './components/kid-santa-profile/kid-santa-profile.component';
+import { VerCartasComponent } from './components/ver-cartas/ver-cartas.component';
+import { DetalleCartaComponent } from './components/detalle-carta/detalle-carta.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +52,8 @@ import { KidSantaProfileComponent } from './components/kid-santa-profile/kid-san
     AddperfilComponent,
     KidProductosComponent,
     KidSantaProfileComponent,
+    VerCartasComponent,
+    DetalleCartaComponent,
   ],
   imports: [
     BrowserModule,

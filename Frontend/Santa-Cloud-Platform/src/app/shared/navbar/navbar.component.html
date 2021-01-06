@@ -28,7 +28,7 @@
         <button mat-button [routerLink]="'/kidproductos'" *ngIf="this.Usuario.idRol == 4">Enviar Carta a Santa</button>
         <button mat-button [matMenuTriggerFor]="menu4" *ngIf="this.Usuario.idRol == 4">Perfil de Santa</button>
         <mat-menu #menu4="matMenu">
-            <button mat-menu-item [routerLink]="'/kidsanta'">Ver Cartas Enviadas</button>
+            <button mat-menu-item [routerLink]="'/kidsanta'">Ver Perfil de Santa</button>
             <button mat-menu-item *ngIf="this.Usuario.idRol == 4">Mensajeria a Elfos</button>
         </mat-menu>
 
@@ -46,7 +46,7 @@
 
         <button mat-button [matMenuTriggerFor]="afterMenu">{{Usuario.nombre}}</button>
         <mat-menu #afterMenu="matMenu" xPosition="after">
-            <button mat-menu-item>Ver Perfil</button>
+            <button mat-menu-item *ngIf="this.Usuario.idRol == 4" [routerLink]="'/cartasenviadas'">Ver cartas enviadas</button>
             <button mat-menu-item (click)="cerrarSesion()">Cerrar Sesion</button>
         </mat-menu>
 

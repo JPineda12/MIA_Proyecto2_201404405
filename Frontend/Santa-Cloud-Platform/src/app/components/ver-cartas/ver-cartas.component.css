@@ -1,0 +1,103 @@
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.card {
+    flex: 0 0 20%;
+    box-sizing: border-box;
+    margin: 1rem .25em;
+    background-color: #771613;
+}
+.mat-card-content{
+    min-height: 100px;
+}
+
+.desc{
+    text-align:center;
+}
+
+.rec{
+    text-align: center;
+}
+
+.mat-h2 {
+    text-align: center;
+}
+
+.mat-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton{
+    z-index: 2;
+}
+
+
+#snowFall {
+    background: none;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/426955/S1.png'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/426955/S2.png'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/426955/S3.png');
+    -webkit-animation: snowFall 10s linear infinite;
+    -moz-animation: snowFall 10s linear infinite;
+    -ms-animation: snowFall 10s linear infinite;
+    animation: snowFall 10s linear infinite;
+}
+
+@-webkit-keyframes snowFall {
+    0% {
+        background-position: 0px 0px, 0px 0px, 0px 0px;
+    }
+    50% {
+        background-position: 500px 500px, 100px 200px, -100px 150px;
+    }
+    100% {
+        background-position: 500px 1000px, 200px 400px, -100px 300px;
+    }
+}
+
+@-moz-keyframes snowFall {
+    0% {
+        background-position: 0px 0px, 0px 0px, 0px 0px;
+    }
+    50% {
+        background-position: 500px 500px, 100px 200px, -100px 150px;
+    }
+    100% {
+        background-position: 500px 1000px, 200px 400px, -100px 300px;
+    }
+}
+
+@-ms-keyframes snowFall {
+    0% {
+        background-position: 0px 0px, 0px 0px, 0px 0px;
+    }
+    50% {
+        background-position: 500px 500px, 100px 200px, -100px 150px;
+    }
+    100% {
+        background-position: 500px 1000px, 200px 400px, -100px 300px;
+    }
+}
+
+@keyframes snowFall {
+    0% {
+        background-position: 0px 0px, 0px 0px, 0px 0px;
+    }
+    50% {
+        background-position: 500px 500px, 100px 200px, -100px 150px;
+    }
+    100% {
+        background-position: 500px 1000px, 200px 400px, -100px 300px;
+    }
+}

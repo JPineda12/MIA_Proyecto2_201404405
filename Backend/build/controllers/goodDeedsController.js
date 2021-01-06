@@ -80,13 +80,10 @@ var GoodDeedsController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = req.headers, idusuario = _a.idusuario, minedad = _a.minedad;
-                        sql = "SELECT b.IDBUENA_ACCION, b.titulo, b.descripcion, b.recompensa, b.MINEDAD, u.NICKNAME "
-                            + " FROM BUENA_ACCION b, USUARIO u"
-                            + " WHERE NOT EXISTS (SELECT '?' FROM ACCION_REALIZAR a "
-                            + "         WHERE a.REALIZAR_IDBUENA_ACCION = b.IDBUENA_ACCION)"
-                            + " AND u.IDUSUARIO = :idusuario"
-                            + " AND b.MINEDAD <= :minedad";
-                        return [4 /*yield*/, database_1.default.Open(sql, [idusuario, minedad], true)];
+                        sql = "SELECT b.IDBUENA_ACCION, b.titulo, b.descripcion, b.recompensa, b.MINEDAD"
+                            + " FROM BUENA_ACCION b "
+                            + " WHERE b.MINEDAD <= :minedad";
+                        return [4 /*yield*/, database_1.default.Open(sql, [minedad], true)];
                     case 1:
                         result = _b.sent();
                         acciones = [];

@@ -19,9 +19,7 @@ export class KidComponent implements OnInit {
   Usuario: any
   ngOnInit(): void {
     this.Usuario = JSON.parse(localStorage.getItem("user"));
-    this.getBuenasAccionesPendientes();
     this.getBuenasAcciones();
-
   }
 
   public obtenerEdad(dateOfBirth: any): number {
@@ -39,6 +37,11 @@ export class KidComponent implements OnInit {
     this.apiService.getPendingGoodDeeds("" + this.Usuario.idUsuario).toPromise().then(async (res) => {
       let auxAcciones: any = res
       for await (let aux of auxAcciones) {
+        let duplicate = this.buenasAcciones.find(x => x.idAccion == aux.idAccion);
+        const index = this.buenasAcciones.indexOf(duplicate, 0);
+        if (index > -1) {
+          this.buenasAcciones.splice(index, 1);
+        }
         if (aux.estado == 1) {
           this.accionesPendientes.push(aux)
         } else if (aux.estado == 2) {
@@ -52,7 +55,7 @@ export class KidComponent implements OnInit {
     this.apiService.getAccionesByAge("" + this.Usuario.idUsuario,
       "" + this.obtenerEdad(this.Usuario.fecha)).toPromise().then((res) => {
         this.buenasAcciones = res
-        console.log(this.buenasAcciones)
+        this.getBuenasAccionesPendientes();
       });
   }
 
@@ -68,6 +71,7 @@ export class KidComponent implements OnInit {
       if (result.isConfirmed) {
         this.apiService.insertarAccionRealizar("" + gDeed.idAccion, "" + this.Usuario.idUsuario,
           this.obtenerFecha(), "1", gDeed.recompensa).toPromise().then((res) => {
+            gDeed.estado = 1;
             this.accionesPendientes.push(gDeed);
             const index = this.buenasAcciones.indexOf(gDeed, 0);
             if (index > -1) {
@@ -87,7 +91,7 @@ export class KidComponent implements OnInit {
   }
 
   accionPendiente(gDeed: any) {
-
+    console.log(gDeed);
     if (gDeed.estado == 1) {
       swal.fire({
         title: '¿Completar Esta Accion?!',
@@ -109,7 +113,7 @@ export class KidComponent implements OnInit {
           });
         }
       })
-    }else{
+    } else {
       swal.fire({
         icon: 'success',
         title: 'Accion Completada!',

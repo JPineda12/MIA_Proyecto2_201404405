@@ -51,6 +51,8 @@ var CartasController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = req.headers, idusuario = _a.idusuario, estado = _a.estado;
+                        console.log(idusuario);
+                        console.log(estado);
                         consulta = "SELECT idCarta, Mensaje, Fecha, Estado, Carta_idUsuario"
                             + " FROM CARTA WHERE estado = :estado AND Carta_idUsuario = :idusuario";
                         return [4 /*yield*/, database_1.default.Open(consulta, [estado, idusuario], true)];

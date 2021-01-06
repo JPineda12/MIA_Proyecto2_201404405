@@ -5,6 +5,8 @@ class CartasController {
 
     public async getCartasByUser(req: Request, res: Response) {
         const { idusuario, estado } = req.headers;
+        console.log(idusuario);
+        console.log(estado);
         let consulta = "SELECT idCarta, Mensaje, Fecha, Estado, Carta_idUsuario"
             + " FROM CARTA WHERE estado = :estado AND Carta_idUsuario = :idusuario"
         const result = await database.Open(consulta, [estado, idusuario], true);

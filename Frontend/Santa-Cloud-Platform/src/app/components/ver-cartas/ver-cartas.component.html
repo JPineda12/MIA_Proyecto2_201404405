@@ -1,0 +1,24 @@
+<app-navbar></app-navbar>
+
+<div class="cards">
+    <mat-card class="card" *ngFor="let carta of Cartas">
+        <div id="snowFall"></div>
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>military_tech</mat-icon>
+                {{this.Usuario.nombre}}
+            </mat-card-title>
+            <mat-card-subtitle>{{carta.fecha}} </mat-card-subtitle>
+        </mat-card-header>
+        <p>
+            {{carta.mensaje}}
+        </p>
+
+        <mat-card-actions>
+            <button class="boton" mat-button (click)="verDetalle(carta)">
+                <mat-icon>edit</mat-icon>
+                Ver detalle de carta
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

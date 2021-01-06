@@ -8,7 +8,7 @@
 		- [x] Buenas Acciones
 			- [x] Mostrar segun edad
 			- [x] Marcar como completa
-		- [ ] Ver Cartas
+		- [X] Ver Cartas
 		- [X] Enviar carta a Santa
 			- [x] Escribir Carta
 			- [x] Ver Productos y agregar 
@@ -36,12 +36,12 @@
 			- [ ] Ver detalle de alguna carta (producto,nombre,ubicacion)
 				- [ ] Ubicacion con Google Maps (API de google)
 			- [ ] Entregar regalo
-	- [ ] Perfil de Padre
+	- [x] Perfil de Padre
 		- [x] Confirmar buenas acciones de hijo
 			- [x] Sumar bastones a hijo
-		- [ ] Confirmar regalo 
-			- [ ] Ver cartas y editar productos
-		- [ ] Editar perfil del hijo
+		- [x] Confirmar regalo 
+			- [x] Ver cartas y editar productos
+		- [x] Editar perfil del hijo
 			- [ ] Ver mensajes con elfo
 
 - [ ] API

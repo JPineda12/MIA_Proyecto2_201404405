@@ -1,0 +1,25 @@
+<h1 class="shadow">Lista de Juguetes</h1>
+
+<mat-dialog-content>
+    <div class="cards">
+        <mat-card class="card" *ngFor="let prod of Productos">
+            <div id="snowFall"></div>
+            <mat-card-header>
+                <mat-card-title>
+                    <mat-icon>military_tech</mat-icon>
+                    {{prod.Nombre}}
+                </mat-card-title>
+                <mat-card-subtitle>{{prod.cantidad}} </mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image [src]="prod.image_url" class="imagen" (click)=acceder(3)>
+            <p>
+                Precio: {{prod.precio}}
+            </p>
+        </mat-card>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div class="botones">
+        <button mat-button class="mat-raised-button" color="primary" (click)="close()">Ok</button>
+    </div>
+</mat-dialog-actions>

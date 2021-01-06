@@ -24,13 +24,10 @@ class GoodDeedsController {
     //Obtiene todas las buenas acciones menos o iguales que su edad y que NO ha realizado.
     public async getGoodDeedsByAge(req: Request, res: Response) {
         const { idusuario, minedad } = req.headers;
-        let sql = "SELECT b.IDBUENA_ACCION, b.titulo, b.descripcion, b.recompensa, b.MINEDAD, u.NICKNAME "
-            + " FROM BUENA_ACCION b, USUARIO u"
-            + " WHERE NOT EXISTS (SELECT '?' FROM ACCION_REALIZAR a "
-            + "         WHERE a.REALIZAR_IDBUENA_ACCION = b.IDBUENA_ACCION)"
-            + " AND u.IDUSUARIO = :idusuario"
-            + " AND b.MINEDAD <= :minedad"
-        const result = await database.Open(sql, [idusuario, minedad], true);
+        let sql = "SELECT b.IDBUENA_ACCION, b.titulo, b.descripcion, b.recompensa, b.MINEDAD"
+            + " FROM BUENA_ACCION b "
+            + " WHERE b.MINEDAD <= :minedad"
+        const result = await database.Open(sql, [minedad], true);
         let acciones: any = [];
         result.rows.map((accion: any) => {
             let accionesSchema = {
