@@ -46,14 +46,14 @@ var CartasController = /** @class */ (function () {
     }
     CartasController.prototype.getCartasByUser = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, idUsuario, estado, consulta, result, cartas;
+            var _a, idusuario, estado, consulta, result, cartas;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = req.headers, idUsuario = _a.idUsuario, estado = _a.estado;
+                        _a = req.headers, idusuario = _a.idusuario, estado = _a.estado;
                         consulta = "SELECT idCarta, Mensaje, Fecha, Estado, Carta_idUsuario"
-                            + " FROM CARTA WHERE estado = :estado AND Carta_idUsuario = :idUsuario";
-                        return [4 /*yield*/, database_1.default.Open(consulta, [estado, idUsuario], true)];
+                            + " FROM CARTA WHERE estado = :estado AND Carta_idUsuario = :idusuario";
+                        return [4 /*yield*/, database_1.default.Open(consulta, [estado, idusuario], true)];
                     case 1:
                         result = _b.sent();
                         cartas = [];

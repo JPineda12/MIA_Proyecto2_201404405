@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { ApiService } from '../../services/api.service'
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirmar-acciones',
@@ -12,7 +13,7 @@ export class ConfirmarAccionesPage implements OnInit {
 
 
 
-  constructor(private storage: Storage, private apiService: ApiService,
+  constructor(private router: Router, private storage: Storage, private apiService: ApiService,
     public alertController: AlertController) { }
 
 
@@ -24,7 +25,6 @@ export class ConfirmarAccionesPage implements OnInit {
   ngOnInit() {
     this.storage.get('user').then((val) => {
       this.Usuario = val;
-      console.log(this.Usuario.nombre)
       this.getHijos()
     });
   }
@@ -80,6 +80,7 @@ export class ConfirmarAccionesPage implements OnInit {
     });
     await alert.present();
   }
+  
 
   revisarSinAcciones() {
     if (this.accionesPendientes.length == 0 && this.accionesRealizadas.length == 0) {
@@ -167,5 +168,10 @@ export class ConfirmarAccionesPage implements OnInit {
         }
       });
     }
+  }
+
+  salir(){
+    this.storage.clear();
+    this.router.navigate(["/login"])
   }
 }

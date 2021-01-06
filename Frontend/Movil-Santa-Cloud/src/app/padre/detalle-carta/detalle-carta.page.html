@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalle de Carta</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{miCarta.fecha}}</ion-card-subtitle>
+      <ion-card-title>{{miCarta.nombreUsuario}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{miCarta.mensaje}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-title>Lista de productos</ion-title>
+
+
+  <ion-card *ngFor="let p of Productos">
+
+    <img [src]="p.image_url">
+
+    <ion-card-header>
+      <ion-card-title>{{p.Nombre}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Precio: {{p.precio}}
+    </ion-card-content>
+
+
+    <ion-card-content>
+      <ion-card-title>Cantidad: <ion-icon name="add-circle-outline" (click)="addCantidad(p)"></ion-icon>
+        {{p.cantidad}}
+        <ion-icon name="remove-circle-outline" (click)="restarCantidad(p)"></ion-icon>
+      </ion-card-title>
+
+      <ion-button color="danger" (click)=eliminar(p)>
+        <ion-label>Eliminar</ion-label>
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+
+
+</ion-content>

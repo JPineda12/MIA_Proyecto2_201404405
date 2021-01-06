@@ -1,9 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>confirmarRegalo</ion-title>
+    <ion-card-title>
+      <ion-icon name="log-out"></ion-icon>
+    </ion-card-title>
+    <ion-title>Confirmar Regalo</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
 
+  <ion-card *ngFor="let carta of Cartas">
+
+    <img src="http://localhost:3020/perfilesCRUD.jpg">
+
+    <ion-card-header>
+      <ion-card-subtitle>{{carta.fecha}}</ion-card-subtitle>
+      <ion-card-title>{{carta.nombreUsuario}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{carta.mensaje}}
+    </ion-card-content>
+    <ion-card-content>
+      <ion-button color="primary" (click)=confirmarCarta(carta)>
+        <ion-label>Confirmar</ion-label>
+        <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button color="success" (click)=openDetalleCarta(carta)>
+        <ion-label>Ver Detalle</ion-label>
+        <ion-icon slot="icon-only" name="build-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button color="danger" (click)=borrarCarta(carta)>
+        <ion-label>Eliminar</ion-label>
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

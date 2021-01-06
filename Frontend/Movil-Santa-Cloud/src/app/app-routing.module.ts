@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'santa-tabs',
     loadChildren: () => import('./santa/santa-tabs/santa-tabs.module').then( m => m.SantaTabsPageModule)
   },
+  {
+    path: 'detalle-carta',
+    loadChildren: () => import('./padre/detalle-carta/detalle-carta.module').then( m => m.DetalleCartaPageModule)
+  },
 
 ];
 

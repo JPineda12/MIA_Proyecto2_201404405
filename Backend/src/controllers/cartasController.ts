@@ -4,11 +4,10 @@ import database from '../database';
 class CartasController {
 
     public async getCartasByUser(req: Request, res: Response) {
-        const { idUsuario, estado } = req.headers;
-
+        const { idusuario, estado } = req.headers;
         let consulta = "SELECT idCarta, Mensaje, Fecha, Estado, Carta_idUsuario"
-            + " FROM CARTA WHERE estado = :estado AND Carta_idUsuario = :idUsuario"
-        const result = await database.Open(consulta, [estado, idUsuario], true);
+            + " FROM CARTA WHERE estado = :estado AND Carta_idUsuario = :idusuario"
+        const result = await database.Open(consulta, [estado, idusuario], true);
         let cartas: any = [];
         result.rows.map((cart: any) => {
             let cartasSchema = {
@@ -109,11 +108,11 @@ class CartasController {
     }
 
     public async borrarArticulo(req: Request, res: Response) {
-        const { idArticulo } = req.params;
-        let sql = "DELETE FROM ARTICULOS_CARTA WHERE IDARTICULOS_CARTA = :idArticulo";
+        const { idDetalle } = req.params;
+        let sql = "DELETE FROM ARTICULOS_CARTA WHERE IDARTICULOS_CARTA = :idDetalle";
 
         try {
-            await database.Open(sql, [idArticulo], true);
+            await database.Open(sql, [idDetalle], true);
             res.status(200).json({
                 "deleted": true
             })

@@ -280,11 +280,9 @@ export class ApiService {
         "idUsuario": idUsuario
       }, { headers: this.headers }).pipe(map(data => data));
   }
-  getLastIdCarta(){
-    return this.http.get(`${this.API_URI}/api/lastIdCarta`);
-  }
+
   createDetalleCarta(cantidad: string, precio: string, idcarta: string, idProducto: string){
-    console.log("AVERRRR: ",idcarta);
+
     return this.http.post(`${this.API_URI}/api/articulos/`,
       {
         "cantidad": cantidad,
@@ -293,13 +291,14 @@ export class ApiService {
         "idProducto": idProducto
       }, { headers: this.headers }).pipe(map(data => data));
   }
-
+  getLastIdCarta(){
+    return this.http.get(`${this.API_URI}/api/lastIdCarta`);
+  }
   getDetalleCarta(idCarta: string){
     return this.http.get(`${this.API_URI}/api/articulos/${idCarta}`);
   }
 
   borrarArticulo(idArticulo: string){
     return this.http.delete(`${this.API_URI}/api/articulos/${idArticulo}`);
-
   }
 }

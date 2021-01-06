@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-card-title (click)="salir()">
+      <ion-icon name="log-out"></ion-icon>
+    </ion-card-title>
     <ion-title>Confirmar Buenas Acciones</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -43,7 +46,7 @@
   </ion-card>
 
   <ion-card *ngIf="sinAcciones == true">
-    <ion-card-content >
+    <ion-card-content>
       Sin buenas acciones por confirmar
     </ion-card-content>
   </ion-card>

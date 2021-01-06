@@ -41,4 +41,28 @@ export class ApiService {
       }, { headers: this.headers }).pipe(map(data => data));
   }
 
+  getCartas(idSon: string, estado: string) {
+    const customHeaders = { 'idusuario': idSon, 'estado': estado }
+    return this.http.get(`${this.API_URI}/api/cartas/`, { headers: customHeaders });
+  }
+
+  getLastIdCarta() {
+    return this.http.get(`${this.API_URI}/api/lastIdCarta`);
+  }
+  getDetalleCarta(idCarta: string) {
+    return this.http.get(`${this.API_URI}/api/articulos/${idCarta}`);
+  }
+
+  borrarArticulo(idArticulo: string) {
+    return this.http.delete(`${this.API_URI}/api/articulos/${idArticulo}`);
+  }
+
+  updateEstadoCarta(idCarta: string, estado: string){
+    return this.http.put(`${this.API_URI}/api/cartas/`,
+      {
+        "idCarta": idCarta,
+        "estado": estado
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
 }
