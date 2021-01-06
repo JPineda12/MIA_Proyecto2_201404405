@@ -112,6 +112,7 @@ export class ApiService {
         "idPadre": idPadre
       }, { headers: this.headers }).pipe(map(data => data));
   }
+  
 
   deleteUser(idUsuario: string) {
     return this.http.put(`${this.API_URI}/api/deleteUser/`,

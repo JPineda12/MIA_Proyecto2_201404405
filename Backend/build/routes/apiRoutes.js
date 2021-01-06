@@ -22,6 +22,7 @@ var ApiRoutes = /** @class */ (function () {
         this.router.get('/getUserByEmail/:correo', userController_1.userController.getUserByEmail);
         this.router.post('/users', userController_1.userController.newUser);
         this.router.put('/users', userController_1.userController.updateUser);
+        this.router.put('/updateHijo', userController_1.userController.updateHijo);
         this.router.put('/deleteUser', userController_1.userController.deleteUser);
         this.router.get('/loginEmail', userController_1.userController.loginEmail);
         this.router.get('/loginNickname', userController_1.userController.loginNickname);

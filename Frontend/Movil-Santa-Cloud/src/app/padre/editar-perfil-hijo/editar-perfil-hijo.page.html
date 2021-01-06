@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Perfil de hijo</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <div text-center>
+          <h4>Editar Perfil </h4>
+        </div>
+        <ion-label>Nombre: </ion-label>
+
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="nombre"></ion-input>
+        </ion-item>
+        <ion-label>Nickname: </ion-label>
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="nickname"></ion-input>
+        </ion-item>
+        <ion-label>Email: </ion-label>
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="email"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label>Genero</ion-label>
+          <ion-select [(ngModel)]="genero" placeholder="Seleccione uno">
+            <ion-select-option>Femenino</ion-select-option>
+            <ion-select-option>Masculino</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-label>Telefono:</ion-label>
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="telefono"></ion-input>
+        </ion-item>
+
+        <ion-label>Bastones</ion-label>
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="bastones"></ion-input>
+        </ion-item>
+
+        <ion-label>Capacidad Max: </ion-label>
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="capacidadBastones" value="hijo.direccion"></ion-input>
+        </ion-item>
+        <ion-label>Direccion: </ion-label>
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="direccion" value={{hijo.direccion}}></ion-input>
+        </ion-item>
+
+        <ion-label>Cambiar Contraseña: </ion-label>
+        <ion-item>
+          <ion-input type="password" [(ngModel)]="pass"></ion-input>
+        </ion-item>
+        <div padding>
+          <ion-button size="large" (click)="editar()" expand="block">Editar Perfil</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

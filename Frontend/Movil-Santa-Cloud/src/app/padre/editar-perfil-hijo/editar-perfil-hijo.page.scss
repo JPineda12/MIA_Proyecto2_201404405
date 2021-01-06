@@ -1,0 +1,49 @@
+ion-header {
+    text-align: center;
+    background-color: purple;
+}
+$white-color: #fff;
+$height100: 100%;
+
+ion-label {
+    float: left;
+    color: grey;
+}
+
+ion-input {
+    width: 40%;
+}
+
+ion-grid {
+    text-align: center;
+    width: 100%;
+    height: $height100;
+    background: #dfdfdf;
+}
+
+#map_canvas {
+    width: 100%;
+    height: 100%;
+}
+
+ion-row {
+    height: $height100;
+}
+
+ion-col {
+    border: 1px solid #7cff48;
+    background: $white-color;
+}
+
+ion-button {
+    font-weight: 300;
+}
+
+@media (min-width: 240px) and (max-width: 768px) {
+    ion-grid {
+        background: $white-color;
+    }
+    ion-col {
+        border: none;
+    }
+}

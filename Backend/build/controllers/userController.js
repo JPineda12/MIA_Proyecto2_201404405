@@ -258,10 +258,13 @@ var UserController = /** @class */ (function () {
                         sql = "SELECT hijo.idUsuario, hijo.nombre, hijo.nickname, hijo.email,"
                             + " hijo.genero, hijo.fechanacimiento,"
                             + " hijo.telefono, hijo.bastones, hijo.direccion,"
-                            + "hijo.capacidadBastones, hijo.latitud, hijo.longitud"
-                            + " FROM USUARIO hijo, USUARIO padre "
-                            + " WHERE hijo.USUARIO_IDPADRE = padre.IDUSUARIO "
-                            + "AND padre.IDUSUARIO = :idPadre "
+                            + " hijo.capacidadBastones, hijo.latitud, hijo.longitud,"
+                            + " hijo.USUARIO_IDMUNICIPIO, m.municipio_idDepartamento, m.municipio, d.departamento, hijo.contrasena"
+                            + " FROM USUARIO hijo, USUARIO padre, Municipio m, Departamento d"
+                            + " WHERE hijo.USUARIO_IDPADRE = padre.IDUSUARIO"
+                            + " AND hijo.usuario_idMunicipio = m.IDMUNICIPIO"
+                            + " AND m.MUNICIPIO_IDDEPARTAMENTO = d.idDepartamento"
+                            + " AND padre.IDUSUARIO = :idPadre "
                             + " AND hijo.ESTADO = 0";
                         return [4 /*yield*/, database_1.default.Open(sql, [idPadre], true)];
                     case 1:
@@ -281,6 +284,11 @@ var UserController = /** @class */ (function () {
                                 "capacidadBastones": user[9],
                                 "latitud": user[10],
                                 "longitud": user[11],
+                                "idMunicipio": user[12],
+                                "idDepartamento": user[13],
+                                "municipio": user[14],
+                                "departamento": user[15],
+                                "pass": user[16]
                             };
                             Users.push(userSchema);
                         });
@@ -401,6 +409,34 @@ var UserController = /** @class */ (function () {
                             + "USUARIO_IDMUNICIPIO = :idMunicipio, USUARIO_IDPADRE = :idPadre "
                             + " WHERE idUsuario = :idUsuario";
                         return [4 /*yield*/, database_1.default.Open(sql, [nombre, nickname, email, pass, gender, fecha, tel, bastones, capacidadBastones, direccion, latitud, longitud, idRol, idMunicipio, idPadre, idUsuario], true)];
+                    case 1:
+                        _b.sent();
+                        res.status(200).json({
+                            "idUsuario": idUsuario,
+                            "email": email,
+                            "name": nombre,
+                            "bastones": bastones,
+                            "fecha": fecha
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserController.prototype.updateHijo = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, idUsuario, nombre, nickname, email, pass, gender, fecha, tel, bastones, capacidadBastones, direccion, latitud, longitud, idMunicipio, sql;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = req.body, idUsuario = _a.idUsuario, nombre = _a.nombre, nickname = _a.nickname, email = _a.email, pass = _a.pass, gender = _a.gender, fecha = _a.fecha, tel = _a.tel, bastones = _a.bastones, capacidadBastones = _a.capacidadBastones, direccion = _a.direccion, latitud = _a.latitud, longitud = _a.longitud, idMunicipio = _a.idMunicipio;
+                        sql = "UPDATE USUARIO SET nombre = :nombre, nickname = :nickname, email = :email,"
+                            + " contrasena = :pass, genero = :gender, telefono = :tel,"
+                            + " bastones = :bastones, capacidadBastones = :capacidadBastones, direccion = :direccion,"
+                            + " latitud = :latitud, longitud = :longitud, "
+                            + "USUARIO_IDMUNICIPIO = :idMunicipio "
+                            + " WHERE idUsuario = :idUsuario";
+                        return [4 /*yield*/, database_1.default.Open(sql, [nombre, nickname, email, pass, gender, tel, bastones, capacidadBastones, direccion, latitud, longitud, idMunicipio, idUsuario], true)];
                     case 1:
                         _b.sent();
                         res.status(200).json({

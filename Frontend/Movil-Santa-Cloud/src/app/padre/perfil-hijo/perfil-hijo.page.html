@@ -1,12 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-card-title>
-      <ion-icon name="log-out"></ion-icon>
-    </ion-card-title>
-    <ion-title>perfilHijo</ion-title>
+    <ion-title>Perfil Hijo</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="salir()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
 
+  <ion-card *ngFor="let hijo of Hijos">
+
+    <ion-card-header>
+      <ion-card-subtitle>{{hijo.nickname}}</ion-card-subtitle>
+      <ion-card-title>{{hijo.nombre}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Bastones: {{hijo.bastones}}
+    </ion-card-content>
+    <ion-card-content>
+      Genero: {{hijo.genero}}
+    </ion-card-content>
+    <ion-card-content>
+      <ion-button color="success" (click)=editarPerfil(hijo)>
+        <ion-label>Editar Perfil</ion-label>
+        <ion-icon slot="icon-only" name="build-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button color="danger" (click)=verMensajes(hijo)>
+        <ion-label>Ver Mensajes</ion-label>
+        <ion-icon slot="icon-only" name="chatbubbles-outline"></ion-icon>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

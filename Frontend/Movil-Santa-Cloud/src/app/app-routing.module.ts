@@ -23,6 +23,14 @@ const routes: Routes = [
     path: 'detalle-carta',
     loadChildren: () => import('./padre/detalle-carta/detalle-carta.module').then( m => m.DetalleCartaPageModule)
   },
+  {
+    path: 'editar-perfil-hijo',
+    loadChildren: () => import('./padre/editar-perfil-hijo/editar-perfil-hijo.module').then( m => m.EditarPerfilHijoPageModule)
+  },
+  {
+    path: 'ver-mensajes',
+    loadChildren: () => import('./padre/ver-mensajes/ver-mensajes.module').then( m => m.VerMensajesPageModule)
+  },
 
 ];
 

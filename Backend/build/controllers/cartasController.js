@@ -208,16 +208,16 @@ var CartasController = /** @class */ (function () {
     };
     CartasController.prototype.borrarArticulo = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var idArticulo, sql, err_1;
+            var idDetalle, sql, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        idArticulo = req.params.idArticulo;
-                        sql = "DELETE FROM ARTICULOS_CARTA WHERE IDARTICULOS_CARTA = :idArticulo";
+                        idDetalle = req.params.idDetalle;
+                        sql = "DELETE FROM ARTICULOS_CARTA WHERE IDARTICULOS_CARTA = :idDetalle";
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, database_1.default.Open(sql, [idArticulo], true)];
+                        return [4 /*yield*/, database_1.default.Open(sql, [idDetalle], true)];
                     case 2:
                         _a.sent();
                         res.status(200).json({

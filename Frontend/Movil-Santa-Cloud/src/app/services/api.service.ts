@@ -19,6 +19,14 @@ export class ApiService {
     return this.http.get(`${this.API_URI}/api/users`);
   }
 
+  getDepartamentos() {
+    return this.http.get(`${this.API_URI}/api/departamentos`);
+  }
+
+  getMunicipios(idDepartamento: string) {
+    return this.http.get(`${this.API_URI}/api/municipios/${idDepartamento}`);
+  }
+
   loginemail(email: string, pass: string) {
     const customHeaders = { 'email': email, 'password': pass }
     return this.http.get(`${this.API_URI}/api/loginemail/`, { headers: customHeaders });
@@ -62,6 +70,28 @@ export class ApiService {
       {
         "idCarta": idCarta,
         "estado": estado
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  updateHijo(idHijo: string, nombre: string, nickname: string, email: string, pass: string, 
+    genero:string, fecha: string, tel: string, bastones: string, capacidadBastones: string, direccion: string,
+    latitud: string, longitud: string, idMunicipio: string){
+    return this.http.put(`${this.API_URI}/api/updateHijo/`,
+      {
+        "idUsuario": idHijo,
+        "nombre": nombre,
+        "nickname": nickname,
+        "email": email,
+        "pass": pass,
+        "gender": genero,
+        "fecha": fecha,
+        "tel": tel,
+        "bastones": bastones,
+        "capacidadBastones": capacidadBastones,
+        "direccion": direccion,
+        "latitud": latitud,
+        "longitud": longitud,
+        "idMunicipio": idMunicipio
       }, { headers: this.headers }).pipe(map(data => data));
   }
 

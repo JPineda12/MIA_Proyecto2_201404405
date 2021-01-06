@@ -153,15 +153,15 @@ export class ConfirmarRegaloPage implements OnInit {
     });
     modal.onWillDismiss().then(dataReturned => {
       // trigger when about to close the modal
-      var index = this.Cartas.indexOf(miCarta);
-      if (~index) {
-        this.Cartas[index].productos = dataReturned.data;
-      }
-      console.log(this.Cartas[index]);
+      
     });
     return await modal.present().then(_ => {
       // triggered when opening the modal
       console.log('Sending: ', miCarta);
     });
+  }
+  salir(){
+    this.storage.clear();
+    this.router.navigate(["/login"])
   }
 }

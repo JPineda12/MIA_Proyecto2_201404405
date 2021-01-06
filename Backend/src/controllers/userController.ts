@@ -178,10 +178,13 @@ class UserController {
         let sql = "SELECT hijo.idUsuario, hijo.nombre, hijo.nickname, hijo.email,"
             + " hijo.genero, hijo.fechanacimiento,"
             + " hijo.telefono, hijo.bastones, hijo.direccion,"
-            + "hijo.capacidadBastones, hijo.latitud, hijo.longitud"
-            + " FROM USUARIO hijo, USUARIO padre "
-            + " WHERE hijo.USUARIO_IDPADRE = padre.IDUSUARIO "
-            + "AND padre.IDUSUARIO = :idPadre "
+            + " hijo.capacidadBastones, hijo.latitud, hijo.longitud,"
+            + " hijo.USUARIO_IDMUNICIPIO, m.municipio_idDepartamento, m.municipio, d.departamento, hijo.contrasena"
+            + " FROM USUARIO hijo, USUARIO padre, Municipio m, Departamento d"
+            + " WHERE hijo.USUARIO_IDPADRE = padre.IDUSUARIO"
+            + " AND hijo.usuario_idMunicipio = m.IDMUNICIPIO"
+            + " AND m.MUNICIPIO_IDDEPARTAMENTO = d.idDepartamento"
+            + " AND padre.IDUSUARIO = :idPadre "
             + " AND hijo.ESTADO = 0";
 
         const result = await database.Open(sql, [idPadre], true);
@@ -200,6 +203,11 @@ class UserController {
                 "capacidadBastones": user[9],
                 "latitud": user[10],
                 "longitud": user[11],
+                "idMunicipio": user[12],
+                "idDepartamento": user[13],
+                "municipio": user[14],
+                "departamento": user[15],
+                "pass": user[16]
             }
             Users.push(userSchema);
         })
@@ -287,6 +295,25 @@ class UserController {
             + "USUARIO_IDMUNICIPIO = :idMunicipio, USUARIO_IDPADRE = :idPadre "
             + " WHERE idUsuario = :idUsuario";
         await database.Open(sql, [nombre, nickname, email, pass, gender, fecha, tel, bastones, capacidadBastones, direccion, latitud, longitud, idRol, idMunicipio, idPadre, idUsuario], true);
+        res.status(200).json({
+            "idUsuario": idUsuario,
+            "email": email,
+            "name": nombre,
+            "bastones": bastones,
+            "fecha": fecha
+        })
+    }
+
+    public async updateHijo(req: Request, res: Response) {
+        const { idUsuario, nombre, nickname, email, pass, gender, fecha, tel,
+            bastones, capacidadBastones, direccion, latitud, longitud, idMunicipio} = req.body;
+        let sql = "UPDATE USUARIO SET nombre = :nombre, nickname = :nickname, email = :email,"
+            + " contrasena = :pass, genero = :gender, telefono = :tel,"
+            + " bastones = :bastones, capacidadBastones = :capacidadBastones, direccion = :direccion,"
+            + " latitud = :latitud, longitud = :longitud, "
+            + "USUARIO_IDMUNICIPIO = :idMunicipio "
+            + " WHERE idUsuario = :idUsuario";
+        await database.Open(sql, [nombre, nickname, email, pass, gender, tel, bastones, capacidadBastones, direccion, latitud, longitud, idMunicipio, idUsuario], true);
         res.status(200).json({
             "idUsuario": idUsuario,
             "email": email,
