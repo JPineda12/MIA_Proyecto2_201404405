@@ -4,6 +4,7 @@ import { userController} from '../controllers/userController';
 import { productController} from '../controllers/productController';
 import { goodDeedsController} from '../controllers/goodDeedsController';
 import { cartasController} from '../controllers/cartasController';
+import { reportsController} from '../controllers/ReportsController';
 class ApiRoutes{
     public router: Router = Router();
 
@@ -66,6 +67,14 @@ class ApiRoutes{
         this.router.get('/articulos/:idCarta', cartasController.getDetalleCarta);
         this.router.post('/articulos', cartasController.createDetalleCarta);
         this.router.delete('/articulos/:idArticulo', cartasController.borrarArticulo);
+
+        //REPORTS ROUTES
+        this.router.get('/report1', reportsController.getTop10Productos);
+        this.router.get('/report2', reportsController.getTop10Departamentos);
+        this.router.get('/report3', reportsController.getTop10Municipios);
+        this.router.get('/report4', reportsController.getTop5GoodDeeds);
+        this.router.get('/report5', reportsController.getTop5Categorias);
+        this.router.get('/report6', reportsController.getTopCartas);
     }
 
 }

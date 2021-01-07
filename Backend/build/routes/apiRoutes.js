@@ -6,6 +6,7 @@ var userController_1 = require("../controllers/userController");
 var productController_1 = require("../controllers/productController");
 var goodDeedsController_1 = require("../controllers/goodDeedsController");
 var cartasController_1 = require("../controllers/cartasController");
+var ReportsController_1 = require("../controllers/ReportsController");
 var ApiRoutes = /** @class */ (function () {
     function ApiRoutes() {
         this.router = express_1.Router();
@@ -64,6 +65,13 @@ var ApiRoutes = /** @class */ (function () {
         this.router.get('/articulos/:idCarta', cartasController_1.cartasController.getDetalleCarta);
         this.router.post('/articulos', cartasController_1.cartasController.createDetalleCarta);
         this.router.delete('/articulos/:idArticulo', cartasController_1.cartasController.borrarArticulo);
+        //REPORTS ROUTES
+        this.router.get('/report1', ReportsController_1.reportsController.getTop10Productos);
+        this.router.get('/report2', ReportsController_1.reportsController.getTop10Departamentos);
+        this.router.get('/report3', ReportsController_1.reportsController.getTop10Municipios);
+        this.router.get('/report4', ReportsController_1.reportsController.getTop5GoodDeeds);
+        this.router.get('/report5', ReportsController_1.reportsController.getTop5Categorias);
+        this.router.get('/report6', ReportsController_1.reportsController.getTopCartas);
     };
     return ApiRoutes;
 }());

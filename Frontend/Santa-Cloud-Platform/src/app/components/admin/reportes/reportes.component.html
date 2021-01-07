@@ -12,22 +12,23 @@
                 {{rep}}
             </mat-option>
         </mat-select>
-        <button class="reportebt" type="button" mat-raised-button color="primary" (click)="generarReporte()">Buscar
-            Direccion</button>
+        <button class="reportebt" type="button" mat-raised-button color="primary" (click)="generarReporte()">
+            Generar Reporte
+        </button>
     </div>
-    <table *ngIf="isProductRep == true"mat-table [dataSource]="productSource">
+    <table *ngIf="isProductRep == true" mat-table [dataSource]="productSource">
         <!-- Item Column -->
         <ng-container matColumnDef="Producto">
             <th mat-header-cell *matHeaderCellDef> Nombre </th>
             <td mat-cell *matCellDef="let p">
-                {{p.nombre}}
+                {{p.producto}}
             </td>
             <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
 
-        <ng-container matColumnDef="Precio">
-            <th mat-header-cell *matHeaderCellDef> Precio </th>
-            <td mat-cell *matCellDef="let p"> {{p.precio}} </td>
+        <ng-container matColumnDef="Generado">
+            <th mat-header-cell *matHeaderCellDef> Generado </th>
+            <td mat-cell *matCellDef="let p"> {{p.generado}} </td>
             <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
 
@@ -35,12 +36,7 @@
             <th mat-header-cell *matHeaderCellDef> Cantidad </th>
             <td mat-cell *matCellDef="let p">
                 {{p.cantidad}}
-            </td>
-            <ng-container matColumnDef="Imagen">
-                <th mat-header-cell *matHeaderCellDef> Imagen </th>
-                <td mat-cell *matCellDef="let p"><img mat-card-image [src]="p.image_url" class="imagen"> </td>
-                <td mat-footer-cell *matFooterCellDef> </td>
-            </ng-container>
+            <td mat-footer-cell *matFooterCellDef> </td>
 
         </ng-container>
 
@@ -49,7 +45,7 @@
         <tr mat-footer-row *matFooterRowDef="productColumns; sticky: true"></tr>
     </table>
 
-    <table *ngIf="isDepRep == true"mat-table [dataSource]="depSource">
+    <table *ngIf="isDepRep == true" mat-table [dataSource]="depSource">
         <!-- Item Column -->
         <ng-container matColumnDef="Departamento">
             <th mat-header-cell *matHeaderCellDef> Departamento </th>
@@ -69,4 +65,109 @@
         <tr mat-row *matRowDef="let row; columns: depColumns;"></tr>
         <tr mat-footer-row *matFooterRowDef="depColumns; sticky: true"></tr>
     </table>
+
+    <table *ngIf="isMunRep == true" mat-table [dataSource]="munSource">
+        <!-- Item Column -->
+        <ng-container matColumnDef="Municipio">
+            <th mat-header-cell *matHeaderCellDef> Municipio </th>
+            <td mat-cell *matCellDef="let p">
+                {{p.municipio}}
+            </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Ventas">
+            <th mat-header-cell *matHeaderCellDef> Ventas </th>
+            <td mat-cell *matCellDef="let p"> {{p.cartas_enviadas}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="munColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: munColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="munColumns; sticky: true"></tr>
+    </table>
+
+    <table *ngIf="isAccionRep == true" mat-table [dataSource]="accionSource">
+        <!-- Item Column -->
+        <ng-container matColumnDef="Titulo">
+            <th mat-header-cell *matHeaderCellDef>  Titulo </th>
+            <td mat-cell *matCellDef="let p">
+                {{p.titulo}}
+            </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Veces_Realizada">
+            <th mat-header-cell *matHeaderCellDef> Veces Realizada </th>
+            <td mat-cell *matCellDef="let p"> {{p.veces_realizada}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="accionColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: accionColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="accionColumns; sticky: true"></tr>
+    </table>
+
+
+    <table *ngIf="isCatRep == true" mat-table [dataSource]="catSource">
+        <!-- Item Column -->
+        <ng-container matColumnDef="Categoria">
+            <th mat-header-cell *matHeaderCellDef>  Categoria </th>
+            <td mat-cell *matCellDef="let p">
+                {{p.categoria}}
+            </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Cantidad">
+            <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+            <td mat-cell *matCellDef="let p"> {{p.cantidad}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Generado">
+            <th mat-header-cell *matHeaderCellDef> Generado </th>
+            <td mat-cell *matCellDef="let p"> {{p.generado}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="catColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: catColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="catColumns; sticky: true"></tr>
+    </table>
+
+    <table *ngIf="isCartaRep == true" mat-table [dataSource]="cartaSource">
+        <!-- Item Column -->
+        <ng-container matColumnDef="Nombre_Usuario">
+            <th mat-header-cell *matHeaderCellDef>  Usuario </th>
+            <td mat-cell *matCellDef="let p">
+                {{p.nombre}}
+            </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Total_Gastado">
+            <th mat-header-cell *matHeaderCellDef> Total Gastado </th>
+            <td mat-cell *matCellDef="let p"> {{p.total_gastado}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Fecha">
+            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+            <td mat-cell *matCellDef="let p"> {{p.fecha}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Mensaje">
+            <th mat-header-cell *matHeaderCellDef> Mensaje </th>
+            <td mat-cell *matCellDef="let p"> {{p.mensaje}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="cartaColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: cartaColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="cartaColumns; sticky: true"></tr>
+    </table>
+
+
 </div>

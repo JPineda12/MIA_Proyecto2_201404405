@@ -344,4 +344,25 @@ export class ApiService {
   borrarArticulo(idArticulo: string) {
     return this.http.delete(`${this.API_URI}/api/articulos/${idArticulo}`);
   }
+
+  reporte1(){
+    return this.http.get(`${this.API_URI}/api/report1`);
+  }
+  reporte2(){
+    return this.http.get(`${this.API_URI}/api/report2`);
+  }
+  reporte3(){
+    return this.http.get(`${this.API_URI}/api/report3`);
+  }
+
+  reporte4(){
+    return this.http.get(`${this.API_URI}/api/report4`);
+  }
+
+  reporte5(){
+    return this.http.get(`${this.API_URI}/api/report5`);
+  }
+  reporte6(){
+    return this.http.get(`${this.API_URI}/api/report6`);
+  }
 }

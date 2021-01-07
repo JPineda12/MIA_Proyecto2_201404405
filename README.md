@@ -19,12 +19,12 @@
 		- [X] CRUD Perfiles
 		- [ ] Responder Mensajes (chat) de niños
 		- [ ] Reportes
-			- [ ] Top 10 productos mas comprados.
+			- [x] Top 10 productos mas comprados.
 			- [ ] Top 10 de departamentos con mas ventas.
-			- [ ] Top 10 de municipios con mas ventas.
-			- [ ] Top 5 de buenas acciones mas realizadas.
-			- [ ] Top 5 de categorias con mas compradas.
-			- [ ] Top de cartas con mayor gasto de bastones.
+			- [x] Top 10 de municipios con mas ventas.
+			- [x] Top 5 de buenas acciones mas realizadas.
+			- [x] Top 5 de categorias con mas compradas.
+			- [x] Top de cartas con mayor gasto de bastones.
 			- [ ] Bitacora de respuestas a publicaciones de santa por niño.
 			- [ ] Reporte grafico en al menos 3 de los reportes anteriores.
 		- [x] Carga Masiva
