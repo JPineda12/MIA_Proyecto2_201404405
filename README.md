@@ -27,7 +27,7 @@
 			- [ ] Top de cartas con mayor gasto de bastones.
 			- [ ] Bitacora de respuestas a publicaciones de santa por niño.
 			- [ ] Reporte grafico en al menos 3 de los reportes anteriores.
-		- [ ] Carga Masiva
+		- [x] Carga Masiva
 - [ ] Aplicacion Movil
 	- [ ] Perfil de Santa
 		- [ ] Publicar
