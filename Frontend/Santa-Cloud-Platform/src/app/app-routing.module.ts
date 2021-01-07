@@ -13,6 +13,7 @@ import { KidProductosComponent} from './components/kid-productos/kid-productos.c
 import { KidSantaProfileComponent} from './components/kid-santa-profile/kid-santa-profile.component'
 import { VerCartasComponent} from './components/ver-cartas/ver-cartas.component'
 import { CargamasivaComponent} from './components/admin/cargamasiva/cargamasiva.component'
+import { ReportesComponent} from './components/admin/reportes/reportes.component'
 const routes: Routes = [
   { 
     path: '',
@@ -70,7 +71,10 @@ const routes: Routes = [
     path: 'cargamasiva',
     component: CargamasivaComponent
   },
-  
+  {
+    path: 'reportes',
+    component: ReportesComponent
+  },
   {
     path: '**',
     redirectTo: "/login",

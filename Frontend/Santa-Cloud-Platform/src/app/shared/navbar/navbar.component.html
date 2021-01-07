@@ -14,13 +14,8 @@
 
 
         <button mat-button *ngIf="this.Usuario.idRol == 1">Mensajeria de Elfos</button>
-        <button mat-button [matMenuTriggerFor]="menu3" *ngIf="this.Usuario.idRol == 1">Reportes</button>
-        <mat-menu #menu3="matMenu">
-            <button mat-menu-item [routerLink]="'/'">Top 10 productos mas comprados</button>
-            <button mat-menu-item>Top 10 departamentos con mas ventas</button>
-            <button mat-menu-item>Top 10 de municipios con mas ventas</button>
-            <button mat-menu-item>Top 5 de buenas acciones mas realizadas</button>
-        </mat-menu>
+        <button mat-button [routerLink]="'/reportes'" *ngIf="this.Usuario.idRol == 1">Reportes</button>
+
 
         <!-- OPCIONES PARA USUARIO 4 'NIÑO' (KID) -->
         <button mat-button class="bastones" *ngIf="this.Usuario.idRol == 4">BASTONES ACUMULADOS: {{Usuario.bastones}}</button>

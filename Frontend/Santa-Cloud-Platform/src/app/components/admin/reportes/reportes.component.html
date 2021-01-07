@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+
+<div class="mat-display-2">
+    <h1 class="shadow">Reportes</h1>
+</div>
+
+<div class="container mat-elevation-z8">
+
+    <div class="button">
+        <mat-select class="Reporte" [(value)]="repValue" (selectionChange)="changeTabla()">
+            <mat-option [value]="rep" *ngFor="let rep of Reportes">
+                {{rep}}
+            </mat-option>
+        </mat-select>
+        <button class="reportebt" type="button" mat-raised-button color="primary" (click)="generarReporte()">Buscar
+            Direccion</button>
+    </div>
+    <table *ngIf="isProductRep == true"mat-table [dataSource]="productSource">
+        <!-- Item Column -->
+        <ng-container matColumnDef="Producto">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let p">
+                {{p.nombre}}
+            </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Precio">
+            <th mat-header-cell *matHeaderCellDef> Precio </th>
+            <td mat-cell *matCellDef="let p"> {{p.precio}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Cantidad">
+            <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+            <td mat-cell *matCellDef="let p">
+                {{p.cantidad}}
+            </td>
+            <ng-container matColumnDef="Imagen">
+                <th mat-header-cell *matHeaderCellDef> Imagen </th>
+                <td mat-cell *matCellDef="let p"><img mat-card-image [src]="p.image_url" class="imagen"> </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="productColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: productColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="productColumns; sticky: true"></tr>
+    </table>
+
+    <table *ngIf="isDepRep == true"mat-table [dataSource]="depSource">
+        <!-- Item Column -->
+        <ng-container matColumnDef="Departamento">
+            <th mat-header-cell *matHeaderCellDef> Departamento </th>
+            <td mat-cell *matCellDef="let p">
+                {{p.nombre}}
+            </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Ventas">
+            <th mat-header-cell *matHeaderCellDef> Ventas </th>
+            <td mat-cell *matCellDef="let p"> {{p.id}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="depColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: depColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="depColumns; sticky: true"></tr>
+    </table>
+</div>

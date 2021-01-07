@@ -31,6 +31,7 @@ import { KidSantaProfileComponent } from './components/kid-santa-profile/kid-san
 import { VerCartasComponent } from './components/ver-cartas/ver-cartas.component';
 import { DetalleCartaComponent } from './components/detalle-carta/detalle-carta.component';
 import { CargamasivaComponent } from './components/admin/cargamasiva/cargamasiva.component';
+import { ReportesComponent } from './components/admin/reportes/reportes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +57,7 @@ import { CargamasivaComponent } from './components/admin/cargamasiva/cargamasiva
     VerCartasComponent,
     DetalleCartaComponent,
     CargamasivaComponent,
+    ReportesComponent,
   ],
   imports: [
     BrowserModule,
