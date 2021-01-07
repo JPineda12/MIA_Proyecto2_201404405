@@ -68,6 +68,32 @@ var ApiController = /** @class */ (function () {
             });
         });
     };
+    ApiController.prototype.getDepartamentoByName = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var nombre, consulta, result, deps;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        nombre = req.params.nombre;
+                        consulta = "SELECT * From Departamento "
+                            + " WHERE departamento = :nombre";
+                        return [4 /*yield*/, database_1.default.Open(consulta, [nombre], true)];
+                    case 1:
+                        result = _a.sent();
+                        deps = [];
+                        result.rows.map(function (dep) {
+                            var depSchema = {
+                                "idDepartamento": dep[0],
+                                "nombre": dep[1],
+                            };
+                            deps.push(depSchema);
+                        });
+                        res.json(deps);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     ApiController.prototype.getMunicipios = function (re, res) {
         return __awaiter(this, void 0, void 0, function () {
             var idDepartamento, consulta, result, municipios;
@@ -75,7 +101,7 @@ var ApiController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         idDepartamento = re.params.idDepartamento;
-                        consulta = "SELECT m.IDMUNICIPIO, m.MUNICIPIO , d.DEPARTAMENTO "
+                        consulta = "SELECT m.IDMUNICIPIO, m.MUNICIPIO , d.DEPARTAMENTO, d.idDepartamento "
                             + " FROM Municipio m, DEPARTAMENTO d "
                             + " WHERE m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO"
                             + " AND d.IDDEPARTAMENTO = :idDepartamento";
@@ -87,11 +113,83 @@ var ApiController = /** @class */ (function () {
                             var municipiosSchema = {
                                 "id": muni[0],
                                 "nombre": muni[1],
-                                "idDepartamento": muni[2]
+                                "departamento": muni[2],
+                                "idDepartamento": muni[3]
                             };
                             municipios.push(municipiosSchema);
                         });
                         res.json(municipios);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ApiController.prototype.getMunicipioByName = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var nombre, consulta, result, municipios;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        nombre = req.params.nombre;
+                        consulta = "SELECT m.IDMUNICIPIO, m.MUNICIPIO , d.DEPARTAMENTO, d.idDepartamento "
+                            + " FROM Municipio m, DEPARTAMENTO d "
+                            + " WHERE m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO"
+                            + " AND m.Municipio = :nombre";
+                        return [4 /*yield*/, database_1.default.Open(consulta, [nombre], true)];
+                    case 1:
+                        result = _a.sent();
+                        municipios = [];
+                        result.rows.map(function (muni) {
+                            var municipiosSchema = {
+                                "id": muni[0],
+                                "nombre": muni[1],
+                                "departamento": muni[2],
+                                "idDepartamento": muni[3],
+                            };
+                            municipios.push(municipiosSchema);
+                        });
+                        res.json(municipios);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ApiController.prototype.createDepartamento = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var departamento, sql, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        departamento = req.body.departamento;
+                        sql = "INSERT INTO DEPARTAMENTO(departamento) VALUES(:departamento)";
+                        return [4 /*yield*/, database_1.default.Open(sql, [departamento], true)];
+                    case 1:
+                        result = _a.sent();
+                        res.status(200).json({
+                            "nombre": departamento
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ApiController.prototype.createMunicipio = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, municipio, idDepartamento, sql, result;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = req.body, municipio = _a.municipio, idDepartamento = _a.idDepartamento;
+                        console.log("Muni:", municipio);
+                        console.log("idDep:", idDepartamento);
+                        sql = "INSERT INTO Municipio(municipio, municipio_idDepartamento) VALUES(:municipio, :idDepartamento)";
+                        return [4 /*yield*/, database_1.default.Open(sql, [municipio, idDepartamento], true)];
+                    case 1:
+                        result = _b.sent();
+                        res.status(200).json({
+                            "nombre": municipio,
+                            "idDepartamento": idDepartamento,
+                        });
                         return [2 /*return*/];
                 }
             });

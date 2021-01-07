@@ -18,12 +18,53 @@ class ProductController {
         res.json(categorias);
     }
 
+    public async getCategoriasByName(req: Request, res: Response) {
+        const { nombre } = req.params;
+        let sql = "SELECT idCategoria, categoria FROM CATEGORIA"
+            + " WHERE ESTADO = 0"
+            + " AND categoria = :nombre"
+        const result = await database.Open(sql, [nombre], true);
+        let categorias: any = [];
+        result.rows.map((cat: any) => {
+            let categoriasSchema = {
+                "id": cat[0],
+                "categoria": cat[1]
+            }
+            categorias.push(categoriasSchema);
+        })
+        res.json(categorias);
+    }
+
     public async getProductos(req: Request, res: Response) {
         let sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.categoria, p.image_url "
             + "FROM Producto p, CATEGORIA c "
             + "WHERE p.PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA"
             + " AND p.ESTADO = 0"
         const result = await database.Open(sql, [], false);
+        let productos: any = [];
+        result.rows.map((prod: any) => {
+            let productsSchema = {
+                "id": prod[0],
+                "nombre": prod[1],
+                "precio": prod[2],
+                "minEdad": prod[3],
+                "idCategoria": prod[4],
+                "categoria": prod[5],
+                "image_url": prod[6]
+            }
+            productos.push(productsSchema);
+        })
+        res.json(productos);
+    }
+
+    public async getProductosByName(req: Request, res: Response) {
+        const { nombre } = req.params;
+        let sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.CATEGORIA, p.image_url "
+            + " FROM Producto p, CATEGORIA c "
+            + " WHERE p.PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA "
+            + " AND p.ESTADO = 0"
+            + " AND p.nombre = :nombre"
+        const result = await database.Open(sql, [nombre], true);
         let productos: any = [];
         result.rows.map((prod: any) => {
             let productsSchema = {

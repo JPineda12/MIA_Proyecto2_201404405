@@ -69,6 +69,33 @@ var ProductController = /** @class */ (function () {
             });
         });
     };
+    ProductController.prototype.getCategoriasByName = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var nombre, sql, result, categorias;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        nombre = req.params.nombre;
+                        sql = "SELECT idCategoria, categoria FROM CATEGORIA"
+                            + " WHERE ESTADO = 0"
+                            + " AND categoria = :nombre";
+                        return [4 /*yield*/, database_1.default.Open(sql, [nombre], true)];
+                    case 1:
+                        result = _a.sent();
+                        categorias = [];
+                        result.rows.map(function (cat) {
+                            var categoriasSchema = {
+                                "id": cat[0],
+                                "categoria": cat[1]
+                            };
+                            categorias.push(categoriasSchema);
+                        });
+                        res.json(categorias);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     ProductController.prototype.getProductos = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, result, productos;
@@ -80,6 +107,40 @@ var ProductController = /** @class */ (function () {
                             + "WHERE p.PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA"
                             + " AND p.ESTADO = 0";
                         return [4 /*yield*/, database_1.default.Open(sql, [], false)];
+                    case 1:
+                        result = _a.sent();
+                        productos = [];
+                        result.rows.map(function (prod) {
+                            var productsSchema = {
+                                "id": prod[0],
+                                "nombre": prod[1],
+                                "precio": prod[2],
+                                "minEdad": prod[3],
+                                "idCategoria": prod[4],
+                                "categoria": prod[5],
+                                "image_url": prod[6]
+                            };
+                            productos.push(productsSchema);
+                        });
+                        res.json(productos);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProductController.prototype.getProductosByName = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var nombre, sql, result, productos;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        nombre = req.params.nombre;
+                        sql = "SELECT p.idProducto, p.nombre, p.precio, p.minEdad, p.Producto_idCategoria, c.CATEGORIA, p.image_url "
+                            + " FROM Producto p, CATEGORIA c "
+                            + " WHERE p.PRODUCTO_IDCATEGORIA  = c.IDCATEGORIA "
+                            + " AND p.ESTADO = 0"
+                            + " AND p.nombre = :nombre";
+                        return [4 /*yield*/, database_1.default.Open(sql, [nombre], true)];
                     case 1:
                         result = _a.sent();
                         productos = [];

@@ -14,12 +14,17 @@ class ApiRoutes{
     config():void{
         this.router.get('/departamentos', apiController.getDepartamentos);
         this.router.get('/municipios/:idDepartamento', apiController.getMunicipios);
+        this.router.get('/departamentos/:nombre', apiController.getDepartamentoByName)
+        this.router.get('/municipiosByName/:nombre', apiController.getMunicipioByName)
+        this.router.post('/departamentos/', apiController.createDepartamento);
+        this.router.post('/municipios/', apiController.createMunicipio);
         this.router.get('/roles', apiController.getRoles);
         //User ROUTES
         this.router.get('/users', userController.getUsers);
         this.router.get('/users/:idUsuario', userController.getUserById);
         this.router.get('/getHijos/:idPadre', userController.getHijos);
         this.router.get('/getUserByEmail/:correo', userController.getUserByEmail);
+        this.router.get('/getUserByNickname/:nickname', userController.getUserByNickname);
         this.router.post('/users', userController.newUser);
         this.router.put('/users', userController.updateUser);
         this.router.put('/updateHijo', userController.updateHijo);
@@ -34,7 +39,9 @@ class ApiRoutes{
         this.router.post('/products', productController.insertProducto);
         this.router.put('/deleteProduct', productController.deleteProducto);
         this.router.put('/products/', productController.updateProducto);
+        this.router.get('/productsByName/:nombre', productController.getProductosByName);
         this.router.get('/categories', productController.getCategorias);
+        this.router.get('/categoriesByName/:nombre', productController.getCategoriasByName);
         this.router.post('/categories',productController.insertCategoria);
         this.router.put('/categories/', productController.updateCategoria);
         this.router.put('/deletecategory/', productController.deleteCategoria);

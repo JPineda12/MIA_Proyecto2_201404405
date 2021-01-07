@@ -87,6 +87,51 @@ class UserController {
         res.json(Users);
     }
 
+    public async getUserByNickname(req: Request, res: Response) {
+        const { nickname } = req.params;
+        let sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
+            + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
+            + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO,"
+            + "capacidadBastones, latitud, longitud, contrasena"
+            + " From Usuario, Rol r, Municipio m, Departamento d "
+            + " WHERE r.IDROL = USUARIO_IDROL "
+            + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
+            + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
+            + " AND nickname = :nickname"
+            + " AND ESTADO = 0";
+
+        const result = await database.Open(sql, [nickname], true);
+        let Users: any = [];
+        result.rows.map((user: any) => {
+            let userSchema = {
+                "idUsuario": user[0],
+                "nombre": user[1],
+                "nickname": user[2],
+                "email": user[3],
+                "genero": user[4],
+                "fecha": user[5],
+                "telefono": user[6],
+                "bastones": user[7],
+                "direccion": user[8],
+                "idPadre": user[9],
+                "idRol": user[10],
+                "idMunicipio": user[11],
+                "idDepartamento": user[12],
+                "rol": user[13],
+                "municipio": user[14],
+                "departamento": user[15],
+                "capacidadBastones": user[16],
+                "latitud": user[17],
+                "longitud": user[18],
+                "pass": user[19]
+            }
+            Users.push(userSchema);
+        })
+        res.json(Users);
+    }
+
+    
+
     public async getAllPadres(req: Request, res: Response) {
         let sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
             + "telefono, bastones, direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
