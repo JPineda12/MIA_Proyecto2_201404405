@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
-
+import { NgxCsvParserModule } from 'ngx-csv-parser'
 import { MaterialModule } from './material.module';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -30,6 +30,7 @@ import { KidProductosComponent } from './components/kid-productos/kid-productos.
 import { KidSantaProfileComponent } from './components/kid-santa-profile/kid-santa-profile.component';
 import { VerCartasComponent } from './components/ver-cartas/ver-cartas.component';
 import { DetalleCartaComponent } from './components/detalle-carta/detalle-carta.component';
+import { CargamasivaComponent } from './components/admin/cargamasiva/cargamasiva.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,12 +55,14 @@ import { DetalleCartaComponent } from './components/detalle-carta/detalle-carta.
     KidSantaProfileComponent,
     VerCartasComponent,
     DetalleCartaComponent,
+    CargamasivaComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
+    NgxCsvParserModule,
     MaterialModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD1sC6IYY17ZLNwyt0E4bSDpeR5oE_Dqr0',

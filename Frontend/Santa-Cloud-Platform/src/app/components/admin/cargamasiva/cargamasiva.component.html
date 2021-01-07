@@ -1,0 +1,129 @@
+<app-navbar></app-navbar>
+
+<div class="mat-display-2">
+    <h1 class="shadow">Carga Masiva</h1>
+</div>
+
+<div class="container mat-elevation-z8">
+
+    <div class="button">
+        <div class="uploadFile">
+            <mat-file-upload [labelText]="''" [selectButtonText]="selectText" [uploadButtonText]="'Subir'"
+                [showUploadButton]="showButton" [acceptedTypes]="'.csv'" (uploadClicked)="cargarCSV($event)">
+
+            </mat-file-upload>
+        </div>
+    </div>
+    <table mat-table [dataSource]="CSVContent">
+        <!-- Item Column -->
+        <ng-container matColumnDef="Correo">
+            <th mat-header-cell *matHeaderCellDef> Correo </th>
+            <td mat-cell *matCellDef="let p">
+                {{p.correo}}
+            </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Password">
+            <th mat-header-cell *matHeaderCellDef> Password </th>
+            <td mat-cell *matCellDef="let p"> {{p.password}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Nombre-Hijo">
+            <th mat-header-cell *matHeaderCellDef> Nombre Hijo </th>
+            <td mat-cell *matCellDef="let p">
+                {{p.nombreHijo}}
+            </td>
+
+            <ng-container matColumnDef="Nombre-Padre">
+                <th mat-header-cell *matHeaderCellDef> Nombre Padre </th>
+                <td mat-cell *matCellDef="let p"> {{p.nombrePadre}} </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Nickname-Hijo">
+                <th mat-header-cell *matHeaderCellDef> Nickname Hijo </th>
+                <td mat-cell *matCellDef="let p"> {{p.nickname}} </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Municipio">
+                <th mat-header-cell *matHeaderCellDef> Municipio </th>
+                <td mat-cell *matCellDef="let p"> {{p.municipio}} </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Departamento">
+                <th mat-header-cell *matHeaderCellDef> Departamento </th>
+                <td mat-cell *matCellDef="let p"> {{p.departamento}} </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+        </ng-container>
+        <ng-container matColumnDef="Direccion">
+            <th mat-header-cell *matHeaderCellDef> Direccion </th>
+            <td mat-cell *matCellDef="let p"> {{p.pass}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Latitud">
+            <th mat-header-cell *matHeaderCellDef> Latitud </th>
+            <td mat-cell *matCellDef="let p"> {{p.latitud}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Longitud">
+            <th mat-header-cell *matHeaderCellDef> Longitud </th>
+            <td mat-cell *matCellDef="let p"> {{p.longitud}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Telefono">
+            <th mat-header-cell *matHeaderCellDef> Telefono </th>
+            <td mat-cell *matCellDef="let p"> {{p.telefono}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Fecha-Envio">
+            <th mat-header-cell *matHeaderCellDef> Fecha Envio </th>
+            <td mat-cell *matCellDef="let p"> {{p.fechaCarta}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Nombre-Juguete">
+            <th mat-header-cell *matHeaderCellDef> Nombre-Juguete </th>
+            <td mat-cell *matCellDef="let p"> {{p.nombreJuguete}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Categoria-Juguete">
+            <th mat-header-cell *matHeaderCellDef> Categoria </th>
+            <td mat-cell *matCellDef="let p"> {{p.categoriaJuguete}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Precio-Juguete">
+            <th mat-header-cell *matHeaderCellDef> Precio </th>
+            <td mat-cell *matCellDef="let p"> {{p.precioJuguete}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Edad-Recomendada">
+            <th mat-header-cell *matHeaderCellDef> Edad Recomendada </th>
+            <td mat-cell *matCellDef="let p"> {{p.edadRecomendada}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+    </table>
+
+    <div class="button">
+        <button class="cargarbt" type="submit" mat-raised-button color="primary" (click)="cargarToBD()">
+            <mat-icon>fiber_new</mat-icon>
+            Cargar a base de datos
+        </button>
+    </div>
+</div>

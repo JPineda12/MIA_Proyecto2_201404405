@@ -22,9 +22,9 @@ export class VerCartasComponent implements OnInit {
     this.getCartas();
   }
 
-  getCartas() {
-    console.log(this.Usuario.idUsuario)
-    this.apiService.getCartas("" + this.Usuario.idUsuario, "0").toPromise().then((res) => {
+  async getCartas() {
+    console.log(this.Usuario.idUsuario);
+    (await this.apiService.getCartas("" + this.Usuario.idUsuario, "0")).toPromise().then((res) => {
       console.log(res);
       this.Cartas = res
     });

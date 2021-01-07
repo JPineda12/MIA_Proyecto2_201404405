@@ -61,14 +61,14 @@ export class AddProductComponent {
     }
   }
 
-  insertarProducto() {
+  async insertarProducto() {
     this.data.nombre = ((document.getElementById("nombre") as HTMLInputElement).value);
     this.data.precio = +((document.getElementById("precio") as HTMLInputElement).value);
     this.data.minEdad = +((document.getElementById("edad") as HTMLInputElement).value);
-    let categoriaID = this.getCategoriaId()
-    this.data.categoria = this.catValue
-    this.apiService.insertProducto(this.data.nombre, "" + this.data.precio, "" + this.data.minEdad,
-      categoriaID, this.data.image_url).toPromise().then((res) => {
+    let categoriaID = this.getCategoriaId();
+    this.data.categoria = this.catValue;
+    (await this.apiService.insertProducto(this.data.nombre, "" + this.data.precio, "" + this.data.minEdad,
+      categoriaID, this.data.image_url)).toPromise().then((res) => {
         this.producto = res;
         if (this.producto.nombre != "") {
           swal.fire({

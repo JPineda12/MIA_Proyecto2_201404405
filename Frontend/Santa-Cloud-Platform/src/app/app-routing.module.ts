@@ -12,6 +12,7 @@ import { CRUDPerfilesComponent} from './components/admin/crudperfiles/crudperfil
 import { KidProductosComponent} from './components/kid-productos/kid-productos.component'
 import { KidSantaProfileComponent} from './components/kid-santa-profile/kid-santa-profile.component'
 import { VerCartasComponent} from './components/ver-cartas/ver-cartas.component'
+import { CargamasivaComponent} from './components/admin/cargamasiva/cargamasiva.component'
 const routes: Routes = [
   { 
     path: '',
@@ -65,7 +66,11 @@ const routes: Routes = [
   {
     path: 'cartasenviadas',
     component: VerCartasComponent
+  },  {
+    path: 'cargamasiva',
+    component: CargamasivaComponent
   },
+  
   {
     path: '**',
     redirectTo: "/login",

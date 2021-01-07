@@ -31,6 +31,31 @@ export class ApiService {
     return this.http.get(`${this.API_URI}/api/departamentos`);
   }
 
+  getDepartamentosByName(nombre: string) {
+    return this.http.get(`${this.API_URI}/api/departamentos/${nombre}`);
+  }
+
+  getMunicipioByName(nombre: string) {
+    return this.http.get(`${this.API_URI}/api/municipiosByName/${nombre}`);
+  }
+
+  createMunicipio(nombre: string, idDepartamento: string) {
+    console.log("MUNICIPIO: ", nombre);
+    console.log("IDDEPARTAMENTO: ", idDepartamento);
+    return this.http.post(`${this.API_URI}/api/municipios/`,
+      {
+        "municipio": nombre,
+        "idDepartamento": idDepartamento
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  createDepartamento(nombre: string) {
+    return this.http.post(`${this.API_URI}/api/departamentos/`,
+      {
+        "nombre": nombre
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
   async getPadres() {
     return this.http.get(`${this.API_URI}/api/getallpadres`);
 
@@ -48,6 +73,12 @@ export class ApiService {
     return this.http.get(`${this.API_URI}/api/getUserByEmail/${correo}`);
   }
 
+  getUserByNickname(nickname: string) {
+    return this.http.get(`${this.API_URI}/api/getUserByNickname/${nickname}`);
+  }
+
+
+
   getHijos(idPadre: string) {
     return this.http.get(`${this.API_URI}/api/getHijos/${idPadre}`);
   }
@@ -57,7 +88,7 @@ export class ApiService {
     return this.http.get(`${this.API_URI}/api/loginemail/`, { headers: customHeaders });
   }
 
-  loginNickname(nickname: string, pass: string){
+  loginNickname(nickname: string, pass: string) {
     const customHeaders = { 'nickname': nickname, 'password': pass }
     return this.http.get(`${this.API_URI}/api/loginnickname/`, { headers: customHeaders });
   }
@@ -112,7 +143,7 @@ export class ApiService {
         "idPadre": idPadre
       }, { headers: this.headers }).pipe(map(data => data));
   }
-  
+
 
   deleteUser(idUsuario: string) {
     return this.http.put(`${this.API_URI}/api/deleteUser/`,
@@ -124,27 +155,27 @@ export class ApiService {
   getAcciones() {
     return this.http.get(`${this.API_URI}/api/goodDeeds`);
   }
-  getAccionesByAge(idUsuario: string, minEdad: string){
+  getAccionesByAge(idUsuario: string, minEdad: string) {
     const customHeaders = { 'minedad': minEdad, 'idusuario': idUsuario }
     return this.http.get(`${this.API_URI}/api/goodDeedsByAge/`, { headers: customHeaders });
   }
 
-  getPendingGoodDeeds(idUsuario: string){
+  getPendingGoodDeeds(idUsuario: string) {
     return this.http.get(`${this.API_URI}/api/pendingGoodDeeds/${idUsuario}`);
   }
 
-  insertarAccionRealizar(idAccion: string, idUsuario: string, fecha: string, estado: string, recompensa: string){
+  insertarAccionRealizar(idAccion: string, idUsuario: string, fecha: string, estado: string, recompensa: string) {
     return this.http.post(`${this.API_URI}/api/goodDeedDone/`,
-    {
-      "idAccion": idAccion,
-      "idUsuario": idUsuario,
-      "fecha": fecha,
-      "estado": estado,
-      "recompensa": recompensa,
-    }, { headers: this.headers }).pipe(map(data => data));
+      {
+        "idAccion": idAccion,
+        "idUsuario": idUsuario,
+        "fecha": fecha,
+        "estado": estado,
+        "recompensa": recompensa,
+      }, { headers: this.headers }).pipe(map(data => data));
   }
 
-  changeGoodDeedState(idAccion: string, idUsuario: string, nuevoEstado: string){
+  changeGoodDeedState(idAccion: string, idUsuario: string, nuevoEstado: string) {
     return this.http.put(`${this.API_URI}/api/changeGoodDeedState/`,
       {
         "idAccion": idAccion,
@@ -153,7 +184,7 @@ export class ApiService {
       }, { headers: this.headers }).pipe(map(data => data));
   }
 
-  getGoodDeedsDone(idUsuario: string){
+  getGoodDeedsDone(idUsuario: string) {
     return this.http.get(`${this.API_URI}/api/goodDeedsDone/${idUsuario}`);
   }
   getAccionesById(id: string) {
@@ -198,7 +229,17 @@ export class ApiService {
     return this.http.get(`${this.API_URI}/api/products/${idProducto}`);
   }
 
-  insertProducto(nombre: string, precio: string, edadMinima: string, idCategoria: string, urlimagen: string) {
+  getProductosByName(nombre: string) {
+    return this.http.get(`${this.API_URI}/api/productsByName/${nombre}`);
+  }
+  
+  getCategoriesByName(nombre: string) {
+    return this.http.get(`${this.API_URI}/api/categoriesByName/${nombre}`);
+  }
+
+
+
+ async insertProducto(nombre: string, precio: string, edadMinima: string, idCategoria: string, urlimagen: string) {
     return this.http.post(`${this.API_URI}/api/products/`,
       {
         "nombre": nombre,
@@ -232,7 +273,7 @@ export class ApiService {
     return this.http.get(`${this.API_URI}/api/categories`);
   }
 
-  createCategoria(categoria: string) {
+  async createCategoria(categoria: string) {
     return this.http.post(`${this.API_URI}/api/categories/`,
       {
         "categoria": categoria
@@ -259,12 +300,13 @@ export class ApiService {
   }
 
 
-  getCartas(idSon: string, estado: string) {
+  async getCartas(idSon: string, estado: string) {
+    console.log("IDSON: ",idSon, "estado:", estado)
     const customHeaders = { 'idusuario': idSon, 'estado': estado }
     return this.http.get(`${this.API_URI}/api/cartas/`, { headers: customHeaders });
   }
 
-  updateEstadoCarta(idCarta: string, estado: string){
+  updateEstadoCarta(idCarta: string, estado: string) {
     return this.http.put(`${this.API_URI}/api/cartas/`,
       {
         "idCarta": idCarta,
@@ -272,17 +314,17 @@ export class ApiService {
       }, { headers: this.headers }).pipe(map(data => data));
   }
 
-  createCarta(mensaje: string, fecha: string, estado:string, idUsuario: string){
+  createCarta(mensaje: string, fecha: string, estado: string, idUsuario: string) {
     return this.http.post(`${this.API_URI}/api/createCarta/`,
       {
-        "mensaje": mensaje, 
-        "fecha": fecha, 
+        "mensaje": mensaje,
+        "fecha": fecha,
         "estado": estado,
         "idUsuario": idUsuario
       }, { headers: this.headers }).pipe(map(data => data));
   }
 
-  createDetalleCarta(cantidad: string, precio: string, idcarta: string, idProducto: string){
+  createDetalleCarta(cantidad: string, precio: string, idcarta: string, idProducto: string) {
 
     return this.http.post(`${this.API_URI}/api/articulos/`,
       {
@@ -292,14 +334,14 @@ export class ApiService {
         "idProducto": idProducto
       }, { headers: this.headers }).pipe(map(data => data));
   }
-  getLastIdCarta(){
+  getLastIdCarta() {
     return this.http.get(`${this.API_URI}/api/lastIdCarta`);
   }
-  getDetalleCarta(idCarta: string){
+  getDetalleCarta(idCarta: string) {
     return this.http.get(`${this.API_URI}/api/articulos/${idCarta}`);
   }
 
-  borrarArticulo(idArticulo: string){
+  borrarArticulo(idArticulo: string) {
     return this.http.delete(`${this.API_URI}/api/articulos/${idArticulo}`);
   }
 }

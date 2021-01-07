@@ -19,9 +19,9 @@ export class AddCategoriaComponent {
 
   categoria: any
 
-  save(){
+  async save(){
     let nombre = ((document.getElementById("nombre") as HTMLInputElement).value);
-    this.apiService.createCategoria(nombre).toPromise().then((res) => {
+    (await this.apiService.createCategoria(nombre)).toPromise().then((res) => {
       this.categoria = res;
       if (this.categoria.nombre != "") {
         swal.fire({

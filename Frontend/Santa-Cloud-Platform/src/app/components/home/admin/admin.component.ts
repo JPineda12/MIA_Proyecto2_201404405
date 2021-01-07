@@ -44,6 +44,7 @@ export class AdminComponent implements OnInit {
       })
       this.router.navigate(["/adminperfiles"]);
     }else if (opcion == 3) {
+      this.router.navigate(["/cargamasiva"]);
       swal.fire({
         icon: 'info',
         title: 'Carga Masiva',
