@@ -32,6 +32,7 @@ import { VerCartasComponent } from './components/ver-cartas/ver-cartas.component
 import { DetalleCartaComponent } from './components/detalle-carta/detalle-carta.component';
 import { CargamasivaComponent } from './components/admin/cargamasiva/cargamasiva.component';
 import { ReportesComponent } from './components/admin/reportes/reportes.component';
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +67,7 @@ import { ReportesComponent } from './components/admin/reportes/reportes.componen
     BrowserAnimationsModule,
     NgxCsvParserModule,
     MaterialModule,
+    ChartsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD1sC6IYY17ZLNwyt0E4bSDpeR5oE_Dqr0',
       libraries: ['places']

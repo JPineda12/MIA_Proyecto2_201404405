@@ -42,7 +42,21 @@ tr.mat-footer-row {
 .Reporte{
     width: 10%;
     background: grey;
-    
+}
+
+.graficabt{
+    margin-left: 10px;
+}
+
+.chart-wrapper{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 60%;
+}
+
+.graficasReportes{
+    justify-content: center;
 }
 
 .imagen {

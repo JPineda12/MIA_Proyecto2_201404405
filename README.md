@@ -26,7 +26,7 @@
 			- [x] Top 5 de categorias con mas compradas.
 			- [x] Top de cartas con mayor gasto de bastones.
 			- [ ] Bitacora de respuestas a publicaciones de santa por niño.
-			- [ ] Reporte grafico en al menos 3 de los reportes anteriores.
+			- [x] Reporte grafico en al menos 3 de los reportes anteriores.
 		- [x] Carga Masiva
 - [ ] Aplicacion Movil
 	- [ ] Perfil de Santa
