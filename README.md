@@ -31,11 +31,13 @@
 - [ ] Aplicacion Movil
 	- [ ] Perfil de Santa
 		- [ ] Publicar
+			- [x] Realizar publicacion
+			- [ ] Con imagen :c
 		- [ ] Repartir
 			- [ ] Ver cartas confirmadas
 			- [ ] Ver detalle de alguna carta (producto,nombre,ubicacion)
 				- [ ] Ubicacion con Google Maps (API de google)
-			- [ ] Entregar regalo
+				- [ ] Entregar regalo
 	- [x] Perfil de Padre
 		- [x] Confirmar buenas acciones de hijo
 			- [x] Sumar bastones a hijo

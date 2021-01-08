@@ -7,6 +7,7 @@ var productController_1 = require("../controllers/productController");
 var goodDeedsController_1 = require("../controllers/goodDeedsController");
 var cartasController_1 = require("../controllers/cartasController");
 var ReportsController_1 = require("../controllers/ReportsController");
+var PublicacionesController_1 = require("../controllers/PublicacionesController");
 var ApiRoutes = /** @class */ (function () {
     function ApiRoutes() {
         this.router = express_1.Router();
@@ -72,6 +73,18 @@ var ApiRoutes = /** @class */ (function () {
         this.router.get('/report4', ReportsController_1.reportsController.getTop5GoodDeeds);
         this.router.get('/report5', ReportsController_1.reportsController.getTop5Categorias);
         this.router.get('/report6', ReportsController_1.reportsController.getTopCartas);
+        // Publicaciones routes
+        this.router.get('/publicaciones', PublicacionesController_1.publicacionesController.getAllPublicaciones);
+        this.router.get('/publicaciones/:idSanta', PublicacionesController_1.publicacionesController.getPublicacionesByUser);
+        this.router.post('/publicaciones', PublicacionesController_1.publicacionesController.createPublicacion);
+        this.router.put('/publicaciones', PublicacionesController_1.publicacionesController.updatePublicacion);
+        this.router.put('/deletePublicacion', PublicacionesController_1.publicacionesController.deletePublicacion);
+        this.router.get('/comentarios/:idPublicacion', PublicacionesController_1.publicacionesController.getComentariosPublicacion);
+        this.router.post('/comentarios', PublicacionesController_1.publicacionesController.createComentario);
+        this.router.put('/comentarios', PublicacionesController_1.publicacionesController.updateComentario);
+        this.router.put('/deleteComentario', PublicacionesController_1.publicacionesController.deleteComentario);
+        this.router.get('/lastIdPublicacion', PublicacionesController_1.publicacionesController.getLastPublicacionId);
+        this.router.get('/lastIdComentario', PublicacionesController_1.publicacionesController.getLastComentarioId);
     };
     return ApiRoutes;
 }());

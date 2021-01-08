@@ -1,0 +1,7 @@
+{
+  "name": "santa-cloud-movil",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

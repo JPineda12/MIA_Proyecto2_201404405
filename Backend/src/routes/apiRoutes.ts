@@ -5,6 +5,7 @@ import { productController} from '../controllers/productController';
 import { goodDeedsController} from '../controllers/goodDeedsController';
 import { cartasController} from '../controllers/cartasController';
 import { reportsController} from '../controllers/ReportsController';
+import { publicacionesController} from '../controllers/PublicacionesController';
 class ApiRoutes{
     public router: Router = Router();
 
@@ -75,6 +76,19 @@ class ApiRoutes{
         this.router.get('/report4', reportsController.getTop5GoodDeeds);
         this.router.get('/report5', reportsController.getTop5Categorias);
         this.router.get('/report6', reportsController.getTopCartas);
+
+        // Publicaciones routes
+        this.router.get('/publicaciones', publicacionesController.getAllPublicaciones);
+        this.router.get('/publicaciones/:idSanta', publicacionesController.getPublicacionesByUser);
+        this.router.post('/publicaciones', publicacionesController.createPublicacion);
+        this.router.put('/publicaciones', publicacionesController.updatePublicacion);
+        this.router.put('/deletePublicacion', publicacionesController.deletePublicacion);
+        this.router.get('/comentarios/:idPublicacion', publicacionesController.getComentariosPublicacion);
+        this.router.post('/comentarios', publicacionesController.createComentario);
+        this.router.put('/comentarios',publicacionesController.updateComentario);
+        this.router.put('/deleteComentario',publicacionesController.deleteComentario);
+        this.router.get('/lastIdPublicacion', publicacionesController.getLastPublicacionId);
+        this.router.get('/lastIdComentario', publicacionesController.getLastComentarioId);
     }
 
 }

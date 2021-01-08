@@ -1,8 +1,0 @@
-{
-  "name": "Movil-Santa-Cloud",
-  "integrations": {
-    "capacitor": {},
-    "cordova": {}
-  },
-  "type": "angular"
-}
