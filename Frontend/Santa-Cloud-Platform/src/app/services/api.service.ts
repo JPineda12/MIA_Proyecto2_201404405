@@ -13,7 +13,7 @@ export class ApiService {
     "Content-Type": "application/json"
   })
 
-  API_URI = "http://localhost:3000"
+    API_URI = "http://35.238.184.178:3000"
   API_KEY = "AIzaSyD1sC6IYY17ZLNwyt0E4bSDpeR5oE_Dqr0"
   getUsers() {
     return this.http.get(`${this.API_URI}/api/users`);
