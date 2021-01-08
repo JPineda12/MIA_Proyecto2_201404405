@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalle de Carta</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="map_canvas"></div>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+  </ion-fab>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{miCarta.fecha}}</ion-card-subtitle>
+      <ion-card-title>{{miCarta.nombreUsuario}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{miCarta.mensaje}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-title>Lista de productos</ion-title>
+
+
+  <ion-card *ngFor="let p of Productos">
+
+    <img [src]="p.image_url">
+
+    <ion-card-header>
+      <ion-card-title>{{p.Nombre}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Precio: {{p.precio}}
+    </ion-card-content>
+
+
+    <ion-card-content>
+      <ion-card-title>Cantidad: {{p.cantidad}}
+      </ion-card-title>
+
+
+    </ion-card-content>
+  </ion-card>
+
+
+
+</ion-content>
+<ion-card>
+  <ion-card-content>
+    <ion-card-title>Total: {{totalCarta}} bastones.</ion-card-title>
+  </ion-card-content>
+  <ion-button color="tertiary" (click)=entregar()>
+    <ion-card-subtitle class="terminar">Terminar Entrega</ion-card-subtitle>
+    <ion-icon slot="icon-only" name="checkmark-done-outline"></ion-icon>
+  </ion-button>
+</ion-card>

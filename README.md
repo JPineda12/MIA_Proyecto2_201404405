@@ -33,11 +33,11 @@
 		- [ ] Publicar
 			- [x] Realizar publicacion
 			- [ ] Con imagen :c
-		- [ ] Repartir
-			- [ ] Ver cartas confirmadas
-			- [ ] Ver detalle de alguna carta (producto,nombre,ubicacion)
-				- [ ] Ubicacion con Google Maps (API de google)
-				- [ ] Entregar regalo
+		- [x] Repartir
+			- [x] Ver cartas confirmadas
+			- [x] Ver detalle de alguna carta (producto,nombre,ubicacion)
+				- [x] Ubicacion con Google Maps (API de google)
+				- [x] Entregar regalo
 	- [x] Perfil de Padre
 		- [x] Confirmar buenas acciones de hijo
 			- [x] Sumar bastones a hijo

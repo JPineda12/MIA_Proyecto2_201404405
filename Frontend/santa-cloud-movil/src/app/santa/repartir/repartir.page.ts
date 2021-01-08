@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 import {
   GoogleMaps,
@@ -10,6 +12,9 @@ import {
 } from "@ionic-native/google-maps";
 
 import { Platform, LoadingController, ToastController } from "@ionic/angular";
+import { DetalleEntregaPage } from '../detalle-entrega/detalle-entrega.page';
+import { ModalController } from '@ionic/angular';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-repartir',
@@ -18,113 +23,51 @@ import { Platform, LoadingController, ToastController } from "@ionic/angular";
 })
 export class RepartirPage implements OnInit {
 
-  map: GoogleMap;
-  loading: any;
-  latitud: 0;
-  longitud: 0;
 
-  constructor(
-    public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController,
-    private platform: Platform
-  ) { }
+  Cartas: any;
+  sinCartas = false;
+  constructor(private storage: Storage, private apiService: ApiService,
+    private modalController: ModalController, private router: Router) { }
 
   async ngOnInit() {
-    await this.platform.ready();
-    await this.loadMap();
+
   }
 
-  loadMap() {
-    this.map = GoogleMaps.create("map_canvas", {
-      camera: {
-        target: {
-          lat: -2.1537488,
-          lng: -79.8883037
-        },
-        zoom: 18,
-        tilt: 30
+  ionViewWillEnter() {
+    this.getCartas()
+  }
+
+  getCartas() {
+    this.apiService.getCartasEntregar().toPromise().then((res) => {
+      this.Cartas = res;
+      if(this.Cartas.length == 0) {
+        this.sinCartas = true
       }
     });
   }
 
-  async localizar() {
-    this.map.clear();
-    this.loading = await this.loadingCtrl.create({
-      message: "Espera por favor..."
+  async verCarta(c){
+    const modal = await this.modalController.create({
+      component: DetalleEntregaPage,
+      componentProps: {
+        miCarta: c
+      }
     });
-    await this.loading.present();
-    this.map
-      .getMyLocation()
-      .then((location: MyLocation) => {
-        this.loading.dismiss();
-
-        this.map.animateCamera({
-          target: location.latLng,
-          zoom: 17,
-          tilt: 30
-        });
-
-        let marker: Marker = this.map.addMarkerSync({
-          title: "Estoy aquí!",
-          snippet: "",
-          position: location.latLng,
-          animation: GoogleMapsAnimation.BOUNCE
-        });
-
-        marker.showInfoWindow();
-
-        marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-          this.showToast("clicked!");
-        });
-      })
-      .catch(error => {
-        this.loading.dismiss();
-        this.showToast(error.error_message);
-      });
+    modal.onWillDismiss().then(dataReturned => {
+      // trigger when about to close the modal
+      console.log(dataReturned.data);
+    });
+    return await modal.present().then(_ => {
+      // triggered when opening the modal
+      console.log('Sending: ', c);
+    });
   }
 
-  async add() {
-    this.map.clear();
-    this.loading = await this.loadingCtrl.create({
-      message: "Espera por favor..."
-    });
-    await this.loading.present();
-
-    this.map.animateCamera({
-      target: {
-        lat: this.latitud,
-        lng: this.longitud
-      },
-      zoom: 17,
-      tilt: 30
-    });
-
-    let marker: Marker = this.map.addMarkerSync({
-      title: "Estoy aquí!",
-      snippet: "",
-      position: {
-        lat: this.latitud,
-        lng: this.longitud
-      },
-      animation: GoogleMapsAnimation.BOUNCE
-    });
-
-    marker.showInfoWindow();
-
-    marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-      this.showToast("clicked!");
-    });
-    this.loading.dismiss();
+  salir() {
+    this.storage.clear();
+    this.router.navigate(["/login"])
   }
 
-  async showToast(mensaje) {
-    let toast = await this.toastCtrl.create({
-      message: mensaje,
-      duration: 2000,
-      position: "bottom"
-    });
 
-    toast.present();
-  }
 
 }

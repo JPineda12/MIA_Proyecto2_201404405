@@ -1,1 +1,48 @@
-<p>kid-santa-profile works!</p>
+<app-navbar></app-navbar>
+
+<div class="cards">
+    <mat-card class="perfilSanta">
+        <div id="snowFall"></div>
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>person_pin</mat-icon>
+                <div class="mat-display-1"> Perfil de Santa</div>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <img mat-card-image src="assets/images/SantaProfile.png" class="imagen">
+            <div class="mat-h2">
+                Santa Claus vive en el polo norte, se encuentra preparando los regalos junto
+                con sus elfos para poder salir a repartirlos en su carruaje magico y hacer
+                feliz a cada niño que se ha portado bien y ha realizado muchas buenas acciones :)
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <div class="publicaciones" *ngFor="let p of Publicaciones">
+        <mat-card class="publicacion">
+            <div id="snowFall"></div>
+            <mat-card-header>
+                <mat-card-title>
+                    <mat-icon>edit</mat-icon>
+                    {{p.usuario}}
+                </mat-card-title>
+                <mat-card-subtitle>{{p.idPublicacion}} </mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image *ngIf="p.imagen != null" [src]="p.imagen" class="imagen">
+            <mat-card-content>
+                <p>
+                    {{p.texto}}
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <div class="botones">
+                    <button mat-button (click)="comentar(p)">
+                        <mat-icon>keyboard</mat-icon>
+                        Comentar
+                    </button>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

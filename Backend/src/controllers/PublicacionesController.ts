@@ -112,7 +112,8 @@ class PublicacionesController {
         const { mensaje, idPublicacion, idKid, estado } = req.body;
         let sql = "INSERT INTO COMENTARIO(Mensaje, comentario_idPublicacion, comentario_idKid, estado) "
             + " VALUES(:mensaje, :idPublicacion, :idKid, :estado)"
-
+	console.log(req.body);
+	console.log("SQL: --",sql);
         const result = await database.Open(sql, [mensaje, idPublicacion, idKid, estado], true);
         res.status(200).json({
             "texto": mensaje

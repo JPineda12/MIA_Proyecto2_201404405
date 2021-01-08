@@ -63,6 +63,7 @@ class ApiRoutes{
         this.router.get('/cartas', cartasController.getCartasByUser);
         this.router.get('/lastIdCarta', cartasController.getLastId);
         this.router.get('/allCartas', cartasController.getAllCartas);
+        this.router.get('/cartasEntregar', cartasController.getCartasEntregar);
         this.router.put('/cartas', cartasController.updateEstadoCarta);
         this.router.post('/createCarta', cartasController.createCarta);
         this.router.get('/articulos/:idCarta', cartasController.getDetalleCarta);

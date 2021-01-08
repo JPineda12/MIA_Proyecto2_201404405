@@ -14,6 +14,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { MatFileUploadModule } from 'mat-file-upload'; 
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const modules = [
     MatCardModule,
@@ -30,7 +31,8 @@ const modules = [
     MatNativeDateModule,
     MatFileUploadModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
 ];
 
 

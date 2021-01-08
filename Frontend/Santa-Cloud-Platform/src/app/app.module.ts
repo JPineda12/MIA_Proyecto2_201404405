@@ -33,6 +33,7 @@ import { DetalleCartaComponent } from './components/detalle-carta/detalle-carta.
 import { CargamasivaComponent } from './components/admin/cargamasiva/cargamasiva.component';
 import { ReportesComponent } from './components/admin/reportes/reportes.component';
 import { ChartsModule } from 'ng2-charts';
+import { DetallePublicacionComponent } from './components/detalle-publicacion/detalle-publicacion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +60,7 @@ import { ChartsModule } from 'ng2-charts';
     DetalleCartaComponent,
     CargamasivaComponent,
     ReportesComponent,
+    DetallePublicacionComponent,
   ],
   imports: [
     BrowserModule,

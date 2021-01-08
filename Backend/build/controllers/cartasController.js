@@ -138,6 +138,41 @@ var CartasController = /** @class */ (function () {
             });
         });
     };
+    CartasController.prototype.getCartasEntregar = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var consulta, result, cartas;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        consulta = "SELECT c.idCarta, c.Mensaje, c.Fecha, c.Estado, c.Carta_idUsuario, us.nombre as Usuario,"
+                            + " us.latitud, us.longitud "
+                            + " FROM CARTA c, Usuario us"
+                            + " WHERE c.Carta_idUsuario = us.idUsuario"
+                            + " AND c.estado = 1"
+                            + " ORDER BY c.Carta_idUsuario";
+                        return [4 /*yield*/, database_1.default.Open(consulta, [], false)];
+                    case 1:
+                        result = _a.sent();
+                        cartas = [];
+                        result.rows.map(function (cart) {
+                            var cartasSchema = {
+                                "idCarta": cart[0],
+                                "mensaje": cart[1],
+                                "fecha": cart[2],
+                                "estado": cart[3],
+                                "idUsuario": cart[4],
+                                "usuario": cart[5],
+                                "latitud": cart[6],
+                                "longitud": cart[7]
+                            };
+                            cartas.push(cartasSchema);
+                        });
+                        res.json(cartas);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     CartasController.prototype.getLastId = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var consulta, result, cartas;

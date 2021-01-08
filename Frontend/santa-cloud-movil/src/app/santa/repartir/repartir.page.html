@@ -1,39 +1,39 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Mapa
-    </ion-title>
+    <ion-title>Repartir Cartas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="salir()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-label>Latitud</ion-label>
-          <ion-input [(ngModel)]="latitud"></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        <ion-item>
-          <ion-label>Longitud</ion-label>
-          <ion-input [(ngModel)]="longitud"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-button expand="full" (click)="add()">Agregar</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-card class="realizadas" *ngFor="let carta of Cartas">
+    <div id="snowFall"></div>
+    <ion-card-header>
+      <ion-card-subtitle>Enviada por: {{carta.fecha}}</ion-card-subtitle>
+      <ion-card-title>{{carta.usuario}}
+      </ion-card-title>
+    </ion-card-header>
 
-  <div id="map_canvas"></div>
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button color="danger" (click)="localizar()">
-      <ion-icon name="pin"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-card-content>
+      {{carta.mensaje}}
+    </ion-card-content>
+    <div class="botones">
+      <ion-button color="warning" (click)=verCarta(carta)>
+        <ion-label>Ver Detalles</ion-label>
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-card>
+
+  <ion-card *ngIf="sinCartas == true">
+    <ion-card-content>
+      Sin cartas por repartir
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

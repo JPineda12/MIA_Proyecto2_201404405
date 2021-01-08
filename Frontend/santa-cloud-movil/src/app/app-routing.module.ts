@@ -31,6 +31,10 @@ const routes: Routes = [
     path: 'ver-mensajes',
     loadChildren: () => import('./father/ver-mensajes/ver-mensajes.module').then( m => m.VerMensajesPageModule)
   },
+  {
+    path: 'detalle-entrega',
+    loadChildren: () => import('./santa/detalle-entrega/detalle-entrega.module').then( m => m.DetalleEntregaPageModule)
+  },
   
 ];
 

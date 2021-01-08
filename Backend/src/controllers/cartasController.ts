@@ -68,6 +68,31 @@ class CartasController {
         })
         res.json(cartas);
     }
+    
+    public async getCartasEntregar(req: Request, res: Response){
+        let consulta = "SELECT c.idCarta, c.Mensaje, c.Fecha, c.Estado, c.Carta_idUsuario, us.nombre as Usuario,"
+            + " us.latitud, us.longitud "
+            + " FROM CARTA c, Usuario us"
+            + " WHERE c.Carta_idUsuario = us.idUsuario"
+            + " AND c.estado = 1"
+            + " ORDER BY c.Carta_idUsuario" 
+        const result = await database.Open(consulta, [], false);
+        let cartas: any = [];
+        result.rows.map((cart: any) => {
+            let cartasSchema = {
+                "idCarta": cart[0],
+                "mensaje": cart[1],
+                "fecha": cart[2],
+                "estado": cart[3],
+                "idUsuario": cart[4],
+                "usuario": cart[5],
+                "latitud": cart[6],
+                "longitud": cart[7]
+            }
+            cartas.push(cartasSchema);
+        })
+        res.json(cartas);
+    }
 
     public async getLastId(req: Request, res: Response) {
         let consulta = "SELECT Max(idCarta) FROM Carta";

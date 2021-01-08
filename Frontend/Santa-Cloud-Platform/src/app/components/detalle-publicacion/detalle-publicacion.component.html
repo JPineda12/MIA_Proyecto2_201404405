@@ -1,0 +1,38 @@
+<mat-card class ="pub">
+    <div id="snowFall"></div>
+
+    <mat-card-title>
+    <h1 class="shadow">{{data.publicacion.usuario}}</h1>
+    </mat-card-title>
+    <mat-card-content>
+        {{data.publicacion.texto}}
+    </mat-card-content>
+</mat-card>
+<mat-dialog-content class ="comentarios">
+    <div class="cards">
+        <mat-card class="card" *ngFor="let com of Comentarios">
+            <mat-card-header>
+                <mat-card-title>
+                    <mat-icon>military_tech</mat-icon>
+                    {{com.usuario}}
+                </mat-card-title>
+            </mat-card-header>
+            <p>
+                {{com.mensaje}}
+            </p>
+        </mat-card>
+    </div>
+</mat-dialog-content>
+
+<mat-card class ="comment">
+    <mat-card-title>
+    <h1 class="shadow">Publicar comentario</h1>
+    </mat-card-title>
+    <mat-card-content>
+        <mat-form-field class="mensaje">
+            <textarea id="notes" class="notes" maxlength="150" rows="3" matInput></textarea>
+            <button class="santaButton" type="button" mat-raised-button color="primary" 
+            (click)="enviarComentario()">Enviar Comentario</button>
+        </mat-form-field>
+    </mat-card-content>
+</mat-card>

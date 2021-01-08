@@ -225,6 +225,8 @@ var PublicacionesController = /** @class */ (function () {
                         _a = req.body, mensaje = _a.mensaje, idPublicacion = _a.idPublicacion, idKid = _a.idKid, estado = _a.estado;
                         sql = "INSERT INTO COMENTARIO(Mensaje, comentario_idPublicacion, comentario_idKid, estado) "
                             + " VALUES(:mensaje, :idPublicacion, :idKid, :estado)";
+                        console.log(req.body);
+                        console.log("SQL: --", sql);
                         return [4 /*yield*/, database_1.default.Open(sql, [mensaje, idPublicacion, idKid, estado], true)];
                     case 1:
                         result = _b.sent();

@@ -13,7 +13,7 @@ export class ApiService {
     "Content-Type": "application/json"
   })
 
-    API_URI = "http://35.238.184.178:3000"
+  API_URI = "http://localhost:3000"
   API_KEY = "AIzaSyD1sC6IYY17ZLNwyt0E4bSDpeR5oE_Dqr0"
   getUsers() {
     return this.http.get(`${this.API_URI}/api/users`);
@@ -232,14 +232,14 @@ export class ApiService {
   getProductosByName(nombre: string) {
     return this.http.get(`${this.API_URI}/api/productsByName/${nombre}`);
   }
-  
+
   getCategoriesByName(nombre: string) {
     return this.http.get(`${this.API_URI}/api/categoriesByName/${nombre}`);
   }
 
 
 
- async insertProducto(nombre: string, precio: string, edadMinima: string, idCategoria: string, urlimagen: string) {
+  async insertProducto(nombre: string, precio: string, edadMinima: string, idCategoria: string, urlimagen: string) {
     return this.http.post(`${this.API_URI}/api/products/`,
       {
         "nombre": nombre,
@@ -301,7 +301,7 @@ export class ApiService {
 
 
   async getCartas(idSon: string, estado: string) {
-    console.log("IDSON: ",idSon, "estado:", estado)
+    console.log("IDSON: ", idSon, "estado:", estado)
     const customHeaders = { 'idusuario': idSon, 'estado': estado }
     return this.http.get(`${this.API_URI}/api/cartas/`, { headers: customHeaders });
   }
@@ -345,24 +345,87 @@ export class ApiService {
     return this.http.delete(`${this.API_URI}/api/articulos/${idArticulo}`);
   }
 
-  reporte1(){
+  reporte1() {
     return this.http.get(`${this.API_URI}/api/report1`);
   }
-  reporte2(){
+  reporte2() {
     return this.http.get(`${this.API_URI}/api/report2`);
   }
-  reporte3(){
+  reporte3() {
     return this.http.get(`${this.API_URI}/api/report3`);
   }
 
-  reporte4(){
+  reporte4() {
     return this.http.get(`${this.API_URI}/api/report4`);
   }
 
-  reporte5(){
+  reporte5() {
     return this.http.get(`${this.API_URI}/api/report5`);
   }
-  reporte6(){
+  reporte6() {
     return this.http.get(`${this.API_URI}/api/report6`);
+  }
+
+  getPublicaciones() {
+    return this.http.get(`${this.API_URI}/api/publicaciones`);
+  }
+
+  getPublicacionesByUser(idSanta: string) {
+    return this.http.get(`${this.API_URI}/api/publicaciones/${idSanta}`);
+  }
+
+  getComentariosPublicacion(idPublicacion: string) {
+    return this.http.get(`${this.API_URI}/api/comentarios/${idPublicacion}`);
+  }
+
+  createPublicacion(texto: string, imagen: string, estado: string, idSanta: string) {
+    return this.http.post(`${this.API_URI}/api/publicaciones/`,
+      {
+        "texto": texto,
+        "imagen": imagen,
+        "estado": estado,
+        "idSanta": idSanta
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  updatePublicacion(texto: string, imagen: string, idPublicacion: string) {
+    return this.http.put(`${this.API_URI}/api/publicaciones/`,
+      {
+        "texto": texto,
+        "imagen": imagen,
+        "idPublicacion": idPublicacion
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  deletePublicacion(idPublicacion: string) {
+    return this.http.put(`${this.API_URI}/api/deletePublicacion/`,
+      {
+        "idPublicacion": idPublicacion
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  createComentario(mensaje: string, idPublicacion: string, idKid: string, estado: string) {
+    return this.http.post(`${this.API_URI}/api/comentarios/`,
+      {
+        "mensaje": mensaje,
+        "idPublicacion": idPublicacion,
+        "idKid": idKid,
+        "estado": estado
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  updateComentario(idComentario: string, mensaje: string,) {
+    return this.http.put(`${this.API_URI}/api/comentarios/`,
+      {
+        "mensaje": mensaje,
+        "idComentario": idComentario,
+      }, { headers: this.headers }).pipe(map(data => data));
+  }
+
+  deleteComentario(idComentario) {
+    return this.http.put(`${this.API_URI}/api/deleteComentario/`,
+      {
+        "idComentario": idComentario
+      }, { headers: this.headers }).pipe(map(data => data));
   }
 }

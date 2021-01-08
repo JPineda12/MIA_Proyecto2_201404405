@@ -61,6 +61,7 @@ var ApiRoutes = /** @class */ (function () {
         this.router.get('/cartas', cartasController_1.cartasController.getCartasByUser);
         this.router.get('/lastIdCarta', cartasController_1.cartasController.getLastId);
         this.router.get('/allCartas', cartasController_1.cartasController.getAllCartas);
+        this.router.get('/cartasEntregar', cartasController_1.cartasController.getCartasEntregar);
         this.router.put('/cartas', cartasController_1.cartasController.updateEstadoCarta);
         this.router.post('/createCarta', cartasController_1.cartasController.createCarta);
         this.router.get('/articulos/:idCarta', cartasController_1.cartasController.getDetalleCarta);

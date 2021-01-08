@@ -26,6 +26,8 @@ export class HomePage {
       this.usuario = res;
       if (this.usuario.auth) {
         this.storage.set("user", this.usuario);
+        this.email = "";
+        this.password = "";
         if (this.usuario.idRol == 2) {
           this.router.navigate(["/santa-tabs"]);
         } else if (this.usuario.idRol == 3) {

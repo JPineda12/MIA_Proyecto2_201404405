@@ -1,56 +1,28 @@
-.cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+.pub{
+    text-align: center;
+    background-color: rgb(134, 78, 78);
+    margin-bottom: 10px;
 }
 
-.pendingcard{
-    flex: 0 0 20%;
-    box-sizing: border-box;
-    margin: 1rem .25em;
-    background-color:orange ; 
-}
-
-.donecard{
-    flex: 0 0 20%;
-    box-sizing: border-box;
-    margin: 1rem .25em;
-    background-color:salmon;  
-}
-
-.card {
-    flex: 0 0 20%;
-    box-sizing: border-box;
-    margin: 1rem .25em;
-    background-color: #235E6F;
-}
-.mat-card-content{
-    min-height: 100px;
-}
-
-.desc{
-    text-align:center;
-}
-
-.rec{
+.cards{
     text-align: center;
 }
 
-.mat-h2 {
+.card{
+    text-align: center;
+    background-color: rgb(109, 137, 163);
+    margin-bottom: 5px;
+}
+
+.mensaje{
+    width: 100%;
     text-align: center;
 }
 
-.mat-card-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+.notes{
+    background-color: rgb(70, 61, 87);
 }
 
-.boton{
-    z-index: 2;
-}
 
 
 #snowFall {
