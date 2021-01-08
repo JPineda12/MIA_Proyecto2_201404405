@@ -312,9 +312,12 @@ export class CargamasivaComponent implements OnInit {
         let auxC: any = res;
         let foundCarta = null;
         for await (let c of auxC) {
-          let fecha = moment(c.fecha).format('MM/DD/YYYY');
-          if (fechaEnviada == fecha) {
+          var otroF = c.fecha.substring(0,10)
+          let otroFecha = moment(otroF).format('MM/DD/YYYY');
+          console.log("Comparando fechas: Enviada: ",fechaEnviada+" ===== ", otroFecha)
+          if (fechaEnviada === otroFecha) {
             foundCarta = c;
+            break;
           }
         }
         resolve(foundCarta)
@@ -399,7 +402,7 @@ export class CargamasivaComponent implements OnInit {
     for await (let prod of this.auxProductos) {
       let categoria = await this.verificarCategoria(prod.nombreCategoria);
       (await this.apiService.insertProducto(prod.nombre, prod.precio, prod.edadRecomendada,
-        categoria.id, "http://localhost:3020/sinimagen.jpg")).toPromise().then((res) => {
+        categoria.id, "http://35.238.184.178:3020/sinimagen.jpg")).toPromise().then((res) => {
           console.log("Producto: ", prod.nombre, " insertado!");
         })
     }
