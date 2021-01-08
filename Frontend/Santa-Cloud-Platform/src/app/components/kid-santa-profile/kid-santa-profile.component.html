@@ -29,10 +29,10 @@
                 </mat-card-title>
                 <mat-card-subtitle>{{p.idPublicacion}} </mat-card-subtitle>
             </mat-card-header>
-            <img mat-card-image *ngIf="p.imagen != null" [src]="p.imagen" class="imagen">
             <mat-card-content>
+                <img mat-card-image *ngIf="p.imagen != null" [src]="p.imagen" class="imagenPubli">
                 <p>
-                    {{p.texto}}
+                 {{p.texto}}
                 </p>
             </mat-card-content>
             <mat-card-actions>

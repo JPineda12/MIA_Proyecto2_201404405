@@ -4,9 +4,9 @@ class Database{
 
 
     public cns = {
-        user: "brestlocal",
+        user: "brest12",
         password: "1234",
-        connectString: "172.17.0.2/ORCL18"
+        connectString: "34.121.193.52/ORCL18"
     }
 
     public async Open(sql: any , binds: any, autoCommit: any) {

@@ -28,11 +28,11 @@
 			- [x] Bitacora de respuestas a publicaciones de santa por niño.
 			- [x] Reporte grafico en al menos 3 de los reportes anteriores.
 		- [x] Carga Masiva
-- [ ] Aplicacion Movil
-	- [ ] Perfil de Santa
-		- [ ] Publicar
+- [x] Aplicacion Movil
+	- [x] Perfil de Santa
+		- [x] Publicar
 			- [x] Realizar publicacion
-			- [ ] Con imagen :c
+			- [x] Con imagen :c
 		- [x] Repartir
 			- [x] Ver cartas confirmadas
 			- [x] Ver detalle de alguna carta (producto,nombre,ubicacion)
@@ -51,8 +51,8 @@
 	- [x] CRUD Products and Categories
 	- [X] Consultas para Roles, departamentos y municipios
 	- [X] CRUD Buenas Acciones
-- [ ] Documentacion
+- [x] Documentacion
 	- [x] Relational Model
-	- [ ] Descripcion Arquitectura
-	- [ ] Justificacion Tecnologica Utilizada
+	- [x] Descripcion Arquitectura
+	- [x] Justificacion Tecnologica Utilizada
 

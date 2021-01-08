@@ -18,7 +18,8 @@
       <ion-card-title>Nueva Publicacion</ion-card-title>
     </ion-card-header>
     <ion-item>
-      <ion-textarea maxlength="300" placeholder="Nueva Publicacion.... Escribe algo" class="nuevaPublic" [(ngModel)]="textoPublicacion">
+      <ion-textarea maxlength="300" placeholder="Nueva Publicacion.... Escribe algo" class="nuevaPublic"
+        [(ngModel)]="textoPublicacion">
       </ion-textarea>
     </ion-item>
     <ion-card-content>
@@ -54,7 +55,7 @@
       <ion-item>
         {{p.texto}}
       </ion-item>
-      <!--  <img src="{{p.imagen}}" height="200" widht="200"/> -->
+      <img src="{{p.imagen}}" height="200" widht="200" />
     </ion-card-content>
     <ion-card-content>
       <ion-button color="warning" (click)=editar(p)>

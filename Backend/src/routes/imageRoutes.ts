@@ -7,7 +7,7 @@ const routes = Router();
 
 routes.post('/uploadImage', multer(multerConfig).single('file'), (request: Request, response: Response) => {
 
-    return response.json({ Message: 'http://localhost:3020/' + request.file.filename })
+    return response.json({ Message: 'http://35.238.184.178:3020/' + request.file.filename })
 })
 
 

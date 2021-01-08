@@ -49,7 +49,6 @@ class GoodDeedsController {
             + " FROM BUENA_ACCION ba, USUARIO u, ACCION_REALIZAR ar "
             + " WHERE ar.REALIZAR_IDBUENA_ACCION = ba.IDBUENA_ACCION "
             + " AND ar.REALIZAR_IDUSUARIO = u.IDUSUARIO "
-            + " AND ar.ESTADO != 3"
             + " AND u.IDUSUARIO = :idUsuario"
         const result = await database.Open(sql, [idUsuario], true);
         let acciones: any = [];

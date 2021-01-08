@@ -115,7 +115,6 @@ var GoodDeedsController = /** @class */ (function () {
                             + " FROM BUENA_ACCION ba, USUARIO u, ACCION_REALIZAR ar "
                             + " WHERE ar.REALIZAR_IDBUENA_ACCION = ba.IDBUENA_ACCION "
                             + " AND ar.REALIZAR_IDUSUARIO = u.IDUSUARIO "
-                            + " AND ar.ESTADO != 3"
                             + " AND u.IDUSUARIO = :idUsuario";
                         return [4 /*yield*/, database_1.default.Open(sql, [idUsuario], true)];
                     case 1:

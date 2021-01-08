@@ -52,7 +52,7 @@ export class AddProductComponent {
         cancelButtonText: 'Regresar'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.data.image_url = "http://localhost:3020/sinimagen.jpg"
+          this.data.image_url = "http://35.238.184.178:3020/sinimagen.jpg"
           this.insertarProducto()
         }
       })
@@ -95,8 +95,9 @@ export class AddProductComponent {
   }
 
   uploadAction(files: any) {
-    let data = new FormData();
+    let data = new FormData();	
     data.append('file', files.item(0));
+    console.log(data);
     this.apiService.uploadImage(data).toPromise().then(res => {
       this.imagen = res;
       this.selectText = "Imagen Subida: ";

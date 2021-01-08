@@ -7,6 +7,8 @@
     <mat-card-content>
         {{data.publicacion.texto}}
     </mat-card-content>
+    <img mat-card-image *ngIf="data.publicacion.imagen != null" [src]="data.publicacion.imagen" class="imagen">
+
 </mat-card>
 <mat-dialog-content class ="comentarios">
     <div class="cards">

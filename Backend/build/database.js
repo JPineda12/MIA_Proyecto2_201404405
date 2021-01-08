@@ -40,9 +40,9 @@ var oracledb = require('oracledb');
 var Database = /** @class */ (function () {
     function Database() {
         this.cns = {
-            user: "brestlocal",
+            user: "brest12",
             password: "1234",
-            connectString: "172.17.0.2/ORCL18"
+            connectString: "34.121.193.52/ORCL18"
         };
     }
     Database.prototype.Open = function (sql, binds, autoCommit) {

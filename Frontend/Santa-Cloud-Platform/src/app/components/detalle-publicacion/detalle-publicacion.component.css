@@ -23,7 +23,10 @@
     background-color: rgb(70, 61, 87);
 }
 
-
+.imagen {
+    width: 380px;
+    height: 380px;
+}
 
 #snowFall {
     background: none;

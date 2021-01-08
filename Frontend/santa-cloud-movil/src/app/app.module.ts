@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { HttpClientModule } from '@angular/common/http';
+import { File } from '@ionic-native/file/ngx';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     StatusBar,
     SplashScreen,
+    File,
     Camera,
     HttpClientModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

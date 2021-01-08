@@ -12,7 +12,7 @@ export class ApiService {
     "Content-Type": "application/json"
   })
 
-  API_URI = "http://localhost:3000"
+  API_URI = "http://35.238.184.178:3000"
   API_KEY = "AIzaSyD1sC6IYY17ZLNwyt0E4bSDpeR5oE_Dqr0"
 
   getUsers() {
@@ -50,8 +50,8 @@ export class ApiService {
   }
 
   getCartas(idSon: string, estado: string) {
-  	console.log("Son",idSon);
-  	console.log(estado);
+    console.log("Son", idSon);
+    console.log(estado);
     const customHeaders = { 'idusuario': idSon, 'estado': estado }
     return this.http.get(`${this.API_URI}/api/cartas/`, { headers: customHeaders });
   }
@@ -77,6 +77,9 @@ export class ApiService {
         "idCarta": idCarta,
         "estado": estado
       }, { headers: this.headers }).pipe(map(data => data));
+  }
+  uploadImage(archivo: any) {
+    return this.http.post(`${this.API_URI}/api/uploadImage/`, archivo)
   }
 
   updateHijo(idHijo: string, nombre: string, nickname: string, email: string, pass: string,
