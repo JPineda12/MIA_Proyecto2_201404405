@@ -28,7 +28,7 @@ class Server{
     }
 
     start(): void{
-        this.app.listen(this.app.get('port'), () => {
+        this.app.listen(this.app.get('port'), "0.0.0.0", () => {
             console.log("Server listening on port ", this.app.get('port'));
         })
     }

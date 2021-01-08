@@ -30,7 +30,7 @@ var Server = /** @class */ (function () {
     };
     Server.prototype.start = function () {
         var _this = this;
-        this.app.listen(this.app.get('port'), function () {
+        this.app.listen(this.app.get('port'), "0.0.0.0", function () {
             console.log("Server listening on port ", _this.app.get('port'));
         });
     };
