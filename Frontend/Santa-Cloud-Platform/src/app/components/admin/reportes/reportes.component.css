@@ -19,6 +19,12 @@ h1 {
     overflow: auto;
 }
 
+.tabla7{
+    width: 150%;
+    overflow-x: scroll;
+
+}
+
 table {
     width: 100%;
     background-color: seagreen;
@@ -42,6 +48,13 @@ tr.mat-footer-row {
 .Reporte{
     width: 10%;
     background: grey;
+}
+.Kid{
+    width: 10%;
+    background: rgb(189, 115, 115);
+    color: black;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .graficabt{

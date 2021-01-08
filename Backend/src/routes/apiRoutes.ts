@@ -23,6 +23,7 @@ class ApiRoutes{
         this.router.get('/roles', apiController.getRoles);
         //User ROUTES
         this.router.get('/users', userController.getUsers);
+        this.router.get('/getKids', userController.getKids);
         this.router.get('/users/:idUsuario', userController.getUserById);
         this.router.get('/getHijos/:idPadre', userController.getHijos);
         this.router.get('/getUserByEmail/:correo', userController.getUserByEmail);
@@ -33,7 +34,7 @@ class ApiRoutes{
         this.router.put('/deleteUser', userController.deleteUser);
         this.router.get('/loginEmail', userController.loginEmail);
         this.router.get('/loginNickname', userController.loginNickname);
-        this.router.get('/getAllPadres/', userController.getAllPadres)
+        this.router.get('/getAllPadres/', userController.getAllPadres);
 
         //Product Routes
         this.router.get('/products', productController.getProductos);
@@ -77,6 +78,7 @@ class ApiRoutes{
         this.router.get('/report4', reportsController.getTop5GoodDeeds);
         this.router.get('/report5', reportsController.getTop5Categorias);
         this.router.get('/report6', reportsController.getTopCartas);
+        this.router.get('/report7/:idUsuario', reportsController.getComentariosPorKid);
 
         // Publicaciones routes
         this.router.get('/publicaciones', publicacionesController.getAllPublicaciones);

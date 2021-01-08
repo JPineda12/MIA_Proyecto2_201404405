@@ -221,7 +221,7 @@ var ReportsController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         consulta = "SELECT y.idCarta, ca.carta_idUsuario as idUsuario,"
-                            + " y.totalGastado, ca.fecha, ca.mensaje, us.nombre"
+                            + " y.totalGastado, ca.fecha, ca.mensaje, us.nombre, ca.estado"
                             + "  FROM CARTA ca, Usuario us,( "
                             + " SELECT x.idCarta,Sum(x.total) as TOTALGASTADO FROM ( "
                             + "  SELECT ac.idarticulos_carta as ARTICULO, c.idCarta as idCarta, ac.precio * ac.cantidad as TOTAL "
@@ -230,6 +230,7 @@ var ReportsController = /** @class */ (function () {
                             + " GROUP BY x.idCarta ) y "
                             + "   WHERE ca.idCarta = y.idcarta "
                             + " AND ca.carta_idUsuario = us.idUsuario "
+                            + " AND ca.estado = 2"
                             + " ORDER BY y.totalgastado DESC ";
                         return [4 /*yield*/, database_1.default.Open(consulta, [], false)];
                     case 1:
@@ -247,6 +248,39 @@ var ReportsController = /** @class */ (function () {
                             cartas.push(cartaSchema);
                         });
                         res.json(cartas);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ReportsController.prototype.getComentariosPorKid = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var idUsuario, consulta, result, comentarios;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        idUsuario = req.params.idUsuario;
+                        consulta = "select us.nombre as Usuario,  c.idComentario, c.mensaje, p.idPublicacion, p.texto"
+                            + " from Publicacion p, Comentario c, Usuario us"
+                            + "  WHERE us.idUsuario = c.comentario_idkid "
+                            + " AND c.comentario_idPublicacion = p.idPublicacion"
+                            + "  AND us.idUsuario = :idUsuario "
+                            + " order by c.idComentario asc";
+                        return [4 /*yield*/, database_1.default.Open(consulta, [idUsuario], true)];
+                    case 1:
+                        result = _a.sent();
+                        comentarios = [];
+                        result.rows.map(function (comment) {
+                            var commentSchema = {
+                                "usuario": comment[0],
+                                "idComentario": comment[1],
+                                "mensaje": comment[2],
+                                "idPublicacion": comment[3],
+                                "texto": comment[4],
+                            };
+                            comentarios.push(commentSchema);
+                        });
+                        res.json(comentarios);
                         return [2 /*return*/];
                 }
             });

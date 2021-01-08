@@ -40,13 +40,13 @@ export class RepartirPage implements OnInit {
   getCartas() {
     this.apiService.getCartasEntregar().toPromise().then((res) => {
       this.Cartas = res;
-      if(this.Cartas.length == 0) {
+      if (this.Cartas.length == 0) {
         this.sinCartas = true
       }
     });
   }
 
-  async verCarta(c){
+  async verCarta(c) {
     const modal = await this.modalController.create({
       component: DetalleEntregaPage,
       componentProps: {
@@ -56,6 +56,12 @@ export class RepartirPage implements OnInit {
     modal.onWillDismiss().then(dataReturned => {
       // trigger when about to close the modal
       console.log(dataReturned.data);
+      if (dataReturned.data) {
+        const index = this.Cartas.indexOf(c, 0);
+        if (index > -1) {
+          this.Cartas.splice(index, 1);
+        }
+      }
     });
     return await modal.present().then(_ => {
       // triggered when opening the modal

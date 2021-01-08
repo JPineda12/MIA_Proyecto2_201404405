@@ -127,7 +127,7 @@ class ReportsController {
 
     public async getTopCartas(re: Request, res: Response) {
         let consulta = "SELECT y.idCarta, ca.carta_idUsuario as idUsuario,"
-            + " y.totalGastado, ca.fecha, ca.mensaje, us.nombre"
+            + " y.totalGastado, ca.fecha, ca.mensaje, us.nombre, ca.estado"
             + "  FROM CARTA ca, Usuario us,( "
             + " SELECT x.idCarta,Sum(x.total) as TOTALGASTADO FROM ( "
             + "  SELECT ac.idarticulos_carta as ARTICULO, c.idCarta as idCarta, ac.precio * ac.cantidad as TOTAL "
@@ -136,6 +136,7 @@ class ReportsController {
             + " GROUP BY x.idCarta ) y "
             + "   WHERE ca.idCarta = y.idcarta "
             + " AND ca.carta_idUsuario = us.idUsuario "
+            + " AND ca.estado = 2"
             + " ORDER BY y.totalgastado DESC "
         const result = await database.Open(consulta, [], false);
         let cartas: any = [];
@@ -151,6 +152,30 @@ class ReportsController {
             cartas.push(cartaSchema);
         })
         res.json(cartas);
+    }
+    
+        public async getComentariosPorKid(req: Request, res: Response) {
+                const { idUsuario } = req.params;
+        let consulta = "select us.nombre as Usuario,  c.idComentario, c.mensaje, p.idPublicacion, p.texto"
+            + " from Publicacion p, Comentario c, Usuario us"
+            + "  WHERE us.idUsuario = c.comentario_idkid "
+            + " AND c.comentario_idPublicacion = p.idPublicacion"
+            + "  AND us.idUsuario = :idUsuario "
+            + " order by c.idComentario asc"
+
+        const result = await database.Open(consulta, [idUsuario], true);
+        let comentarios: any = [];
+        result.rows.map((comment: any) => {
+            let commentSchema = {
+                "usuario": comment[0],
+                "idComentario": comment[1],
+                "mensaje": comment[2],
+                "idPublicacion": comment[3],
+                "texto": comment[4],
+            }
+            comentarios.push(commentSchema);
+        })
+        res.json(comentarios);
     }
 
 }

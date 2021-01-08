@@ -50,6 +50,8 @@ export class ApiService {
   }
 
   getCartas(idSon: string, estado: string) {
+  	console.log("Son",idSon);
+  	console.log(estado);
     const customHeaders = { 'idusuario': idSon, 'estado': estado }
     return this.http.get(`${this.API_URI}/api/cartas/`, { headers: customHeaders });
   }

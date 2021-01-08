@@ -95,6 +95,58 @@ var UserController = /** @class */ (function () {
             });
         });
     };
+    UserController.prototype.getKids = function (re, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, result, Users;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        sql = "SELECT idUsuario, nombre, nickname, email, genero, fechaNacimiento, "
+                            + "telefono, bastones,direccion, USUARIO_IDPADRE, USUARIO_IDROL, USUARIO_IDMUNICIPIO,"
+                            + "m.MUNICIPIO_IDDEPARTAMENTO, r.Rol, m.MUNICIPIO, d.DEPARTAMENTO, capacidadBastones"
+                            + ", latitud, longitud, contrasena"
+                            + " From Usuario, Rol r, Municipio m, Departamento d "
+                            + " WHERE r.IDROL = USUARIO_IDROL "
+                            + " AND m.IDMUNICIPIO = USUARIO_IDMUNICIPIO "
+                            + " AND m.MUNICIPIO_IDDEPARTAMENTO  = d.IDDEPARTAMENTO "
+                            + "  AND ESTADO = 0"
+                            + " AND usuario_idRol = 4"
+                            + " ORDER BY idUsuario";
+                        return [4 /*yield*/, database_1.default.Open(sql, [], false)];
+                    case 1:
+                        result = _a.sent();
+                        Users = [];
+                        result.rows.map(function (user) {
+                            var userSchema = {
+                                "idUsuario": user[0],
+                                "nombre": user[1],
+                                "nickname": user[2],
+                                "email": user[3],
+                                "genero": user[4],
+                                "fecha": user[5],
+                                "telefono": user[6],
+                                "bastones": user[7],
+                                "direccion": user[8],
+                                "idPadre": user[9],
+                                "idRol": user[10],
+                                "idMunicipio": user[11],
+                                "idDepartamento": user[12],
+                                "rol": user[13],
+                                "municipio": user[14],
+                                "departamento": user[15],
+                                "capacidadBastones": user[16],
+                                "latitud": user[17],
+                                "longitud": user[18],
+                                "pass": user[19]
+                            };
+                            Users.push(userSchema);
+                        });
+                        res.json(Users);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     UserController.prototype.getUserById = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var idUsuario, sql, result, Users;

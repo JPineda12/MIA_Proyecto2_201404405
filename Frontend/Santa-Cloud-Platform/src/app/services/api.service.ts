@@ -19,6 +19,10 @@ export class ApiService {
     return this.http.get(`${this.API_URI}/api/users`);
   }
 
+  getKids(){
+    return this.http.get(`${this.API_URI}/api/getKids`);
+  }
+
   getUbicacion(direccion: string) {
     return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?key=${this.API_KEY}&address=${direccion}`)
   }
@@ -364,6 +368,10 @@ export class ApiService {
   }
   reporte6() {
     return this.http.get(`${this.API_URI}/api/report6`);
+  }
+
+  reporte7(idKid: string) {
+    return this.http.get(`${this.API_URI}/api/report7/${idKid}`);
   }
 
   getPublicaciones() {

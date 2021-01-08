@@ -23,6 +23,10 @@ export class ConfirmarAccionesPage implements OnInit {
   accionesRealizadas = [];
   sinAcciones = false;
   ngOnInit() {
+  	this.accionesPendientes = [];
+  	this.accionesRealizadas = [];
+  	this.Hijos = [];
+  	this.Usuario = [];
     this.storage.get('user').then((val) => {
       this.Usuario = val;
       this.getHijos()

@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
 
-  goodActionsimg: string = "http://localhost:3020/goodActions.jpg"
-  productsimg: string = "http://localhost:3020/productsCRUD.jpg"
-  profileimg: string = "http://localhost:3020/perfilesCRUD.jpg"
-  cargamasivaimg: string = "http://localhost:3020/bulkload.jpeg"
-  chatimg: string = "http://localhost:3020/chatelfos.jpg"
-  reportesimg: string = "http://localhost:3020/adminreports.jpg"
+  goodActionsimg: string = "assets/images/goodActions.jpg"
+  productsimg: string = "assets/images/productsCRUD.jpg"
+  profileimg: string = "assets/images/perfilesCRUD.jpg"
+  cargamasivaimg: string = "assets/images/bulkload.jpeg"
+  chatimg: string = "assets/images/chatelfos.jpg"
+  reportesimg: string = "assets/images/adminreports.jpg"
   constructor(private router: Router) { }
 
   ngOnInit(): void {

@@ -41,6 +41,18 @@ export class DetalleEntregaPage implements OnInit {
     await this.loadMap();
 
   }
+
+  async entregar(){
+    this.apiService.updateEstadoCarta(this.miCarta.idCarta, "2").toPromise().then(async (res) => {
+      const alert = await this.alertController.create({
+        header: 'Carta Entregada!',
+        message: 'La carta fue marcada como completa y entregada.',
+        buttons: ['OK']
+      });
+      await alert.present();
+      await this.modalController.dismiss(true);
+    })
+  }
   getDetalleProductos() {
     this.apiService.getDetalleCarta(this.miCarta.idCarta).toPromise().then((res) => {
       this.Productos = res;
@@ -56,7 +68,7 @@ export class DetalleEntregaPage implements OnInit {
   }
 
   async closeModal() {
-    await this.modalController.dismiss(this.Productos);
+    await this.modalController.dismiss(false);
   }
   loadMap() {
     this.map = GoogleMaps.create("map_canvas", {

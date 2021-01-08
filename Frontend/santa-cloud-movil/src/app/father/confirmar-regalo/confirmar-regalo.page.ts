@@ -31,6 +31,11 @@ export class ConfirmarRegaloPage implements OnInit {
 
 
   ngOnInit() {
+      this.storage.get('user').then((val) => {
+      this.Usuario = val;
+      this.Cartas = []
+      this.getHijos()
+    });
   }
 
   Hijos: any;
@@ -45,9 +50,11 @@ export class ConfirmarRegaloPage implements OnInit {
   }
 
   async getCartas() {
+  console.log(this.Hijos);
     for await (let son of this.Hijos) {
       this.apiService.getCartas("" + son.idUsuario, "0").toPromise().then(async (res) => {
         let auxCartas: any = res;
+        console.log(res);
         let prods: any
         for await (let aux of auxCartas) {
           let newCarta = {

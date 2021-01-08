@@ -16,7 +16,7 @@ export class ReportesComponent implements OnInit {
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, public datepipe: DatePipe) { }
 
 
   repValue: string;
@@ -52,7 +52,11 @@ export class ReportesComponent implements OnInit {
   isGenerado = false;
   isReport6 = false;
 
-
+  kidsColumns: string[] = ['Nombre_Usuario', 'idComentario', 'Comentario', 'idPublicacion', 'Texto']
+  kidsSource: any;
+  isRep7 = false;
+  Kids;
+  kidValue: string;
   public pieChartOptions: ChartOptions = {
 
   };
@@ -64,6 +68,7 @@ export class ReportesComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.Kids = []
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsTooltip();
   }
@@ -187,7 +192,14 @@ export class ReportesComponent implements OnInit {
     } else if (this.isCartaRep) {
       // REPORTE 6
       this.apiService.reporte6().toPromise().then(async res => {
-        this.cartaSource = res;
+        let auxCarta: any = res;
+        this.cartaSource = []
+        for await (let carta of auxCarta) {
+          carta.total_gastado = Math.round((carta.total_gastado + Number.EPSILON) * 100) / 100
+          carta.fecha = this.datepipe.transform(carta.fecha, 'MM/dd/yyyy');
+          this.cartaSource.push(carta);
+        }
+
         this.isGenerado = true;
         this.isReport6 = true;
         this.barChartData[0].label = "Top Cartas con mayor gasto"
@@ -195,6 +207,11 @@ export class ReportesComponent implements OnInit {
           this.barChartLabels.push(p.nombre)
           this.barChartData[0].data.push(p.total_gastado)
         }
+      })
+    } else if (this.isRep7) {
+      this.apiService.reporte7(this.kidValue).toPromise().then((res) => {
+        this.kidsSource = res;
+        this.isReport6 = false;
       })
     }
 
@@ -208,6 +225,8 @@ export class ReportesComponent implements OnInit {
       this.isMunRep = false;
       this.isAccionRep = false;
       this.isCatRep = false;
+      this.isRep7 = false;
+
       this.isCartaRep = false;
       //this.table.renderRows();
     } else if (this.repValue == "Top 10 Departamentos con mas ventas") {
@@ -216,6 +235,8 @@ export class ReportesComponent implements OnInit {
       this.isMunRep = false;
       this.isAccionRep = false;
       this.isCatRep = false;
+      this.isRep7 = false;
+
       this.isCartaRep = false;
       //this.table.renderRows();
     } else if (this.repValue == "Top 10 municipios con mas ventas") {
@@ -224,6 +245,8 @@ export class ReportesComponent implements OnInit {
       this.isMunRep = true;
       this.isAccionRep = false;
       this.isCatRep = false;
+      this.isRep7 = false;
+
       this.isCartaRep = false;
     } else if (this.repValue == "Top 5 de buenas acciones mas realizadas") {
       this.isProductRep = false;
@@ -231,6 +254,8 @@ export class ReportesComponent implements OnInit {
       this.isMunRep = false;
       this.isAccionRep = true;
       this.isCatRep = false;
+      this.isRep7 = false;
+
       this.isCartaRep = false;
     } else if (this.repValue == "Top 5 categorias con mas compras") {
       this.isProductRep = false;
@@ -239,6 +264,8 @@ export class ReportesComponent implements OnInit {
       this.isAccionRep = false;
       this.isCatRep = true;
       this.isCartaRep = false;
+      this.isRep7 = false;
+
     } else if (this.repValue == "Top de cartas con mayor gasto") {
       this.isProductRep = false;
       this.isDepRep = false;
@@ -246,6 +273,21 @@ export class ReportesComponent implements OnInit {
       this.isAccionRep = false;
       this.isCatRep = false;
       this.isCartaRep = true;
+      this.isRep7 = false;
+
+    } else if (this.repValue == "Bitacora de respuestas a publicaciones") {
+      this.apiService.getKids().toPromise().then((res) => {
+        this.Kids = []
+        this.Kids = res;
+
+      })
+      this.isProductRep = false;
+      this.isDepRep = false;
+      this.isMunRep = false;
+      this.isAccionRep = false;
+      this.isCatRep = false;
+      this.isCartaRep = false;
+      this.isRep7 = true;
     }
   }
 }

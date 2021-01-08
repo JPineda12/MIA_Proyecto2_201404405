@@ -23,6 +23,7 @@ var ApiRoutes = /** @class */ (function () {
         this.router.get('/roles', apiController_1.apiController.getRoles);
         //User ROUTES
         this.router.get('/users', userController_1.userController.getUsers);
+        this.router.get('/getKids', userController_1.userController.getKids);
         this.router.get('/users/:idUsuario', userController_1.userController.getUserById);
         this.router.get('/getHijos/:idPadre', userController_1.userController.getHijos);
         this.router.get('/getUserByEmail/:correo', userController_1.userController.getUserByEmail);
@@ -74,6 +75,7 @@ var ApiRoutes = /** @class */ (function () {
         this.router.get('/report4', ReportsController_1.reportsController.getTop5GoodDeeds);
         this.router.get('/report5', ReportsController_1.reportsController.getTop5Categorias);
         this.router.get('/report6', ReportsController_1.reportsController.getTopCartas);
+        this.router.get('/report7/:idUsuario', ReportsController_1.reportsController.getComentariosPorKid);
         // Publicaciones routes
         this.router.get('/publicaciones', PublicacionesController_1.publicacionesController.getAllPublicaciones);
         this.router.get('/publicaciones/:idSanta', PublicacionesController_1.publicacionesController.getPublicacionesByUser);

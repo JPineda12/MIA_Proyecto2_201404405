@@ -12,12 +12,15 @@
                 {{rep}}
             </mat-option>
         </mat-select>
+        <mat-select *ngIf="isRep7 == true" class="Kid" [(value)]="kidValue">
+            <mat-option class="opciones" [value]="kid.idUsuario" *ngFor="let kid of Kids">
+                {{kid.nombre}}
+            </mat-option>
+        </mat-select>
         <button class="reportebt" type="button" mat-raised-button color="primary" (click)="generarReporte()">
             Generar Reporte
         </button>
-        <button class="graficabt" type="button" mat-raised-button color="primary" (click)="generarGrafica()">
-            Mostrar Grafica
-        </button>
+
     </div>
     <table *ngIf="isProductRep == true" mat-table [dataSource]="productSource">
         <!-- Item Column -->
@@ -172,22 +175,62 @@
         <tr mat-footer-row *matFooterRowDef="cartaColumns; sticky: true"></tr>
     </table>
 
-    <div class="graficasReportes"  *ngIf="isGenerado == true">
-        <div class="mat-display-2" *ngIf = "isReport6 == true">
+    <table class="tabla7" *ngIf="isRep7 == true" mat-table [dataSource]="kidsSource">
+        <!-- Item Column -->
+        <ng-container matColumnDef="Nombre_Usuario">
+            <th mat-header-cell *matHeaderCellDef> Usuario </th>
+            <td mat-cell *matCellDef="let p">
+                {{p.usuario}}
+            </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="idComentario">
+            <th mat-header-cell *matHeaderCellDef> ID Comentario </th>
+            <td mat-cell *matCellDef="let p"> {{p.idComentario}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Comentario">
+            <th mat-header-cell *matHeaderCellDef> Comentario </th>
+            <td mat-cell *matCellDef="let p"> {{p.mensaje}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="idPublicacion">
+            <th mat-header-cell *matHeaderCellDef> ID Publicacion </th>
+            <td mat-cell *matCellDef="let p"> {{p.idPublicacion}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Texto">
+            <th mat-header-cell *matHeaderCellDef> Texto Publicacion </th>
+            <td mat-cell *matCellDef="let p"> {{p.texto}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="kidsColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: kidsColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="kidsColumns; sticky: true"></tr>
+    </table>
+
+    <div class="graficasReportes" *ngIf="isGenerado == true">
+        <div class="mat-display-2" *ngIf="isReport6 == true">
             <h1 class="shadow">Bar Chart</h1>
         </div>
 
-        <div class="chart-wrapper" *ngIf = "isReport6 == true">
-            <canvas id="myChart" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-                [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+        <div class="chart-wrapper" *ngIf="isReport6 == true">
+            <canvas id="myChart" baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
+                [chartType]="barChartType">
             </canvas>
         </div>
 
 
-        <div class="mat-display-2" *ngIf = "isReport6 == false">
+        <div class="mat-display-2" *ngIf="isReport6 == false">
             <h1 class="shadow">Pie Chart</h1>
         </div>
-        <div class="chart-wrapper" *ngIf = "isReport6 == false">
+        <div class="chart-wrapper" *ngIf="isReport6 == false">
             <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
                 [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
             </canvas>
